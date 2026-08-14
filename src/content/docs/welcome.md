@@ -1,6 +1,6 @@
 ---
 title: 欢迎
-description: 开始
+description: 了解服务器的基本信息、游戏版本、连接方式与文档说明
 ---
 
 ## 关于我们的服务器
@@ -13,6 +13,7 @@ description: 开始
 ## 关于此网站  
 
 此网站建立于2026年8月14日，用于放置一些基础教程与进阶教程  
+在[GitHub仓库](https://github.com/diamonds128/my-server-docs)查看本文档
 
 ### 核心框架与工具  
 

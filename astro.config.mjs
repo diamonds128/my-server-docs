@@ -24,10 +24,14 @@ export default defineConfig({
           ],
         },
       ],
-      // 自定义样式入口（可选，若不需要可删除）
+      // 自定义样式入口
       customCss: [
         './src/styles/custom.css',
       ],
+      // 开启“编辑此页”功能，链接直接指向 GitHub 源码
+      editLink: {
+        baseUrl: 'https://github.com/diamonds128/my-server-docs/edit/main/src/content/docs/',
+      },
       plugins: [
         md3Theme({
           seed: '#6750A4',
