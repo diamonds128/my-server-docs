@@ -3,7 +3,7 @@ title: 开始
 description: 了解如何下载启动器，并安装实例、开始游戏
 ---
 
-> 注意: 此页面缺少部分图片资源，若有能力，请在[GitHub](https://github.com/diamonds128/my-server-docs/)帮助补充
+> 注意: 此页面缺少部分图片资源，若有能力，请在[GitHub](https://github.com/diamonds128/my-server-docs/)帮助补充  
 
 此页面包括：
 - 如何安装启动器
@@ -22,6 +22,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
   2. 下滑找到资源  
   3. 选择符合你的设备的APK安装包，如果不知道选择什么请直接下载FCL-release-版本号-all.apk  
   4. 开始安装，等待安装完毕
+  5. 关于环境，推荐选择Java 21，较稳定  
   
   考虑到GitHub并不稳定，也可以前往[FCL 下载站](https://foldcraftlauncher.cn/html/down.html?id=0)下载  
   ![FCL 启动器界面](/my-server-docs/images/fcl.png)
@@ -34,7 +35,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 - **推荐启动器**：HMCL（Hello Minecraft! Launcher）
 - **下载地址**：[HMCL 官网下载页](https://hmcl.huangyuhui.net/download/)
 - **安装步骤**：
-  1. 下载 **对应系统** 的安装包，稳定版为压缩包，开发版可直接下载exe（如果希望更轻松，可以选择开发版，稳定版在网盘，而且网盘内的文件落后于最新版本）  
+  1. 下载 **对应系统** 的安装包，稳定版为压缩包，开发版可直接下载exe（如果希望更省事，可以选择开发版，稳定版在网盘，而且网盘内的文件落后于最新版本）  
   2. 安装或解压，并等待完成
   ![HMCL 启动器界面](/my-server-docs/images/hmcl.png)
 
@@ -65,7 +66,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 ## 进入游戏
 
-按下 **启动游戏** 按钮，当游戏成功启动时，就意味着以上步骤都成功了
+按下 **启动游戏** 按钮，当游戏正常启动时，就意味着以上步骤都成功了
 
 ---
 
