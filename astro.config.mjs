@@ -8,7 +8,13 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'MC服务器文档',
-      defaultLocale: 'zh-CN',
+      defaultLocale: 'zh-cn',
+      locales: {
+        'zh-cn': {
+          label: '简体中文',
+          lang: 'zh-CN',
+        },
+      },
       // 侧边栏：显式列出文档页（首页 index 已通过 sidebar.hidden 隐藏）
       sidebar: [
         {
