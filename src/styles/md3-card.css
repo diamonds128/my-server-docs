@@ -1,0 +1,51 @@
+/* MD3 风格首页卡片（可点击链接） */
+.md3-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 16px;
+  border: 1px solid var(--md-sys-color-outline-variant, #cac4d0);
+  background: var(--md-sys-color-surface-container-low, #f7f2fa);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface, #1d1b20);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.md3-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--md-sys-color-primary, #6750a4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.md3-card:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+.md3-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--md-sys-color-primary-container, #eaddff);
+  color: var(--md-sys-color-on-primary-container, #21005d);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.md3-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.md3-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface, #1d1b20);
+}
+.md3-card-desc {
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant, #49454f);
+}

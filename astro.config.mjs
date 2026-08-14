@@ -24,6 +24,7 @@ export default defineConfig({
           density: 'comfortable',
         }),
       ],
+      customCss: ['./src/styles/md3-card.css'],
     }),
   ],
 });
