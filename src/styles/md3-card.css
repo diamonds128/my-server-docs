@@ -5,22 +5,29 @@
   gap: 1rem;
   padding: 1.25rem 1.5rem;
   margin: 1.5rem 0;
-  border-radius: 16px;
-  border: 1px solid var(--md-sys-color-outline-variant, #cac4d0);
-  background: var(--md-sys-color-surface-container-low, #f7f2fa);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  border-radius: var(--md3-comp-card-shape, 16px);
+  border: 1px solid var(--md3-comp-card-outline-color, transparent);
+  background: var(--md3-comp-card-container-color, #f7f2fa);
+  box-shadow: var(--md3-comp-card-elevation, 0 1px 3px rgba(0, 0, 0, 0.12));
   text-decoration: none;
   color: var(--md-sys-color-on-surface, #1d1b20);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color var(--md3-motion-duration-state) var(--md-sys-motion-easing-emphasized),
+    box-shadow var(--md3-motion-duration-state) var(--md-sys-motion-easing-emphasized),
+    border-color var(--md3-motion-duration-state) var(--md-sys-motion-easing-emphasized);
 }
 .md3-card:hover {
-  transform: translateY(-2px);
+  background: var(--md3-comp-card-hover-container-color, #f3edf7);
+  box-shadow: var(--md3-comp-card-hover-elevation, 0 1px 2px rgba(0, 0, 0, 0.3));
   border-color: var(--md-sys-color-primary, #6750a4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 .md3-card:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  background: var(--md3-comp-card-pressed-container-color, #ece6f0);
+  box-shadow: var(--md3-comp-card-elevation, 0 1px 3px rgba(0, 0, 0, 0.12));
+}
+.md3-card:focus-visible {
+  outline: 2px solid var(--md3-comp-card-focus-outline-color, #6750a4);
+  outline-offset: 2px;
 }
 .md3-card-icon {
   display: inline-flex;
@@ -29,11 +36,13 @@
   width: 2.5rem;
   height: 2.5rem;
   flex-shrink: 0;
-  border-radius: 12px;
+  border-radius: var(--md3-comp-card-icon-shape, 12px);
   background: var(--md-sys-color-primary-container, #eaddff);
   color: var(--md-sys-color-on-primary-container, #21005d);
-  font-size: 1.25rem;
-  font-weight: 600;
+}
+.md3-card-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .md3-card-text {
   display: flex;
@@ -47,5 +56,5 @@
 }
 .md3-card-desc {
   font-size: 0.875rem;
-  color: var(--md-sys-color-on-surface-variant, #49454f);
+  color: var(--md3-comp-card-label-color, #49454f);
 }
