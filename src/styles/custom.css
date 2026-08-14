@@ -5,3 +5,17 @@
 h1 {
   font-weight: 700 !important;
 }
+
+/* 侧边栏当前页高亮项保持 transition，使 leaving 阶段背景色能平滑过渡 */
+.sidebar-content [aria-current='page'] {
+  transition: background-color var(--md3-motion-duration-nav)
+    var(--md-sys-motion-easing-standard);
+}
+
+/* 页面切换（route-leaving）时，让旧侧边栏高亮项平滑淡出而非瞬间消失 */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-md3-route-state='leaving']
+    .sidebar-content [aria-current='page'] {
+    background-color: transparent !important;
+  }
+}

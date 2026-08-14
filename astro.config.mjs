@@ -34,7 +34,13 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/diamonds128/my-server-docs/edit/main/src/content/docs',
       },
-      head: [],
+      head: [
+        {
+          tag: 'script',
+          attrs: { 'data-accent-init': '' },
+          content: `(()=>{try{var a=localStorage.getItem('starlight-accent');if(a)document.documentElement.setAttribute('data-accent',a)}catch(e){}})();`,
+        },
+      ],
       plugins: [
         md3Theme({
           seed: '#6750A4',
