@@ -1,4 +1,3 @@
-// astro.config.mjs
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import md3Theme from 'starlight-theme-md3';
@@ -10,12 +9,15 @@ export default defineConfig({
     starlight({
       title: 'MC服务器文档',
       defaultLocale: 'zh-CN',
-      locales: {
-        'zh-CN': {
-          label: '简体中文',
-          lang: 'zh-CN',
+      // 侧边栏：显式列出文档页（首页 index 已通过 sidebar.hidden 隐藏）
+      sidebar: [
+        {
+          label: '导航',
+          items: [
+            { label: '欢迎', link: '/welcome' },
+          ],
         },
-      },
+      ],
       plugins: [
         md3Theme({
           seed: '#6750A4',
@@ -24,7 +26,6 @@ export default defineConfig({
           density: 'comfortable',
         }),
       ],
-      customCss: ['./src/styles/md3-card.css'],
     }),
   ],
 });
