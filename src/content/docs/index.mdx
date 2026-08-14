@@ -1,12 +1,15 @@
 ---
 title: 服务器文档首页
 description: MC 服务器游玩指南与规则说明
-template: splash
-hero:
-  tagline: 欢迎来到 MC 服务器文档站，这里包含玩法介绍、指令列表和服务器规则。
-  actions:
-    - text: 开始阅读
-      link: ./welcome/
-      icon: right-arrow
-      variant: primary
+template: doc
 ---
+
+import { Card } from '@astrojs/starlight/components';
+
+# 欢迎来到 MC 服务器文档站
+
+这里汇集了各类游玩 MC 服务器所必须的知识、保姆级教程
+
+<Card title="开始阅读" icon="right-arrow" link="./welcome/">
+  点击卡片进入文档详情
+</Card>
