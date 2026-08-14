@@ -32,7 +32,9 @@ Material Design 3主题插件
 
 ### 部署与托管服务
 
-[GitHub Pages](https://pages.github.com/)网站部署与托管服务  
-[GitHub Actions](https://github.com/features/actions)用于实现代码推送后自动构建与部署的 CI/CD 工具
+[GitHub Pages](https://pages.github.com/)  
+网站部署与托管服务  
+[GitHub Actions](https://github.com/features/actions)  
+用于实现代码推送后自动构建与部署的 CI/CD 工具
 
 **由衷的感谢以上所有开源项目和服务的开发者们以及简幻欢的托管服务**
