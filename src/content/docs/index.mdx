@@ -1,84 +1,12 @@
 ---
-title: My Server Docs
-description: A Starlight site using starlight-theme-md3.
+title: 服务器文档首页
+description: MC 服务器游玩指南与规则说明
 template: splash
 hero:
-  tagline: A token-first Starlight documentation starter shaped by Material Design 3 color roles, tonal surfaces, state layers, and motion.
-  image:
-    html: |
-      <div class="material-hero-preview" aria-hidden="true">
-        <span class="preview-chip chip-primary"></span>
-        <span class="preview-chip chip-secondary"></span>
-        <span class="preview-chip chip-tertiary"></span>
-        <span class="preview-window">
-          <span class="preview-bar"></span>
-          <span class="preview-row row-wide"></span>
-          <span class="preview-row"></span>
-          <span class="preview-card"></span>
-        </span>
-      </div>
+  tagline: 欢迎来到 MC 服务器文档站，这里包含玩法介绍、指令列表和服务器规则。
   actions:
-    - text: Get started
-      link: ./welcome/               # 相对路径
+    - text: 开始阅读
+      link: ./welcome/
       icon: right-arrow
-    - text: Theme options
-      link: ./welcome/#customize-the-theme   # 相对路径
-      icon: setting
-      variant: minimal
+      variant: primary
 ---
-
-import { Card, CardGrid } from '@astrojs/starlight/components';
-
-## Theme Surface
-
-<CardGrid>
-  <Card title="Starlight native" icon="puzzle">
-    Navigation, search, table of contents, and MDX components remain Starlight-native.
-  </Card>
-  <Card title="Material roles" icon="code-branch">
-    Map Material Design 3 `--md-sys-*` roles into Starlight's existing custom properties.
-  </Card>
-  <Card title="Readable density" icon="list-format">
-    Keep docs compact enough for reference pages while preserving generous hit targets.
-  </Card>
-  <Card title="No heavy runtime" icon="server">
-    Use Material Web as a design reference without shipping it as a required component runtime.
-  </Card>
-</CardGrid>
-
-## Theme Snapshot
-
-<div class="md3-showcase not-content" aria-label="Material Design 3 theme snapshot">
-  <section class="md3-showcase-panel">
-    <p class="md3-overline">Color roles</p>
-    <div class="md3-palette">
-      <div class="md3-swatch-line">Primary <span class="md3-swatch primary"></span></div>
-      <div class="md3-swatch-line">Secondary <span class="md3-swatch secondary"></span></div>
-      <div class="md3-swatch-line">Tertiary <span class="md3-swatch tertiary"></span></div>
-    </div>
-  </section>
-  <section class="md3-showcase-panel">
-    <p class="md3-overline">Controls</p>
-    <div class="md3-state-demo">
-      <span class="md3-demo-button filled">Filled</span>
-      <span class="md3-demo-button tonal">Tonal</span>
-      <span class="md3-demo-button outlined">Outlined</span>
-      <span class="md3-demo-button pressed">Pressed</span>
-      <span class="md3-demo-button disabled">Disabled</span>
-    </div>
-  </section>
-  <section class="md3-showcase-panel">
-    <p class="md3-overline">Navigation</p>
-    <div class="md3-mini-nav">
-      <span>Welcome</span>
-      <span class="active">Theme options</span>
-      <span>Components</span>
-    </div>
-  </section>
-</div>
-
-## Try The Starter
-
-The generated site already has `starlight-theme-md3` configured. Open the theme
-menu, run a production build to test search, and adjust the `seed` color in
-`astro.config.mjs` when you want a different Material You palette.
