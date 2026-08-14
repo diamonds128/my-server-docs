@@ -8,9 +8,9 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'MC服务器文档',
-      defaultLocale: 'zh-cn',
+      // 使用 root 语言：页面直接放在 src/content/docs/ 根目录，URL 无 locale 前缀
       locales: {
-        'zh-cn': {
+        root: {
           label: '简体中文',
           lang: 'zh-CN',
         },
