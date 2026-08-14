@@ -60,23 +60,92 @@ const accents = [
     }
   }
 
+  const closeTimers = new WeakMap();
+  const closeCleanups = new WeakMap();
+
+  function clearCloseTimer() {
+    const timer = closeTimers.get(select);
+    if (timer) window.clearTimeout(timer);
+    closeTimers.delete(select);
+    closeCleanups.get(select)?.();
+    closeCleanups.delete(select);
+  }
+
+  function closeMenu() {
+    if (!btn || !menu) return;
+    btn.setAttribute('aria-expanded', 'false');
+    clearCloseTimer();
+
+    if (menu.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      menu.hidden = true;
+      menu.removeAttribute('data-md3-menu-state');
+      return;
+    }
+
+    menu.dataset.md3MenuState = 'closing';
+
+    const finishClose = () => {
+      menu.hidden = true;
+      menu.removeAttribute('data-md3-menu-state');
+      clearCloseTimer();
+    };
+    const onTransitionEnd = (event) => {
+      if (event.target === menu && event.propertyName === 'transform') finishClose();
+    };
+
+    menu.addEventListener('transitionend', onTransitionEnd);
+    closeCleanups.set(select, () => menu.removeEventListener('transitionend', onTransitionEnd));
+    closeTimers.set(select, window.setTimeout(finishClose, 260));
+  }
+
+  function openMenu() {
+    if (!btn || !menu) return;
+    clearCloseTimer();
+    btn.setAttribute('aria-expanded', 'true');
+    menu.hidden = false;
+    menu.removeAttribute('data-md3-menu-state');
+    const selected = select?.querySelector('.md3-accent-select__option[aria-checked="true"]');
+    selected?.focus();
+    sync();
+  }
+
   btn?.addEventListener('click', () => {
     const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    menu.hidden = open;
-    if (!open) sync();
+    open ? closeMenu() : openMenu();
   });
   options.forEach(o => o.addEventListener('click', () => {
     apply(o.dataset.accentValue);
     sync();
-    menu.hidden = true;
-    btn?.setAttribute('aria-expanded', 'false');
+    closeMenu();
+    btn?.focus();
   }));
-  document.addEventListener('pointerdown', (e) => {
-    if (e.target instanceof Node && !select?.contains(e.target)) {
-      menu.hidden = true;
-      btn?.setAttribute('aria-expanded', 'false');
+  select?.addEventListener('keydown', (e) => {
+    if (!(e instanceof KeyboardEvent)) return;
+    const open = btn?.getAttribute('aria-expanded') === 'true';
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu();
+      btn?.focus();
+      return;
     }
+    if (!open && ['ArrowDown', 'Enter', ' '].includes(e.key)) {
+      e.preventDefault();
+      openMenu();
+      return;
+    }
+    if (!open || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const items = [...options];
+    const currentIndex = Math.max(0, items.indexOf(document.activeElement));
+    const nextIndex =
+      e.key === 'Home' ? 0
+      : e.key === 'End' ? items.length - 1
+      : e.key === 'ArrowDown' ? (currentIndex + 1) % items.length
+      : (currentIndex - 1 + items.length) % items.length;
+    items[nextIndex]?.focus();
+  });
+  document.addEventListener('pointerdown', (e) => {
+    if (e.target instanceof Node && !select?.contains(e.target)) closeMenu();
   });
 
   sync();
@@ -156,6 +225,49 @@ const accents = [
   }
   .md3-accent-select__menu[hidden] {
     display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .md3-accent-select__menu {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition:
+        opacity var(--md-sys-motion-duration-medium1)
+          var(--md-sys-motion-easing-emphasized-decelerate),
+        transform var(--md-sys-motion-duration-medium1)
+          var(--md-sys-motion-easing-emphasized-decelerate),
+        background-color var(--md3-motion-duration-state) var(--md-sys-motion-easing-standard),
+        border-color var(--md3-motion-duration-state) var(--md-sys-motion-easing-standard),
+        box-shadow var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard),
+        display var(--md-sys-motion-duration-medium1) allow-discrete;
+      transition-behavior: allow-discrete;
+      will-change: opacity, transform;
+    }
+
+    .md3-accent-select__menu[hidden],
+    .md3-accent-select__menu[data-md3-menu-state='closing'] {
+      opacity: 0;
+      transform: translateY(-0.1875rem) scale(0.88);
+    }
+
+    .md3-accent-select__menu[data-md3-menu-state='closing'] {
+      pointer-events: none;
+      transition:
+        opacity var(--md-sys-motion-duration-short3)
+          var(--md-sys-motion-easing-emphasized-accelerate),
+        transform var(--md-sys-motion-duration-short3)
+          var(--md-sys-motion-easing-emphasized-accelerate),
+        background-color var(--md3-motion-duration-state) var(--md-sys-motion-easing-standard),
+        border-color var(--md3-motion-duration-state) var(--md-sys-motion-easing-standard),
+        box-shadow var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard);
+    }
+
+    @starting-style {
+      .md3-accent-select__menu:not([hidden]) {
+        opacity: 0;
+        transform: translateY(-0.1875rem) scale(0.88);
+      }
+    }
   }
   .md3-accent-select__option {
     position: relative;
