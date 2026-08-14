@@ -9,6 +9,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Diamond服务器文档',
+      lastUpdated: true,
       locales: {
         root: {
           label: '简体中文',
