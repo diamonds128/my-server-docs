@@ -9,7 +9,7 @@ export default defineConfig({
       // site 和 base 等部署相关配置
       plugins: [
         md3Theme({
-          seed: '#6750A4',      // 主题色，可替换为你喜欢的颜色[reference:9]
+          seed: '#6750A4',      // 主题色，可替换为[reference:9]
           variant: 'tonalSpot', // 色彩风格，可选 'tonalSpot', 'expressive', 'content'[reference:10]
           shape: 'large',       // 圆角大小，可选 'small', 'medium', 'large'[reference:11]
           density: 'comfortable', // 布局密度，可选 'compact', 'comfortable'[reference:12]
