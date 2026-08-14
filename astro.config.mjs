@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [
     starlight({
       // 网站标题（显示在浏览器标签和导航栏）
-      title: 'MC服务器文档',
+      title: 'Diamond服务器文档',
 
       // 语言与本地化配置
       // root 表示内容文件直接位于 src/content/docs/ 根目录，URL 无 locale 前缀
