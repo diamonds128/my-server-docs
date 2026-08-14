@@ -29,6 +29,7 @@ export default defineConfig({
           label: '导航',
           items: [
             { label: '欢迎', link: '/welcome' },
+            { label: '开始', link: '/start' },
           ],
         },
       ],
