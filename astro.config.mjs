@@ -24,6 +24,10 @@ export default defineConfig({
           ],
         },
       ],
+      // 自定义样式入口（可选，若不需要可删除）
+      customCss: [
+        './src/styles/custom.css',
+      ],
       plugins: [
         md3Theme({
           seed: '#6750A4',
