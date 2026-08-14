@@ -47,7 +47,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 1. 在左侧菜单栏中点击从上往下第三个图标进入下载页面
 ![FCL 下载界面](/my-server-docs/images/download_page_fcl.png)
-2. 找到 **1.20.1** 并点击进入安装界面
+2. 找到 **1.20.1** 并点击进入安装界面， **注意不是1.21.1**
 3. 如果你不需要安装模组，则不需要安装除游戏本体以外的任何东西，实例名称建议使用英文，不包含特殊字符，点击安装按钮开始
 4. 等待安装完成
 
@@ -69,5 +69,5 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 ---
 
-如果愿意，请点击下方按钮去 GitHub 帮我完善此文档 😭  
+如果愿意，请点击下方按钮去 GitHub 帮助我完善此文档 😭  
 [![GitHub 编辑](https://img.shields.io/badge/GitHub-编辑文档-blue?logo=github)](https://github.com/diamonds128/my-server-docs/edit/main/src/content/docs/start.md)
