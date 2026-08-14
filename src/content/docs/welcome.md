@@ -12,7 +12,7 @@ description: 了解服务器的基本信息、游戏版本、连接方式与文�
 
 ## 关于此网站  
 
-此网站建立于2026年8月14日，用于放置一些基础教程与进阶教程，遵循Material Design3设计规范  
+此网站建立于2026年8月14日，用于放置一些基础教程与进阶教程，遵循[Material Design 3](https://m3.material.io/)设计规范  
 在[GitHub仓库](https://github.com/diamonds128/my-server-docs)查看本文档
 
 ### 为什么建立此网站？
