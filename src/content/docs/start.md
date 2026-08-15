@@ -3,7 +3,9 @@ title: 开始
 description: 了解如何下载启动器，并安装实例、开始游戏
 ---
 
-> 注意: 此页面缺少部分图片资源，若有能力，请在[GitHub](https://github.com/diamonds128/my-server-docs/)帮助补充  
+> ### 注意
+>
+> 此页面缺少部分图片资源，若有能力，请在[GitHub](https://github.com/diamonds128/my-server-docs/)帮助补充  
 
 此页面包括：
 - 如何安装启动器
