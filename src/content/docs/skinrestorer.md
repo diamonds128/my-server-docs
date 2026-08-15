@@ -36,3 +36,46 @@ description: 了解Skin Restorer皮肤设置
 `slim` ：瘦手的，Alex模型，大部分女性皮肤都是Alex模型  
 
 </details>
+
+<details>
+<summary><strong>LittleSkin</strong></summary>
+
+> 注：服主当时调配置允许获取LittlesSkin皮肤用了大半天  
+
+从有效的[LittleSkin](https://littleskin.cn)角色获取皮肤并应用  
+`/skin set littleskin <角色名> <目标玩家名>`  
+
+</details>
+
+</details>
+
+<details>
+<summary><strong>ely.by</strong></summary>
+
+> 我们已经弃用了ely.by ：）  
+
+</details>
+
+## 其他命令
+
+### `/skin refresh`  
+
+---
+
+重新获取并应用当前皮肤  
+### `/skin clear`  
+
+---
+
+删除当前应用的皮肤  
+### `/skin reset`  
+
+---
+
+重置为默认皮肤或删除任何自定义皮肤  
+**注意：我们在服务器配置文件中开启了玩家进入自动获取皮肤，所以即使已经运行此命令，第二次也会自动获取你的皮肤**  
+### `/skin config reload` <em>*仅管理员</em>  
+
+---
+
+重新加载配置
