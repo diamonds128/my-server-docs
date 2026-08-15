@@ -1,6 +1,7 @@
 ---
 // md3 化的 starlight-image-zoom 组件（本地化副本）
 import config from 'virtual:starlight-image-zoom-config'
+import { imageZoomCaptionStyle } from '../config/imageZoom'
 
 const dataAttributes: DOMStringMap = {}
 if (!config.showCaptions) dataAttributes['data-hide-caption'] = ''
@@ -8,7 +9,7 @@ if (!config.showCaptions) dataAttributes['data-hide-caption'] = ''
 
 <starlight-image-zoom {...dataAttributes}>
   <template>
-    <dialog class="starlight-image-zoom-dialog">
+    <dialog class="starlight-image-zoom-dialog" data-caption-style={imageZoomCaptionStyle}>
       <button aria-label="Unzoom image" class="starlight-image-zoom-control">
         <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
           <use href="#starlight-image-zoom-icon-unzoom"></use>
@@ -62,6 +63,18 @@ if (!config.showCaptions) dataAttributes['data-hide-caption'] = ''
     padding: 0;
     white-space: nowrap;
     width: 1px;
+  }
+
+  /* md3：悬停图片时显示放大按钮 */
+  starlight-image-zoom-zoomable:hover .starlight-image-zoom-control,
+  starlight-image-zoom-zoomable:focus-within .starlight-image-zoom-control {
+    clip: auto !important;
+    height: 44px !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    padding: 10px !important;
+    white-space: normal !important;
+    width: 44px !important;
   }
 
   /* md3：悬浮图标按钮（Filled tonal 风格） */
@@ -150,18 +163,51 @@ if (!config.showCaptions) dataAttributes['data-hide-caption'] = ''
   }
 
   figure :global(figcaption) {
-    background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 92%, transparent);
-    border-top: 1px solid var(--md-sys-color-outline-variant);
     box-sizing: border-box;
     color: var(--md-sys-color-on-surface-variant);
     cursor: initial;
     font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
     font-weight: var(--md-sys-typescale-body-medium-weight, 400);
-    inset: auto 0 0 0;
     line-height: var(--md-sys-typescale-body-medium-line-height, 1.25rem);
     opacity: 0;
-    padding: 1rem 1.5rem;
     position: absolute;
+  }
+
+  /* 方案1：底部圆角横条（现状） */
+  :global(.starlight-image-zoom-dialog[data-caption-style='bar']) figure :global(figcaption) {
+    background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 92%, transparent);
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) 0 0;
+    inset: auto 0 0 0;
+    padding: 1rem 1.5rem;
+  }
+
+  /* 方案2：底部直角横条（去掉圆角） */
+  :global(.starlight-image-zoom-dialog[data-caption-style='square-bar']) figure :global(figcaption) {
+    background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 92%, transparent);
+    border-top: 1px solid var(--md-sys-color-outline-variant);
+    inset: auto 0 0 0;
+    padding: 1rem 1.5rem;
+  }
+
+  /* 方案3：悬浮胶囊（md3 elevated chip 风格） */
+  :global(.starlight-image-zoom-dialog[data-caption-style='pill']) figure :global(figcaption) {
+    background-color: color-mix(in srgb, var(--md-sys-color-surface-container-high) 92%, transparent);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-sys-shape-corner-full);
+    bottom: 1.5rem;
+    box-shadow: var(--md-sys-elevation-level2);
+    font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+    font-weight: var(--md-sys-typescale-label-large-weight, 500);
+    inset: auto auto 1.5rem 50%;
+    line-height: var(--md-sys-typescale-label-large-line-height, 1.25rem);
+    max-width: calc(100% - 3rem);
+    overflow: hidden;
+    padding: 0.375rem 1rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    transform: translateX(-50%);
+    white-space: nowrap;
   }
 
   @media (prefers-reduced-transparency) {
