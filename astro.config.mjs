@@ -1,11 +1,17 @@
 // Astro 配置文件
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import starlight from '@astrojs/starlight';
 import md3Theme from 'starlight-theme-md3';
+import starlightImageZoom from 'starlight-image-zoom';
 
 export default defineConfig({
   site: 'https://diamonds128.github.io',
   base: '/my-server-docs/',
+  // 插件暂不支持 Sätteri 处理器，改用 unified
+  markdown: {
+    processor: unified(),
+  },
   integrations: [
     starlight({
       title: 'Diamond服务器文档',
@@ -46,10 +52,14 @@ export default defineConfig({
       components: {
         Header: './src/components/Header.astro',
         MobileMenuFooter: './src/components/MobileMenuFooter.astro',
+        MarkdownContent: './src/components/MarkdownContent.astro',
       },
       editLink: {
         baseUrl: 'https://github.com/diamonds128/my-server-docs/edit/main/src/content/docs',
       },
+      social: [
+        { icon: 'github', label: 'GitHub 仓库', href: 'https://github.com/diamonds128/my-server-docs' },
+      ],
       head: [
         {
           tag: 'script',
@@ -64,6 +74,7 @@ export default defineConfig({
           shape: 'large',
           density: 'comfortable',
         }),
+        starlightImageZoom(),
       ],
     }),
   ],

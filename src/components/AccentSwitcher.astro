@@ -101,6 +101,8 @@ const accents = [
     openMenu() {
       if (!this._btn || !this._menu) return;
       clearTimeout(this._closeTimer);
+      // 清除可能残留的关闭动画收尾监听，避免重开时立刻被 transitionend 关掉
+      this._menu.removeEventListener('transitionend', this._onTransitionEnd);
       this._btn.setAttribute('aria-expanded', 'true');
       this._menu.hidden = false;
       this._menu.removeAttribute('data-md3-menu-state');

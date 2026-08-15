@@ -1,0 +1,9 @@
+---
+// 覆盖默认 MarkdownContent，挂载 md3 化的图片缩放对话框
+import StarlightMarkdownContent from '@astrojs/starlight/components/MarkdownContent.astro'
+
+import ImageZoom from './ImageZoom.astro'
+---
+
+<ImageZoom />
+<StarlightMarkdownContent><slot /></StarlightMarkdownContent>
