@@ -48,7 +48,8 @@ description: 了解如何加入服务器并开始游玩
 
 ## 地图
 
-这张地图包括从出生点到我们定居点的范围
+这张地图包括从出生点到我们定居点的范围，使用 [Xaero's World Map](https://chocolateminecraft.com/worldmap.php)生成 ***注意：官网被墙了***  
+
 ![地图](/my-server-docs/images/map.png)
 
 ---
