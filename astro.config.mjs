@@ -32,6 +32,12 @@ export default defineConfig({
             { label: '皮肤配置', link: '/skinrestorer' },
           ],
         },
+        {
+          label: '其他',
+          items: [
+            { label: '服务端模组列表', link: '/mods' },
+          ],
+        },
       ],
       customCss: [
         './src/styles/custom.css',
