@@ -46,6 +46,11 @@ description: 了解如何加入服务器并开始游玩
 
 </details>
 
+## 地图
+
+这张地图包括从出生点到我们定居点的范围
+![地图](/my-server-docs/images/map.png)
+
 ---
 
 <p style="text-align:center"><strong>🎉恭喜你正式成为我们的一员🎉</strong></p>
