@@ -18,7 +18,7 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: '导航',
+          label: '基础',
           items: [
             { label: '欢迎', link: '/welcome' },
             { label: '开始', link: '/start' },
