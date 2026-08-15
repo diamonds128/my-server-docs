@@ -15,7 +15,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 ## 启动器安装指南
 
 <details>
-<summary><strong> Android</strong></summary>
+<summary><strong>Android</strong></summary>
 
 - **推荐启动器**：FCL（FoldCraftLauncher）
 - **下载地址**：[FCL GitHub Releases](https://github.com/FCL-Team/FoldCraftLauncher/releases)
