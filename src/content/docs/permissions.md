@@ -11,7 +11,7 @@ description: 了解服务器的权限配置
 ### default组
 
 这个权限组是新玩家进入服务器后默认的分组，即使在非op（op即管理员）的情况下，也可以进行以下操作：
-- 原版的teleport指令（即tp）
+- 原版的 `teleport` 指令（即 `tp` ）
 - `EasyAuth` 的玩家命令，如登录/注册、修改密码等  
 - `Ledger` 的查询命令
 - `Skin Restorer` 的皮肤设置命令（非op无法指定设置他人皮肤）

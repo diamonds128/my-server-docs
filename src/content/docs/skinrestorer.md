@@ -40,7 +40,7 @@ description: 了解Skin Restorer皮肤设置
 <details>
 <summary><strong>LittleSkin</strong></summary>
 
-> 注：服主当时调配置允许获取LittlesSkin皮肤用了大半天  
+*注：服主当时调配置允许获取LittlesSkin皮肤用了大半天*  
 
 从有效的[LittleSkin](https://littleskin.cn)角色获取皮肤并应用  
 `/skin set littleskin <角色名> <目标玩家名>`  
