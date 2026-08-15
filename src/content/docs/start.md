@@ -22,9 +22,9 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 - **安装步骤**：
   1. 使用浏览器打开网页， **而不是在社交平台内** （比如微信或者QQ）
   2. 下滑找到资源  
-  3. 选择符合你的设备的APK安装包，如果不知道选择什么请直接下载FCL-release-版本号-all.apk  
+  3. 选择 **符合你的设备的APK安装包** ，如果不知道选择什么请直接下载FCL-release-版本号-all.apk  
   4. 开始安装，等待安装完毕
-  5. 关于环境，推荐选择Java 21，较稳定  
+  5. 关于环境，推荐选择 **Java 21** ，较稳定  
   
   考虑到GitHub并不稳定，也可以前往[FCL 下载站](https://foldcraftlauncher.cn/html/down.html?id=0)下载  
   ![FCL 启动器界面](/my-server-docs/images/fcl.png)
