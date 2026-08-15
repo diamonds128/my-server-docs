@@ -43,3 +43,7 @@ description: 了解如何加入服务器并开始游玩
 当登录成功时，你应该会在聊天栏内看到“<font color="green">🎉 登录成功！欢迎回来</font>”
 
 </details>
+
+---
+
+<p style="text-align:center"><strong>🎉恭喜你正式成为我们的一员🎉</strong></p>
