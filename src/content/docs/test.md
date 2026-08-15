@@ -46,13 +46,13 @@ print ("hello world")
 print ("2")
 ```
 
-[这是一个链接](https://diamonds128.github.io/my_server_docs/test)  
+[这是一个链接](https://diamonds128.github.io/my-server-docs/test)  
 
-链接<https://diamonds128.github.io/my_server_docs/test>  
-[`还是一个链接`](https://diamonds128.github.io/my_server_docs/test)  
+链接<https://diamonds128.github.io/my-server-docs/test>  
+[`还是一个链接`](https://diamonds128.github.io/my-server-docs/test)  
 邮箱<fake@example.com>[引用链接][1]
 
-[1]: https://diamonds128.github.io/my_server_docs/test  
+[1]: https://diamonds128.github.io/my-server-docs/test  
 
 ![图片](/my-server-docs/images/minceraft.png)
 [![沙漠中的岩石图片](/assets/img/shiprock.jpg "Shiprock")](https://markdown.com.cn)
