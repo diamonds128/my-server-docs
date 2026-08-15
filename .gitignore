@@ -4,3 +4,5 @@ dist/
 .env
 .env.*
 "preview.log"  
+build.log
+/*.log
