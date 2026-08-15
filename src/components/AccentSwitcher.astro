@@ -32,123 +32,125 @@ const accents = [
   const labels = { purple: '紫', blue: '蓝', green: '绿', orange: '橙', pink: '粉', teal: '蓝绿', red: '红', yellow: '黄' };
   const load = () => { try { return localStorage.getItem(storageKey) || 'purple'; } catch { return 'purple'; } };
 
-  function apply(id) {
-    document.documentElement.dataset.accent = id;
-    try { localStorage.setItem(storageKey, id); } catch {}
-  }
+  // 自定义元素：每个实例各自绑定事件，支持同时出现在桌面顶部栏与移动端菜单
+  class StarlightAccentSelect extends HTMLElement {
+    connectedCallback() {
+      this._btn = this.querySelector('.md3-accent-select__button');
+      this._menu = this.querySelector('.md3-accent-select__menu');
+      this._current = this.querySelector('.md3-accent-select__current');
+      this._swatch = this.querySelector('[data-current-swatch]');
+      this._options = [...this.querySelectorAll('.md3-accent-select__option')];
+      this._byId = Object.fromEntries(this._options.map(o => [o.dataset.accentValue, o]));
+      this._closeTimer = 0;
 
-  // 立即应用，避免闪色
-  apply(load());
-
-  const select = document.querySelector('starlight-accent-select');
-  const btn = select?.querySelector('.md3-accent-select__button');
-  const menu = select?.querySelector('.md3-accent-select__menu');
-  const current = select?.querySelector('.md3-accent-select__current');
-  const swatch = select?.querySelector('[data-current-swatch]');
-  const options = [...(select?.querySelectorAll('.md3-accent-select__option') || [])];
-  const byId = Object.fromEntries(options.map(o => [o.dataset.accentValue, o]));
-
-  function sync() {
-    const id = document.documentElement.dataset.accent;
-    const cur = byId[id];
-    options.forEach(o => o.setAttribute('aria-checked', o === cur ? 'true' : 'false'));
-    if (cur && btn && current && swatch) {
-      btn.setAttribute('aria-label', `主题色: ${labels[id]}`);
-      btn.setAttribute('title', `主题色: ${labels[id]}`);
-      current.textContent = labels[id];
-      swatch.style.background = cur.querySelector('.md3-accent-select__swatch').style.background;
-    }
-  }
-
-  const closeTimers = new WeakMap();
-  const closeCleanups = new WeakMap();
-
-  function clearCloseTimer() {
-    const timer = closeTimers.get(select);
-    if (timer) window.clearTimeout(timer);
-    closeTimers.delete(select);
-    closeCleanups.get(select)?.();
-    closeCleanups.delete(select);
-  }
-
-  function closeMenu() {
-    if (!btn || !menu) return;
-    btn.setAttribute('aria-expanded', 'false');
-    clearCloseTimer();
-
-    if (menu.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      menu.hidden = true;
-      menu.removeAttribute('data-md3-menu-state');
-      return;
+      this.apply(load());
+      this.sync();
+      this._bind();
     }
 
-    menu.dataset.md3MenuState = 'closing';
-
-    const finishClose = () => {
-      menu.hidden = true;
-      menu.removeAttribute('data-md3-menu-state');
-      clearCloseTimer();
-    };
-    const onTransitionEnd = (event) => {
-      if (event.target === menu && event.propertyName === 'transform') finishClose();
-    };
-
-    menu.addEventListener('transitionend', onTransitionEnd);
-    closeCleanups.set(select, () => menu.removeEventListener('transitionend', onTransitionEnd));
-    closeTimers.set(select, window.setTimeout(finishClose, 260));
-  }
-
-  function openMenu() {
-    if (!btn || !menu) return;
-    clearCloseTimer();
-    btn.setAttribute('aria-expanded', 'true');
-    menu.hidden = false;
-    menu.removeAttribute('data-md3-menu-state');
-    const selected = select?.querySelector('.md3-accent-select__option[aria-checked="true"]');
-    selected?.focus();
-    sync();
-  }
-
-  btn?.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    open ? closeMenu() : openMenu();
-  });
-  options.forEach(o => o.addEventListener('click', () => {
-    apply(o.dataset.accentValue);
-    sync();
-    closeMenu();
-    btn?.focus();
-  }));
-  select?.addEventListener('keydown', (e) => {
-    if (!(e instanceof KeyboardEvent)) return;
-    const open = btn?.getAttribute('aria-expanded') === 'true';
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      closeMenu();
-      btn?.focus();
-      return;
+    disconnectedCallback() {
+      document.removeEventListener('pointerdown', this._onDocPointerDown);
+      clearTimeout(this._closeTimer);
     }
-    if (!open && ['ArrowDown', 'Enter', ' '].includes(e.key)) {
-      e.preventDefault();
-      openMenu();
-      return;
-    }
-    if (!open || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
-    e.preventDefault();
-    const items = [...options];
-    const currentIndex = Math.max(0, items.indexOf(document.activeElement));
-    const nextIndex =
-      e.key === 'Home' ? 0
-      : e.key === 'End' ? items.length - 1
-      : e.key === 'ArrowDown' ? (currentIndex + 1) % items.length
-      : (currentIndex - 1 + items.length) % items.length;
-    items[nextIndex]?.focus();
-  });
-  document.addEventListener('pointerdown', (e) => {
-    if (e.target instanceof Node && !select?.contains(e.target)) closeMenu();
-  });
 
-  sync();
+    apply(id) {
+      document.documentElement.dataset.accent = id;
+      try { localStorage.setItem(storageKey, id); } catch {}
+    }
+
+    sync() {
+      const id = document.documentElement.dataset.accent;
+      const cur = this._byId[id];
+      this._options.forEach(o => o.setAttribute('aria-checked', o === cur ? 'true' : 'false'));
+      if (cur && this._btn && this._current && this._swatch) {
+        this._btn.setAttribute('aria-label', `主题色: ${labels[id]}`);
+        this._btn.setAttribute('title', `主题色: ${labels[id]}`);
+        this._current.textContent = labels[id];
+        this._swatch.style.background = cur.querySelector('.md3-accent-select__swatch').style.background;
+      }
+    }
+
+    closeMenu() {
+      if (!this._btn || !this._menu) return;
+      this._btn.setAttribute('aria-expanded', 'false');
+      clearTimeout(this._closeTimer);
+      this._menu.removeEventListener('transitionend', this._onTransitionEnd);
+
+      if (this._menu.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this._menu.hidden = true;
+        this._menu.removeAttribute('data-md3-menu-state');
+        return;
+      }
+
+      this._menu.dataset.md3MenuState = 'closing';
+      this._onTransitionEnd = (event) => {
+        if (event.target === this._menu && event.propertyName === 'transform') {
+          this._menu.hidden = true;
+          this._menu.removeAttribute('data-md3-menu-state');
+          clearTimeout(this._closeTimer);
+        }
+      };
+      this._menu.addEventListener('transitionend', this._onTransitionEnd);
+      this._closeTimer = window.setTimeout(() => {
+        this._menu.hidden = true;
+        this._menu.removeAttribute('data-md3-menu-state');
+        this._menu.removeEventListener('transitionend', this._onTransitionEnd);
+      }, 260);
+    }
+
+    openMenu() {
+      if (!this._btn || !this._menu) return;
+      clearTimeout(this._closeTimer);
+      this._btn.setAttribute('aria-expanded', 'true');
+      this._menu.hidden = false;
+      this._menu.removeAttribute('data-md3-menu-state');
+      const selected = this.querySelector('.md3-accent-select__option[aria-checked="true"]');
+      selected?.focus();
+      this.sync();
+    }
+
+    _bind() {
+      this._btn?.addEventListener('click', () => {
+        const open = this._btn.getAttribute('aria-expanded') === 'true';
+        open ? this.closeMenu() : this.openMenu();
+      });
+      this._options.forEach(o => o.addEventListener('click', () => {
+        this.apply(o.dataset.accentValue);
+        this.sync();
+        this.closeMenu();
+        this._btn?.focus();
+      }));
+      this.addEventListener('keydown', (e) => {
+        if (!(e instanceof KeyboardEvent)) return;
+        const open = this._btn?.getAttribute('aria-expanded') === 'true';
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          this.closeMenu();
+          this._btn?.focus();
+          return;
+        }
+        if (!open && ['ArrowDown', 'Enter', ' '].includes(e.key)) {
+          e.preventDefault();
+          this.openMenu();
+          return;
+        }
+        if (!open || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) return;
+        e.preventDefault();
+        const currentIndex = Math.max(0, this._options.indexOf(document.activeElement));
+        const nextIndex =
+          e.key === 'Home' ? 0
+          : e.key === 'End' ? this._options.length - 1
+          : e.key === 'ArrowDown' ? (currentIndex + 1) % this._options.length
+          : (currentIndex - 1 + this._options.length) % this._options.length;
+        this._options[nextIndex]?.focus();
+      });
+      this._onDocPointerDown = (e) => {
+        if (e.target instanceof Node && !this.contains(e.target)) this.closeMenu();
+      };
+      document.addEventListener('pointerdown', this._onDocPointerDown);
+    }
+  }
+  customElements.define('starlight-accent-select', StarlightAccentSelect);
 </script>
 
 <style>

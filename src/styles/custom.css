@@ -25,6 +25,17 @@ h1 {
     var(--md-sys-motion-easing-standard);
 }
 
+/* 移动端主题色菜单：向右、向上展开，避免溢出视口 */
+.mobile-preferences starlight-accent-select .md3-accent-select__menu {
+  inset-block-start: auto;
+  inset-block-end: calc(100% + 0.5rem);
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  height: auto;
+  transform-origin: bottom left;
+  max-inline-size: calc(100vw - 2rem);
+}
+
 /* 页面切换（route-leaving）时，让旧侧边栏高亮项平滑淡出而非瞬间消失 */
 @media (prefers-reduced-motion: no-preference) {
   html[data-md3-route-state='leaving']
