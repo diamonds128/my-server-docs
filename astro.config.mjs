@@ -22,7 +22,7 @@ export default defineConfig({
           items: [
             { label: '欢迎', link: '/welcome' },
             { label: '开始', link: '/start' },
-            { label: '进入并注册/登录', link: '/join' },
+            { label: '加入服务器', link: '/join' },
           ],
         },
       ],

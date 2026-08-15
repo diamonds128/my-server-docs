@@ -1,6 +1,6 @@
 ---
-title: 进入
-description: 了解如何进入服务器并开始游玩
+title: 加入
+description: 了解如何加入服务器并开始游玩
 ---
 
 此页面包括  
