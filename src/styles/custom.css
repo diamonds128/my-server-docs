@@ -2,6 +2,19 @@
 :root {
   --sl-text-5xl: 2.5rem;
 }
+
+/* 代码块字号：与正文差不多大 */
+:root {
+  --sl-text-code: 1rem;
+}
+.expressive-code,
+.expressive-code code {
+  font-size: inherit;
+}
+/* 行内代码也跟随正文大小 */
+.sl-markdown-content :not(pre) > code {
+  font-size: 1em;
+}
 h1 {
   font-weight: 700 !important;
 }
