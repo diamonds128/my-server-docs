@@ -25,6 +25,13 @@ export default defineConfig({
             { label: '加入服务器', link: '/join' },
           ],
         },
+        {
+          label: '命令与权限',
+          items: [
+            { label: '权限配置', link: '/permissions' },
+            { label: '皮肤配置', link: '/skinrestorer' },
+          ],
+        },
       ],
       customCss: [
         './src/styles/custom.css',
