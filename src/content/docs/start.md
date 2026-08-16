@@ -96,7 +96,9 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 <summary><strong>Amethyst</strong></summary>
 
 1. 在左侧菜单栏中点击从上往下第二个图标 **Profiles** 或其他中文译名，总之认准草方块图标  
+![Profiles](/my-server-docs/images/amethyst_profiles.png)
 2. 在右上角点击加号图标  
+![Create Profile](/my-server-docs/images/amethyst_create_profile.png)
 3. 如果没有装模组的需求，选择 **Vanilla** 或 **原版** ，否则选择 **Fabric/Quilt**  
 4. **Name** 或 **名称** 项建议纯英文，不要包含特殊字符，渲染器建议选择MobileGlues，点击 **Version** 或 **版本** 
 5. 选择 **1.20.1**  
