@@ -7,6 +7,10 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 >
 > 此页面缺少部分图片资源，若有能力，请在[GitHub](https://github.com/diamonds128/my-server-docs/)帮助补充  
 
+> 有能力请支持正版  
+
+> 我们JE/BE互通，BE请见[基岩版](./bedrock)
+
 此页面包括：
 - 如何安装启动器
 - 如何安装游戏实例
