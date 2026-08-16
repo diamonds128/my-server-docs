@@ -14,7 +14,7 @@ description: 了解服务器的权限配置
 - 原版的 `teleport` 指令（即 `tp` ）
 - `EasyAuth` 的玩家命令，如登录/注册、修改密码等  
 - `Ledger` 的查询命令
-- `Skin Restorer` 的皮肤设置命令（非op无法指定设置他人皮肤）
+- `Skin Restorer` 的皮肤设置命令（非op无法指定设置他人皮肤）  
 以及更多
 
 ### server组
