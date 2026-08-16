@@ -4,6 +4,8 @@ import { unified } from '@astrojs/markdown-remark';
 import starlight from '@astrojs/starlight';
 import md3Theme from 'starlight-theme-md3';
 import starlightImageZoom from 'starlight-image-zoom';
+import starlightAnnouncement from 'starlight-announcement';
+import starlightAnnouncementZh from './src/plugins/starlight-announcement-zh';
 
 export default defineConfig({
   site: 'https://diamonds128.github.io',
@@ -77,6 +79,17 @@ export default defineConfig({
           density: 'comfortable',
         }),
         starlightImageZoom(),
+        starlightAnnouncement({
+          displayMode: 'stack',
+          announcements: [
+            {
+              id: 'welcome',
+              content: '欢迎来到 Diamond 服务器文档！',
+              variant: 'tip',
+            },
+          ],
+        }),
+        starlightAnnouncementZh(),
       ],
     }),
   ],
