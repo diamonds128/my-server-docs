@@ -6,3 +6,5 @@ dist/
 "preview.log"  
 build.log
 /*.log
+$null
+npx
