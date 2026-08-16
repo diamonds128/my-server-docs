@@ -25,6 +25,12 @@ h1 {
     var(--md-sys-motion-easing-standard);
 }
 
+/* 修复：移动端目录项点击 ripple 溢出到整页。主题 JS 会给目录项创建 ripple，但 motion 选择器漏加了 overflow:hidden，导致波纹放大后溢出页面。 */
+mobile-starlight-toc .dropdown a {
+  overflow: hidden;
+  isolation: isolate;
+}
+
 /* 移动端主题色菜单：向右、向上展开，避免溢出视口 */
 .mobile-preferences starlight-accent-select .md3-accent-select__menu {
   inset-block-start: auto;
