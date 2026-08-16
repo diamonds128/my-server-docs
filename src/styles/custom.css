@@ -49,3 +49,25 @@ mobile-starlight-toc .dropdown a {
     background-color: transparent !important;
   }
 }
+
+/* 公告图标 md3 化：改成圆形彩色徽章容器 + 白色填充图标，与主题图标风格一致 */
+.sl-announcement-icon {
+  box-sizing: content-box;
+  padding: 0.375rem;
+  border-radius: var(--md-sys-shape-full);
+  background-color: var(--sl-announcement-border);
+  color: #fff !important;
+  opacity: 1;
+}
+
+/* 修复 iOS：移动端“本页内容”栏是 fixed 定位在顶部，公告初始会被它盖住重叠。
+   改为给公告容器加顶部留白，让公告从目录栏正下方开始，随文档流正常滚动；
+   不再吸顶（吸顶会导致滚动时盖住文档标题、并产生空白间隙）。 */
+@media (max-width: 49.999rem) {
+  /* .sl-announcements-container 是 display:contents，不产生盒子，margin 无效。
+     必须把偏移加到实际渲染的 .sl-announcement 上。
+     公告默认紧贴目录栏下方但会被盖住一点，补足间距避开固定栏。 */
+  .sl-announcement {
+    margin-top: 1rem;
+  }
+}

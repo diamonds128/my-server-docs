@@ -86,6 +86,7 @@ export default defineConfig({
               id: 'welcome',
               content: '文档站正在测试中！欢迎PR',
               variant: 'tip',
+              endDate: '2026-09-01',
             },
           ],
         }),
