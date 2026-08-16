@@ -84,7 +84,7 @@ export default defineConfig({
           announcements: [
             {
               id: 'welcome',
-              content: '欢迎来到 Diamond 服务器文档！',
+              content: '文档站正在测试中！欢迎PR',
               variant: 'tip',
             },
           ],
