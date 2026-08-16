@@ -5,6 +5,12 @@ description: 了解Skin Restorer皮肤设置
 
 > 这不是 `SkinsRestorer` 而是 `Skin Restorer` ，后者的“skin”是单数  
 
+此页面包括：  
+- 设置皮肤的方式
+- 重新加载皮肤  
+- 删除皮肤  
+以及更多……  
+
 ## 什么是Skin Restorer？
 
 这个模组让你可以在服务器内通过命令设置皮肤，解决了离线玩家皮肤无法显示的问题  
@@ -19,7 +25,8 @@ description: 了解Skin Restorer皮肤设置
 <summary><strong>Mojang</strong></summary>
 
 从有效的正版玩家账号上获取皮肤并应用  
-`/skin set mojang <用户名>  <目标玩家名>`
+`/skin set mojang <用户名>  <目标玩家名>`  
+目前只有这种方式拥有披风  
 
 </details>
 
@@ -52,7 +59,7 @@ description: 了解Skin Restorer皮肤设置
 <details>
 <summary><strong>ely.by</strong></summary>
 
-> 我们已经弃用了ely.by ：）  
+我们已经弃用了ely.by ：）  
 
 </details>
 
