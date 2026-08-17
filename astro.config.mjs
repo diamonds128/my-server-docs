@@ -64,7 +64,7 @@ export default defineConfig({
         Footer: './src/components/CustomFooter.astro',
       },
       editLink: {
-        baseUrl: 'https://github.com/diamonds128/my-server-docs/edit/main/src/content/docs',
+        baseUrl: 'https://github.com/diamonds128/my-server-docs/edit/main/',
       },
       social: [
         { icon: 'github', label: 'GitHub 仓库', href: 'https://github.com/diamonds128/my-server-docs' },
