@@ -8,7 +8,7 @@ description: 了解如何管理自己的账号
 ## 为什么需要注册账号？  
 
 1. 防止被人盗号、顶号，在安装 `EasyAuth` 之前，我们是一个纯离线服务器，这导致只要ID相同，就可以顶别人的号  
-2. 2026年1月14日，我们在网页地图上震撼的发现： **服务器被炸了** ，此后出于安全顾虑，开启全局密码功能  
+2. 2026年1月14日，我们在网页地图上震撼的发现： **服务器被炸了** ，此后出于安全顾虑，开启全局密码功能，具体请查阅[炸服事件](./incident)  
 
 ## 玩家命令  
 
@@ -33,22 +33,22 @@ description: 了解如何管理自己的账号
 
 - /auth reload - 重新加载配置;
 
-- /auth setGlobalPassword <password>- 设置服务器的全局密码;
+- /auth setGlobalPassword <password> - 设置服务器的全局密码;
 
 - /auth setSpawn &lbrack;&lt;dimension id&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;yaw&gt; &lt;pitch&gt;&rbrack; - 设置出生点，玩家在登录过程中临时传送到的位置;
 
-- /auth remove <username>- 从数据库中删除用户帐户;
+- /auth remove <username> - 从数据库中删除用户帐户;
 
-- /auth update <username> <password>- 更新用户的密码;
+- /auth update <username> <password> - 更新用户的密码;
 
-- /auth register <username> <password>- 创建用户帐户;
+- /auth register <username> <password> - 创建用户帐户;
 
-- /auth list- 打印所有已注册的玩家;
+- /auth list - 打印所有已注册的玩家;
 
-- /auth getPlayerInfo <player>- 打印玩家信息;
+- /auth getPlayerInfo <player> - 打印玩家信息;
 
-- /auth getOnlinePlayers- 获取有关在线玩家的信息;
+- /auth getOnlinePlayers - 获取有关在线玩家的信息;
 
-- /auth markAsOffline <player>- 将玩家标记为离线玩家;
+- /auth markAsOffline <player> - 将玩家标记为离线玩家;
 
-- /auth markAsOnline <player>- 将玩家标记为在线玩家;
+- /auth markAsOnline <player> - 将玩家标记为在线玩家;
