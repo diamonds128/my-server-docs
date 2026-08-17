@@ -100,7 +100,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 2. 在右上角点击加号图标  
 ![Create Profile](/my-server-docs/images/amethyst_create_profile.png)
 3. 如果没有装模组的需求，选择 **Vanilla** 或 **原版** ，否则选择 **Fabric/Quilt**  
-4. **Name** 或 **名称** 项建议纯英文，不要包含特殊字符，渲染器建议选择MobileGlues，点击 **Version** 或 **版本** 
+4. **Name** 或 **名称** 项建议纯英文，不要包含特殊字符，渲染器建议选择 **MobileGlues** ，点击 **Version** 或 **版本** 
 5. 选择 **1.20.1**  
 6. 游戏目录可以是默认的  
 7. 点击右上角 **完成** 
