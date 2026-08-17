@@ -41,6 +41,7 @@ export default defineConfig({
           items: [
             { label: '权限配置', link: '/permissions' },
             { label: '皮肤配置', link: '/skinrestorer' },
+            { label: '账号管理', link: '/account' },
           ],
         },
         {
