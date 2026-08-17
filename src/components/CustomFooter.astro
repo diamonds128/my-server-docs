@@ -1,0 +1,46 @@
+---
+import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
+
+// 获取当前页面路径（不含 base）
+const pathname = Astro.url.pathname;
+// 判断是否为首页（base 是 /my-server-docs/，所以首页路径是 /my-server-docs/ 或 /my-server-docs）
+const isHome = pathname === '/my-server-docs/' || pathname === '/my-server-docs';
+---
+
+<!-- 始终保留默认 Footer -->
+<DefaultFooter />
+
+<!-- 仅当不是首页时，才显示自定义版权声明 -->
+{!isHome && (
+  <div class="custom-footer">
+    <p>
+      本文档根据
+      <a
+        href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        CC BY-NC-SA 4.0
+      </a>
+      协议共享
+    </p>
+  </div>
+)}
+
+<style>
+  .custom-footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    /* border-top: 1px solid var(--sl-color-gray-5); */
+    margin-top: 2rem;
+    color: var(--sl-color-gray-3);
+  }
+  .custom-footer a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+  .custom-footer a:hover {
+    text-decoration: underline;
+  }
+</style>
