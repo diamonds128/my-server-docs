@@ -48,6 +48,7 @@ export default defineConfig({
           label: '其他',
           items: [
             { label: '服务端模组列表', link: '/mods' },
+            { label: '许可证', link: '/license' },
           ],
         },
       ],
