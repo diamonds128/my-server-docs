@@ -12,6 +12,8 @@ description: 了解如何加入服务器并开始游玩
 - 如何注册、登录  
 - 从出生点到我们村庄的地图  
 
+在开始之前，请查阅[服规](/my-server-docs/rules)，我们的限制并不多  
+
 ## 进入服务器
 1. 首先，启动你的游戏
 ![Minceraft](/my-server-docs/images/minceraft.png)
