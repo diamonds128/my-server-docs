@@ -5,7 +5,7 @@ description: 了解如何加入服务器并开始游玩
 
 > 本服的注册/登录使用了[EasyAuth](https://modrinth.com/mod/easyauth)
 
-> 我们JE/BE互通，BE请见[基岩版](./bedrock#进入服务器)  
+> 我们JE/BE互通，BE请见[基岩版](/my-server-docs/bedrock)  
 
 此页面包括  
 - 如何进入服务器  

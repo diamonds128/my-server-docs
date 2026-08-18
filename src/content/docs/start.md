@@ -9,7 +9,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 > 有能力请支持正版  
 
-> 我们JE/BE互通，BE请见[基岩版](./bedrock)
+> 我们JE/BE互通，BE请见[基岩版](/my-server-docs/bedrock)
 
 此页面包括：
 - 如何安装启动器
