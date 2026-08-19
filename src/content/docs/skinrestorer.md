@@ -36,6 +36,7 @@ description: 了解Skin Restorer皮肤设置
 从有效的图片URL中获取皮肤并应用  
 
 **URL必须被双引号包裹**    
+什么是URL？请查阅[常用术语](/my-server-docs/term#常用术语)
  
 `/skin set web <classic或slim> "<URL>" <目标玩家名>`
 
