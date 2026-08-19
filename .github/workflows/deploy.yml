@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # 拉取所有历史记录，确保 lastUpdated 能获取每个页面的独立提交时间
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
