@@ -5,6 +5,8 @@ lastUpdated: 1145-06-07
 editUrl: false
 ---
 
+⚡你被骗了⚡
+
 <div id="video-container" style="text-align: center; margin: 1rem 0;">
   <iframe
     src="//player.bilibili.com/player.html?isOutside=true&aid=80433022&bvid=BV1GJ411x7h7&cid=137649199&p=1"
@@ -22,7 +24,7 @@ editUrl: false
 </div>
 
 <div id="animation-container" style="display: none; text-align: center; padding: 2rem; font-size: 2rem;">
-  <span id="animated-text">你被骗了！</span>
+  <span id="animated-text"></span>
 </div>
 
 <style>
@@ -30,6 +32,7 @@ editUrl: false
   margin-top: 1rem;
   border: none;
   font-family: var(--sl-font);
+  cursor: pointer;  /* ← 这一行新增 */
 }
 #animated-text {
   white-space: pre;
@@ -49,20 +52,16 @@ editUrl: false
     '你又被骗了！ 😈',
     '你又被骗了！ 😈',
     '你又被骗了！ 😈',
-    '😡 ▄︻┻┳═一  😱',
-    '😡 ▄︻┻┳═一  😱',
-    '😡 ▄︻┻┳═一  😱',
-    '😡 ▄︻┻┳═一     💦🏃',
-    '😡 ▄︻┻┳═一       💦🏃',
-    '😡 ▄︻┻┳═一        💦🏃',
-    '😡 ▄︻┻┳═一 ····    💦🏃',
-    '😡 ▄︻┻┳═一     ···· 💦🏃',
-    '😡 ▄︻┻┳═一       🟥💀🟥',
-    '😡 ▄︻┻┳═一       🟥💀🟥',
-    '😡 ▄︻┻┳═一       🟥💀🟥',
-    '😡 ▄︻┻┳═一       🟥💀🟥',
-    '😡 ▄︻┻┳═一       🟥💀🟥',
-    '😡 ▄︻┻┳═一       🟥💀🟥'
+    '😡 ▄︻┻┳═一……  😱',
+    '😡 ▄︻┻┳═一……  😱',
+    '😡 ▄︻┻┳═一……  😱',
+    '😡 ▄︻┻┳═一……     😱',
+    '😡 ▄︻┻┳═一……       😱',
+    '😡 ▄︻┻┳═一……         😱',
+    '😡 ▄︻┻┳═一…… ····    😱',
+    '😡 ▄︻┻┳═一……       🟥💀🟥',
+    '😡 ▄︻┻┳═一……       🟥💀🟥',
+    '😡 ▄︻┻┳═一……       🟥💀🟥'
   ];
 
   function startAnimation() {
@@ -87,6 +86,8 @@ editUrl: false
   if (closeBtn) {
     closeBtn.addEventListener('click', function() {
       videoContainer.style.display = 'none';
+      const initialText = document.querySelector('p[style*="text-align: center; font-size: 1.5rem;"]');
+      if (initialText) initialText.style.display = 'none';
       animContainer.style.display = 'block';
       startAnimation();
     });
