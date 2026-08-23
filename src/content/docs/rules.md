@@ -18,4 +18,4 @@ description: 服务器的基本守则
 
 5. 禁止未经服主允许私自向其他人透露服务器的IP地址、全局密码等敏感信息，包括卫星地图地址  
 
-6. 不要随意跑图，需要寻找特定地形或结构，请使用[Chunk Base种子地图](https://www.chunkbase.com/apps/seed-map)  
+6. 不要随意跑图，若需要寻找特定地形或结构，请使用[Chunk Base种子地图](https://www.chunkbase.com/apps/seed-map)  
