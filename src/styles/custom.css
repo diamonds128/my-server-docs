@@ -71,3 +71,23 @@ mobile-starlight-toc .dropdown a {
     margin-top: 1rem;
   }
 }
+
+/* === 社交图标悬浮背景过渡（覆盖 Starlight 默认样式）=== */
+.social-icons a,
+.social-icons a[href*="github.com"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.4rem !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  transition: background-color 0.2s ease !important;
+}
+.social-icons a:hover,
+.social-icons a[href*="github.com"]:hover {
+  background-color: rgba(128, 128, 128, 0.15) !important;
+}
+[data-theme="dark"] .social-icons a:hover,
+[data-theme="dark"] .social-icons a[href*="github.com"]:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}

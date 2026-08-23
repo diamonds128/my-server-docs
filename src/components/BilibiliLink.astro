@@ -13,20 +13,19 @@ const label = 'B 站个人空间';
 </a>
 
 <style>
-	@layer starlight.core {
-		.bilibili-link {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			color: inherit;
-			text-decoration: none;
-		}
-		.bilibili-link svg {
-			inline-size: var(--sl-icon-size, 1.25rem);
-			block-size: var(--sl-icon-size, 1.25rem);
-		}
-		.bilibili-link:hover {
-			color: var(--md-sys-color-primary, var(--sl-color-gray-1));
-		}
-	}
+  .bilibili-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.4rem !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    transition: background-color 0.2s ease !important;
+  }
+  .bilibili-link:hover {
+    background-color: rgba(128, 128, 128, 0.15) !important;
+  }
+  [data-theme="dark"] .bilibili-link:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
 </style>
