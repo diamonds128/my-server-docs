@@ -44,7 +44,10 @@ description: 测试页面
 ``` python
 print ("hello world")
 print ("2")
+# 注释Hello world 0123456789 abcde
 ```
+
+`代码 01234 abcd`  
 
 [这是一个链接](https://diamonds128.github.io/my-server-docs/test)  
 
@@ -55,7 +58,6 @@ print ("2")
 [1]: https://diamonds128.github.io/my-server-docs/test  
 
 ![图片](/my-server-docs/images/minceraft.png)
-[![沙漠中的岩石图片](/assets/img/shiprock.jpg "Shiprock")](https://markdown.com.cn)
 
 B站视频
 
