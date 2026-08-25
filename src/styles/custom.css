@@ -91,3 +91,8 @@ mobile-starlight-toc .dropdown a {
 [data-theme="dark"] .social-icons a[href*="github.com"]:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+pre,
+code {
+  font-family: "Maple Mono NF CN", "JetBrains Mono", "Fira Code", "Consolas", monospace;
+}
