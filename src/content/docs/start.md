@@ -33,7 +33,9 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 - **下载地址**：[FCL GitHub Releases](https://github.com/FCL-Team/FoldCraftLauncher/releases)
 - **安装步骤**：
   1. 使用浏览器打开网页， **而不是在社交平台内** （比如微信或者QQ）
+  ![FCL GitHub Releases](/my-server-docs/images/fcl_releases.png)
   2. 下滑找到 **“Assets”** 或 **“资源”** 栏  
+  ![FCL Assets](/my-server-docs/images/fcl_assets.png)
   3. 选择 **符合你的设备的.apk安装包** ，如果不知道选择什么请直接下载 `FCL-release-版本号-all.apk`  
   4. 开始安装，等待安装完毕
   5. 关于环境，推荐选择 **Java 21** ，较稳定  
@@ -109,9 +111,8 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 ## 进入游戏
 
-按下 **启动游戏** 按钮，当游戏正常启动时，就意味着以上步骤都成功了
+按下 **启动游戏** 按钮，当游戏正常启动时，就意味着以上步骤都成功了  
 
 ---
 
-如果愿意，请点击下方按钮去 GitHub 帮助我完善此文档 😭  
-[![GitHub 编辑](https://img.shields.io/badge/GitHub-编辑文档-blue?logo=github)](https://github.com/diamonds128/my-server-docs/edit/main/src/content/docs/start.md)
+🎉到这里时就证明你已经完成从安装启动器到进入服务器中的 **80%** 了🎉
