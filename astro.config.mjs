@@ -82,7 +82,7 @@ export default defineConfig({
           tag: 'link',
           attrs: {
             rel: 'icon',
-            href: '/my-server-docs/favicon.ico',
+            href: '/my-server-docs/favicon.svg',
             sizes: '32x32',
           },
         },
