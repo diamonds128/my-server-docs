@@ -49,7 +49,7 @@ description: 了解如何管理自己的账号
 
 - `/auth setGlobalPassword <password>` - 设置服务器的全局密码;
 
-- `/auth setSpawn &lbrack;&lt;dimension id&gt; &lt;x&gt; &lt;y&gt; &lt;z&gt; &lt;yaw&gt; &lt;pitch&gt;&rbrack;` - 设置出生点，玩家在登录过程中临时传送到的位置;
+- `/auth setSpawn [<dimension id> <x> <y> <z> <yaw> <pitch>]` - 设置出生点，玩家在登录过程中临时传送到的位置;
 
 - `/auth remove <username>` - 从数据库中删除用户帐户;
 
