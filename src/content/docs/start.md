@@ -12,7 +12,9 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 - 如何安装游戏实例
 - 如何进入游戏
 
-## 启动器安装指南
+## 启动器安装指南  
+
+什么是启动器？[启动器](/my-server-docs/term#启动器)
 
 <details>
 <summary><strong>桌面</strong></summary>
