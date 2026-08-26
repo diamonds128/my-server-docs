@@ -48,7 +48,7 @@ export default defineConfig({
         {
           label: '其他',
           items: [
-			{ label: '图库', link: '/gallery' },
+            { label: '图库', link: '/gallery' },
             { label: '服务端模组列表', link: '/mods' },
             { label: '炸服事件', link: '/incident' },
             { label: '许可证', link: '/license' },
@@ -76,6 +76,15 @@ export default defineConfig({
           tag: 'script',
           attrs: { 'data-accent-init': '' },
           content: `(()=>{try{var a=localStorage.getItem('starlight-accent');if(a)document.documentElement.setAttribute('data-accent',a)}catch(e){}})();`,
+        },
+        // 恢复 favicon 配置
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            href: '/my-server-docs/favicon.ico',
+            sizes: '32x32',
+          },
         },
       ],
       plugins: [
