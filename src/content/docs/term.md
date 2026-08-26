@@ -3,28 +3,26 @@ title: 术语
 description: 了解MC的基本术语
 ---
 
-## 前言
-
 令我万万没想到的是，真有MC玩家不知道JE和BE分别是什么，所以写了个页面用来放一些术语  
 
 ## 常用术语  
 
-- **JE**  
+### JE  
 即Java Edition的缩写，指MC Java版，MC分为两个版本，一个用Java编写，一个用C++编写，Java版即狭义上的“电脑版”，但这一说法并不准确  
 [Minecraft Wiki](https://zh.minecraft.wiki/w/Java%E7%89%88)
 
-- **BE**  
+### BE  
 即Bedrock Edition的缩写，指MC基岩版，使用C++编写，狭义上的“手机版”，实际上网易手机版也属于基岩版  
 [Minecraft Wiki](https://zh.minecraft.wiki/w/%E5%9F%BA%E5%B2%A9%E7%89%88)
 
-- **启动器**  
+### 启动器  
 Minecraft JE无法直接启动，所以需要启动器来启动游戏，启动器数量非常多，但国内主流的只有几个，例如官方启动器、HMCL、PCL，手机启动器另说  
 
-- **Java**  
+### Java  
 一种高级编程语言，出于性能和其他因素，其实它并不适合用于编写游戏，但是Minecraft JE偏偏就是用它编写的  
 
-- **OP**  
+### OP  
 指管理员  
 
-- **URL**  
-指链接
+### URL  
+指链接  
