@@ -77,13 +77,40 @@ export default defineConfig({
           attrs: { 'data-accent-init': '' },
           content: `(()=>{try{var a=localStorage.getItem('starlight-accent');if(a)document.documentElement.setAttribute('data-accent',a)}catch(e){}})();`,
         },
-        // 恢复 favicon 配置
+        // 标准 favicon（多尺寸 ICO，兼容所有旧浏览器）
         {
           tag: 'link',
           attrs: {
             rel: 'icon',
-            href: '/my-server-docs/favicon.svg',
-            sizes: '32x32',
+            href: '/my-server-docs/favicon.ico',
+            sizes: 'any',
+          },
+        },
+        // 96x96 PNG（为不支持 ICO 的现代浏览器提供备选）
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'icon',
+            href: '/my-server-docs/favicon-96x96.png',
+            type: 'image/png',
+            sizes: '96x96',
+          },
+        },
+        // Apple Touch Icon（iOS Safari 添加到主屏幕）
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'apple-touch-icon',
+            href: '/my-server-docs/apple-touch-icon.png',
+            sizes: '180x180',
+          },
+        },
+        // Web App Manifest（PWA 支持）
+        {
+          tag: 'link',
+          attrs: {
+            rel: 'manifest',
+            href: '/my-server-docs/site.webmanifest',
           },
         },
       ],
