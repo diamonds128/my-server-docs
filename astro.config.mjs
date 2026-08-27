@@ -33,8 +33,8 @@ export default defineConfig({
             { label: '服规', link: '/rules' },
             { label: '加入服务器', link: '/join' },
             { label: '基岩版', link: '/bedrock' },
-            {label: '常见问题', link: '/faq' },
-            {label: '术语', link: '/term' },
+            { label: '常见问题', link: '/faq' },
+            { label: '术语', link: '/term' },
           ],
         },
         {
