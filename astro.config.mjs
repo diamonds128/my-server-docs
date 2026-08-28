@@ -38,11 +38,12 @@ export default defineConfig({
           ],
         },
         {
-          label: '命令与权限',
+          label: '命令与权限（进阶）',
           items: [
             { label: '权限配置', link: '/permissions' },
             { label: '皮肤配置', link: '/skinrestorer' },
             { label: '账号管理', link: '/account' },
+            { label: '链接账号', link: '/link' },
           ],
         },
         {
