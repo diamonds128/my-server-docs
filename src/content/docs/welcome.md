@@ -16,7 +16,8 @@ BE: `1.20.31` 或 `1.20.30` （不保证 `1.20.30` 能正常进入，仅理论�
 ## 关于此网站  
 
 此网站建立于2026年8月14日，用于放置一些基础教程与进阶教程，遵循[Material Design 3](https://m3.material.io/)设计规范  
-在[GitHub仓库](https://github.com/diamonds128/my-server-docs)查看本文档站源码
+在[GitHub仓库](https://github.com/diamonds128/my-server-docs)查看本文档站源码    
+对老旧的浏览器支持有限，请尽可能使用较新的浏览器访问  
 
 ### 为什么建立此网站？
 
