@@ -69,8 +69,8 @@ description: 我们的精选截图
   </div>
   
   <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/dragon_dead.png" alt="末影龙之死" />
-    <div class="caption">末影龙之死</div>
+    <img src="/my-server-docs/images/screenshots/dragon_dead.png" alt="末地解放" />
+    <div class="caption">末地解放</div>
   </div>
   
   <div class="gallery-item">
