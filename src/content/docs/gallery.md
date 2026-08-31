@@ -108,6 +108,11 @@ description: 我们的精选截图
     <img src="/my-server-docs/images/screenshots/industrial_zone.png" alt="工业区" />
     <div class="caption">工业区</div>
   </div>
+  
+  <div class="gallery-item">
+    <img src="/my-server-docs/images/screenshots/map_day_0.png" alt="第一天的地图" />
+    <div class="caption">第一天的地图</div>
+  </div>
 
 </div>
 
@@ -115,6 +120,16 @@ description: 我们的精选截图
 
 <div class="gallery-grid">
 
+  <div class="gallery-item">
+    <img src="/my-server-docs/images/screenshots/the_first_day.png" alt="第一天" />
+    <div class="caption">第一天 · 一切的起点</div>
+  </div>
+  
+  <div class="gallery-item">
+    <img src="/my-server-docs/images/screenshots/sunset_first.png" alt="第一天 · 日落" />
+    <div class="caption">第一天 · 日落</div>
+  </div>
+  
   <div class="gallery-item">
     <img src="/my-server-docs/images/incident/01.png" alt="炸服事件1" />
     <div class="caption">炸服事件 · 一片狼藉</div>
