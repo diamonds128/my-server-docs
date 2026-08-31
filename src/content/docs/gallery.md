@@ -72,22 +72,7 @@ description: 我们的精选截图
     <img src="/my-server-docs/images/screenshots/dragon_dead.png" alt="末地解放" />
     <div class="caption">末地解放</div>
   </div>
-  
-  <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/map_day260823.png" alt="白昼地图" />
-    <div class="caption">白昼地图</div>
-  </div>
-  
-  <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/map_night260823.png" alt="夜晚地图" />
-    <div class="caption">夜晚地图</div>
-  </div>
-  
-  <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/industrial_zone.png" alt="工业区" />
-    <div class="caption">工业区</div>
-  </div>
-  
+
   <div class="gallery-item">
     <img src="/my-server-docs/images/screenshots/horse_stable.png" alt="马圈" />
     <div class="caption">马圈</div>
@@ -101,6 +86,27 @@ description: 我们的精选截图
   <div class="gallery-item">
     <img src="/my-server-docs/images/screenshots/owner_tomb_interior.png" alt="服主之墓内部" />
     <div class="caption">服主之墓内部</div>
+  </div>
+
+</div>
+
+## 地图
+
+<div class="gallery-grid">
+
+  <div class="gallery-item">
+    <img src="/my-server-docs/images/screenshots/map_day260823.png" alt="白昼地图" />
+    <div class="caption">白昼地图</div>
+  </div>
+    
+  <div class="gallery-item">
+    <img src="/my-server-docs/images/screenshots/map_night260823.png" alt="夜晚地图" />
+    <div class="caption">夜晚地图</div>
+  </div>
+  
+  <div class="gallery-item">
+    <img src="/my-server-docs/images/screenshots/industrial_zone.png" alt="工业区" />
+    <div class="caption">工业区</div>
   </div>
 
 </div>
