@@ -1,9 +1,11 @@
 // public/scripts/uptime.js
 document.addEventListener('DOMContentLoaded', function() {
-  const startDate = new Date('2025-08-06T00:00:00+08:00');
-  const now = new Date();
-  const diffTime = now - startDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  const el = document.getElementById('uptime-days');
-  if (el) el.textContent = diffDays;
+  document.querySelectorAll('[data-start]').forEach(function(el) {
+    const startDateStr = el.getAttribute('data-start');
+    const startDate = new Date(startDateStr);
+    const now = new Date();
+    const diffTime = now - startDate;
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    el.textContent = diffDays;  // 只填充数字，不包含单位
+  });
 });
