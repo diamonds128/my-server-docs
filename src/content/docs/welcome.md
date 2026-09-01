@@ -12,7 +12,7 @@ BE: `1.20.31` 或 `1.20.30` （不保证 `1.20.30` 能正常进入，仅理论�
   
 什么是JE/BE？[常用术语](/my-server-docs/term#je)  
 出于保护服务器的目的，IP地址和全局密码不在此处展示，请前往我们的聊天群获取，关于聊天群，请寻找你身边我们服务器的玩家  
-服务器托管于[简幻欢](https://simpfun.cn/)，开服于2025年7月6日  
+服务器托管于[简幻欢](https://simpfun.cn/)，开服于2025年7月6日，距今已有<strong data-start="2025-07-06"></strong> 天（实时计算）  
 
 种子与存档下载请见[存档](/my-server-docs/save)
 
@@ -45,3 +45,5 @@ Material Design 3主题插件
 用于实现代码推送后自动构建与部署的 CI/CD 工具
 
 **由衷的感谢以上所有开源项目和服务的开发者们以及简幻欢的托管服务**
+
+<script src="/my-server-docs/scripts/uptime.js" defer></script>
