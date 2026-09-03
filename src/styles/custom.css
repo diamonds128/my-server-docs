@@ -288,5 +288,5 @@ code {
   height: 1.5rem;
   margin-top: -0.75rem;
   background: var(--md-sys-color-on-primary);
-  transform: translateX(0.5rem);
+  transform: translateX(1rem);
 }
