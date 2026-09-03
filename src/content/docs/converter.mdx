@@ -1,0 +1,50 @@
+---
+title: 物品数量转换器
+description: 将物品数量在总数与「盒 / 组」之间互相转换，可自定义一组上限、选择单位、开关余数，方向可切换
+---
+
+<div class="conv">
+  <div class="conv-seg" role="tablist">
+    <button class="conv-seg__btn is-active" data-dir="total-unit" type="button">总数 → 单位</button>
+    <button class="conv-seg__btn" data-dir="unit-total" type="button">单位 → 总数</button>
+  </div>
+
+  <label class="conv-field">
+    <span class="conv-field__label">一组上限</span>
+    <input class="conv-field__input" type="number" id="convStack" value="64" min="1" step="1" />
+  </label>
+
+  <div class="conv-seg conv-seg--unit" role="tablist" aria-label="单位">
+    <button class="conv-seg__btn is-active" data-unit="组" type="button">组</button>
+    <button class="conv-seg__btn" data-unit="盒" type="button">盒</button>
+  </div>
+
+  <label class="conv-toggle">
+    <input type="checkbox" id="convRemain" />
+    <span>显示余数</span>
+  </label>
+
+  <section class="conv-panel" data-panel="total-unit">
+    <label class="conv-field">
+      <span class="conv-field__label">总数量</span>
+      <input class="conv-field__input" type="number" id="convTotalIn" min="0" step="any" placeholder="如 5000" />
+    </label>
+    <div class="conv-result" id="convTotalOut"></div>
+  </section>
+
+  <section class="conv-panel" data-panel="unit-total" hidden>
+    <div class="conv-row">
+      <label class="conv-field">
+        <span class="conv-field__label" id="convUnitLabel">组数</span>
+        <input class="conv-field__input" type="number" id="convUnitIn" min="0" step="any" value="0" />
+      </label>
+      <label class="conv-field" id="convRemainField" hidden>
+        <span class="conv-field__label">余数</span>
+        <input class="conv-field__input" type="number" id="convRemainIn" min="0" step="any" value="0" />
+      </label>
+    </div>
+    <div class="conv-result">总数量：<strong id="convUnitTotalOut">0</strong></div>
+  </section>
+</div>
+
+<script src="/my-server-docs/scripts/converter.js" defer></script>
