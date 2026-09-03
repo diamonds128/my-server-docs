@@ -52,3 +52,4 @@ description: 本服务器的服务端安装的模组列表
 | Vanish | 管理员隐身 |
 | MCPServer | 添加MCP允许AI Agent管理服务器 |
 
+**由衷的感谢以上所有Mod的作者**
