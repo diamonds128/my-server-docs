@@ -40,6 +40,7 @@ description: 本服务器的服务端安装的模组列表
 | LazyDFU | 加速游戏启动 |
 | Ledger | 行为记录与回滚 |
 | LuckPerms | 权限管理 |
+| MCPServer | 添加MCP允许AI Agent管理服务器 |
 | MemoryLeakFix | 修复内存泄漏 |
 | MiniMOTD | 自定义 MOTD，支持 RGB 渐变 |
 | No Chat Reports | 禁用聊天举报 |
@@ -50,6 +51,5 @@ description: 本服务器的服务端安装的模组列表
 | TooFast | 移除速度限制 |
 | Vanilla Permissions | 原版命令权限检查 |
 | Vanish | 管理员隐身 |
-| MCPServer | 添加MCP允许AI Agent管理服务器 |
 
 **由衷的感谢以上所有Mod的作者**
