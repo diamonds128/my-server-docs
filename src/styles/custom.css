@@ -159,7 +159,6 @@ code {
   align-items: center;
   justify-content: center;
   min-height: 2.5rem;
-  height: 100%;
   padding-inline: 1rem;
   border: 0;
   border-radius: var(--md-sys-shape-full);
@@ -273,12 +272,11 @@ code {
   position: absolute;
   top: 50%;
   left: 0.25rem;
-  margin-top: -0.75rem;
-  width: 1.5rem;
-  height: 1.5rem;
+  margin-top: -0.5rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: var(--md-sys-shape-full);
   background: var(--md-sys-color-outline);
-  transform: translateX(0);
   transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
 }
 .conv-toggle input:checked {
@@ -286,6 +284,9 @@ code {
   border-color: var(--md-sys-color-primary);
 }
 .conv-toggle input:checked::after {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -0.75rem;
   background: var(--md-sys-color-on-primary);
-  transform: translateX(1rem);
+  transform: translateX(0.5rem);
 }
