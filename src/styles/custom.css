@@ -193,6 +193,9 @@ code {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
 }
+.conv-row .conv-field {
+  margin: 0;
+}
 .conv-field {
   display: flex;
   flex-direction: column;
