@@ -48,10 +48,15 @@ export default defineConfig({
           ],
         },
         {
+          label: '工具',
+          items: [
+            { label: '物品数量转换器', link: '/tools/converter' },
+          ],
+        },
+        {
           label: '其他',
           items: [
             { label: '图库', link: '/gallery' },
-            { label: '物品单位转换器', link: '/converter' },
             { label: '存档', link: '/save' },
             { label: '服务端模组列表', link: '/mods' },
             { label: '炸服事件', link: '/incident' },
