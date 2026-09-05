@@ -1,0 +1,35 @@
+---
+title: 坐标转换器
+description: 在主世界与下界之间互相转换坐标，支持双向、按 MC 8:1 比例（X/Z 换算，Y 不变）
+---
+
+<div class="conv">
+  <div class="conv-seg" role="tablist">
+    <button class="conv-seg__btn is-active" data-dir="ow-nether" type="button">主世界 → 下界</button>
+    <button class="conv-seg__btn" data-dir="nether-ow" type="button">下界 → 主世界</button>
+  </div>
+
+  <div class="conv-row conv-row--triple">
+    <label class="conv-field">
+      <span class="conv-field__label">X</span>
+      <input class="conv-field__input" type="number" id="cordX" step="any" placeholder="X" />
+    </label>
+    <label class="conv-field">
+      <span class="conv-field__label">Y</span>
+      <input class="conv-field__input" type="number" id="cordY" step="any" placeholder="Y" />
+    </label>
+    <label class="conv-field">
+      <span class="conv-field__label">Z</span>
+      <input class="conv-field__input" type="number" id="cordZ" step="any" placeholder="Z" />
+    </label>
+  </div>
+
+  <div class="conv-result" id="cordOut"></div>
+
+  <p style="margin: 0; font-size: var(--md-sys-typescale-body-small-size); color: var(--md-sys-color-on-surface-variant);">
+    主世界 → 下界：X、Z 除以 8 并向下取整  
+    下界 → 主世界：X、Z 乘以 8
+  </p>
+</div>
+
+<script src="/my-server-docs/scripts/coordinate.js" defer></script>

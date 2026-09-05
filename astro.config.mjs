@@ -51,6 +51,7 @@ export default defineConfig({
           label: '工具',
           items: [
             { label: '物品数量转换器', link: '/tools/converter' },
+            { label: '坐标转换器', link: '/tools/coordinate' },
           ],
         },
         {
