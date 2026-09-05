@@ -19,6 +19,14 @@ h1 {
   font-weight: 700 !important;
 }
 
+/* 全站正文遵循浏览器默认字体，而非 Starlight/主题强制的 system-ui 系统字体。
+   custom.css 无 @layer，天然优先于 starlight/md3 的 layered 声明。
+   注意：不能只改 .sl-link-button，因 font-family 是继承属性，
+   需覆盖全局变量 --__sl-font 才能让 body 及所有继承文本生效。 */
+:root {
+  --__sl-font: revert !important;
+}
+
 /* 侧边栏当前页高亮项保持 transition，使 leaving 阶段背景色能平滑过渡 */
 .sidebar-content [aria-current='page'] {
   transition: background-color var(--md3-motion-duration-nav)
@@ -191,6 +199,9 @@ code {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
+}
+.conv-row--triple {
+  grid-template-columns: repeat(3, 1fr);
 }
 .conv-row .conv-field {
   margin: 0;
