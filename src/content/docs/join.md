@@ -25,7 +25,7 @@ description: 了解如何加入服务器并开始游玩
 
 ## 注册账号与登录
 
-正版玩家可以跳过注册与登录  
+正版以及基岩版玩家可以免注册与登录  
 **不要随意将你的密码告诉他人!**
 
 <details>
@@ -58,7 +58,7 @@ description: 了解如何加入服务器并开始游玩
 
 ## 地图
 
-这张地图包括从出生点到我们定居点的范围，使用 [Xaero's World Map](https://chocolateminecraft.com/worldmap.php)生成 ***注意：官网被墙了***  
+这张地图包括从出生点到我们定居点的范围，使用 [Xaero's World Map](https://chocolateminecraft.com/worldmap.php)生成 *（注：Xaero官网被墙了）*  
 
 
 ![地图](/my-server-docs/images/map.png)  

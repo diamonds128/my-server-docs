@@ -7,7 +7,7 @@ description: 本服务器的服务端安装的模组列表
 >
 > 这是服务端模组列表，客户端不需要完全一致，你可以不安装任何模组，也可以安装一些仅客户端的模组  
 
-我们安装服务端模组的原则：  
+我们在服务端安装模组的原则：  
 1. 不破坏原版机制  
 2. 客户端不安装也能正常进入游戏  
 
@@ -40,7 +40,7 @@ description: 本服务器的服务端安装的模组列表
 | LazyDFU | 加速游戏启动 |
 | Ledger | 行为记录与回滚 |
 | LuckPerms | 权限管理 |
-| MCPServer | 添加MCP允许AI Agent管理服务器 |
+| MCPServer | 添加MCP允许AI Agent监控、管理服务器 |
 | MemoryLeakFix | 修复内存泄漏 |
 | MiniMOTD | 自定义 MOTD，支持 RGB 渐变 |
 | No Chat Reports | 禁用聊天举报 |

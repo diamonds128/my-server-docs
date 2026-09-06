@@ -5,14 +5,14 @@ description: 了解如何管理自己的账号
 
 > 本服使用[EasyAuth](https://github.com/NikitaCartes/EasyAuth)管理账号  
 
-## 为什么需要注册账号？  
+## 为什么需要注册账号和全局密码？  
 
-1. 防止被人盗号、顶号，在安装 `EasyAuth` 之前，我们是一个纯离线服务器，这导致只要ID相同，就可以顶别人的号  
+1. 防止被人盗号、顶号，在安装 **EasyAuth** 之前，我们是一个纯离线服务器，这导致只要ID相同，就可以顶别人的号  
 2. 2026年1月14日，我们在网页地图上震撼的发现： **服务器被炸了** ，此后出于安全顾虑，开启全局密码功能，具体请查阅[炸服事件](/my-server-docs/incident)  
 
 ## 玩家命令  
 
-**以下内容（玩家命令与管理员命令）均来自于 [MC百科上的EasyAuth页面](https://www.mcmod.cn/class/6241.html)  ，根据 [`CC BY-NC-SA 3.0`](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh-hans) 协议共享，并根据实际情况进行了一些修改**
+> 以下内容（玩家命令与管理员命令）均来自于 **[MC百科上的EasyAuth页面](https://www.mcmod.cn/class/6241.html)**  ，根据 **[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh-hans)** 协议共享，并根据实际情况进行了一些修改
 <span class="heimu" title="你知道的太多了">更符合中国宝宝的体质</span>
 
 <style>
@@ -27,11 +27,11 @@ description: 了解如何管理自己的账号
 }
 </style>  
 
-- `/login <你的密码>` 或 `/l <你的密码>` - 登陆账号;
+- `/login <你的密码>` 或 `/l <你的密码>` - 登录账号;
 
-- `/logout` - 退出登陆;
+- `/logout` - 退出登录;
 
-- `/register <全局密码> <你的账户密码> <确认密码>` - 注册账号;
+- `/register <全局密码> <你的账户密码> <确认密码>` 或 `/reg` - 注册账号;
 
 - `/account` - 管理账号;
 
@@ -39,10 +39,10 @@ description: 了解如何管理自己的账号
 
 - `/changePassword <旧密码> <新的密码>` - 更改密码;
 
-- 注释： 允许玩家用以下字符组合作为密码：纯字母, 字母与下划线_, "引号与字母" 或者 "字母与&$@#"。
+- 注：允许玩家用以下字符组合作为密码：纯字母, 字母与下划线_, "引号与字母" 或者 "字母与&$@#"
 
 ## 管理员命令
-*仅[server权限组](./permissions#server组)可用*
+*仅[server权限组](./permissions#server组)内的玩家可使用*
 - `/auth` - 管理员命令：
 
 - `/auth reload` - 重新加载配置;

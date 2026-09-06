@@ -17,12 +17,12 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 什么是启动器？[启动器](/my-server-docs/term#启动器)
 
 <details>
-<summary><strong>桌面</strong></summary>
+<summary><strong>桌面（Windows/Linux/MacOS）</strong></summary>
 
 - **推荐启动器**：HMCL（Hello Minecraft! Launcher）
 - **下载地址**：[HMCL 官网下载页](https://hmcl.huangyuhui.net/download/)
 - **安装步骤**：
-  1. 下载 **对应系统** 的安装包，稳定版为压缩包，开发版可直接下载exe（如果希望更省事，可以选择开发版，稳定版在网盘，而且网盘内的文件落后于最新版本）  
+  1. 下载 **对应系统** 的安装包  
   2. 安装或解压，并等待完成
   ![HMCL 启动器界面](/my-server-docs/images/hmcl.png)
 

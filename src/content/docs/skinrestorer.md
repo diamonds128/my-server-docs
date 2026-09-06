@@ -3,7 +3,7 @@ title: Skin Restorer
 description: 了解Skin Restorer皮肤设置
 ---
 
-> 这不是 `SkinsRestorer` 而是 `Skin Restorer` ，后者的“skin”是单数  
+> 这不是 **SkinsRestorer** 而是 **Skin Restorer** ，后者的“skin”是单数  
 
 此页面包括：  
 - 设置皮肤的方式
@@ -26,7 +26,7 @@ description: 了解Skin Restorer皮肤设置
 
 从有效的正版玩家账号上获取皮肤并应用  
 `/skin set mojang <用户名>  <目标玩家名>`  
-目前只有这种方式拥有披风  
+目前只有这种方式可以加载出披风  
 
 </details>
 
@@ -48,7 +48,7 @@ description: 了解Skin Restorer皮肤设置
 <details>
 <summary><strong>LittleSkin</strong></summary>
 
-*注：服主当时调配置允许获取LittlesSkin皮肤用了大半天*  
+*注：服主当时调配置允许获取LittlesSkin皮肤调了大半天*  
 
 从有效的[LittleSkin](https://littleskin.cn)角色获取皮肤并应用  
 `/skin set littleskin <角色名> <目标玩家名>`  
