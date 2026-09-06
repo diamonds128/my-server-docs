@@ -19,7 +19,7 @@ description: 本服务器的服务端安装的模组列表
 | BlueMap | 生成 3D 网页地图 |
 | C2ME | 并发区块管理引擎，优化性能 |
 | Carpet AMS Addition | Carpet 附加包，假人 UI 高亮 |
-| Carpet Extra | Carpet 扩展，增加发射器行为、可再生资源 |
+| Carpet Extra | Carpet 扩展，增加更多功能① |
 | Chunk Sending | 优化区块数据包分发 |
 | Cupboard | 开发前置库（配置框架、崩溃追踪） |
 | EasyAuth | 离线服务器认证模组 |
@@ -53,3 +53,5 @@ description: 本服务器的服务端安装的模组列表
 | Vanish | 管理员隐身 |
 
 **由衷的感谢以上所有Mod的作者**
+
+**①** : 在 **Carpet Extra** 提供的功能中，为了确保不劈坏原版机制，我们只启用了 **精准方块放置协议** ，以便在使用 **Litematica** 的 **简单放置** 时的方块的朝向正确  
