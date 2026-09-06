@@ -25,6 +25,7 @@ h1 {
    需覆盖全局变量 --__sl-font 才能让 body 及所有继承文本生效。 */
 :root {
   --__sl-font: revert !important;
+  --__sl-font-mono: revert !important;
 }
 
 /* 侧边栏当前页高亮项保持 transition，使 leaving 阶段背景色能平滑过渡 */
@@ -102,7 +103,7 @@ mobile-starlight-toc .dropdown a {
 
 pre,
 code {
-  font-family: "Maple Mono NF CN", "JetBrains Mono", "Fira Code", "Consolas", monospace;
+  font-family: revert;
 }
 
 /* === MD3 Snackbar === */
