@@ -39,6 +39,7 @@ export default defineConfig({
         },
         {
           label: '命令与权限（进阶）',
+          collapsed: true,
           items: [
             { label: '权限配置', link: '/permissions' },
             { label: '皮肤配置', link: '/skinrestorer' },
@@ -49,6 +50,7 @@ export default defineConfig({
         },
         {
           label: '工具',
+          collapsed: true,
           items: [
             { label: '物品数量转换器', link: '/tools/converter' },
             { label: '坐标转换器', link: '/tools/coordinate' },
@@ -56,6 +58,7 @@ export default defineConfig({
         },
         {
           label: '其他',
+          collapsed: true,
           items: [
             { label: '图库', link: '/gallery' },
             { label: '存档', link: '/save' },
