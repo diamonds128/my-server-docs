@@ -282,6 +282,8 @@ code {
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
+  /* clip spring/overshoot overflow of the thumb (MD3E spatial spring) */
+  overflow: hidden;
   transition: background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate), border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
 }
 .conv-toggle input::after {
@@ -294,9 +296,10 @@ code {
   height: 1.5rem;
   border-radius: var(--md-sys-shape-full);
   background: var(--md-sys-color-outline);
-  /* MD3 Switch：thumb 直径固定，尺寸变化通过 scale 平滑缩放，只动画 transform */
+  /* thumb fixed diameter, size change via scale */
   transform: scale(0.667);
-  transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
+  /* MD3E spring (easeOutBack): overshoot then settle. Target state = on->off. Color stays non-overshoot. */
+  transition: transform var(--md-sys-motion-duration-short4) cubic-bezier(.34,1.56,.64,1), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
 }
 .conv-toggle input:checked {
   background: var(--md-sys-color-primary);
@@ -305,4 +308,6 @@ code {
 .conv-toggle input:checked::after {
   background: var(--md-sys-color-on-primary);
   transform: translateX(1.5rem) scale(1);
+  /* MD3E spring (easeOutBack): overshoot then settle. Target state = off->on. Color stays non-overshoot. */
+  transition: transform var(--md-sys-motion-duration-short4) cubic-bezier(.34,1.56,.64,1), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
 }
