@@ -3,6 +3,8 @@ title: 许可证
 description: 本文档站采用的许可证信息
 ---
 
+除另有声明，则本网站使用以下两种许可证  
+
 ## 代码许可证: MIT  
 
 本网站项目（包括所有配置、主题样式、构建脚本）采用 **[MIT许可证](https://opensource.org/license/MIT)**
