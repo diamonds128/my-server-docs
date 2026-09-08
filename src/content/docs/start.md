@@ -14,7 +14,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 ## 启动器安装指南  
 
-什么是启动器？[启动器](/my-server-docs/term#启动器)
+什么是启动器？[术语页面](/my-server-docs/term#启动器)
 
 <details>
 <summary><strong>桌面（Windows/Linux/MacOS）</strong></summary>
@@ -119,7 +119,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 我们对于ID有限制，以确保玩家可以正常游玩
 
-- ID必须在3-16个字符之间  
+- ID必须在 **3-16** 个字符之间  
 - 只能包含英文字母（大小写均可）、数字、下划线 `_`  
 
 什么是ID？[术语页面](/my-server-docs/term#id)
