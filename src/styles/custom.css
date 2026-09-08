@@ -19,6 +19,11 @@ h1 {
   font-weight: 700 !important;
 }
 
+/* 导航栏 Logo：固定较小高度，避免被 md3 较大的 --sl-nav-height 撑大 */
+.site-title img {
+  height: 1.25rem;
+}
+
 /* 全站正文遵循浏览器默认字体，而非 Starlight/主题强制的 system-ui 系统字体。
    custom.css 无 @layer，天然优先于 starlight/md3 的 layered 声明。
    注意：不能只改 .sl-link-button，因 font-family 是继承属性，
@@ -284,9 +289,9 @@ code {
   position: absolute;
   top: 50%;
   left: 0.25rem;
-  margin-top: -0.5rem;
-  width: 1rem;
-  height: 1rem;
+  margin-top: -0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: var(--md-sys-shape-full);
   background: var(--md-sys-color-outline);
   transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);

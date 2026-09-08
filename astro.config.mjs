@@ -18,6 +18,10 @@ export default defineConfig({
     starlight({
       title: 'Diamond服务器文档',
       lastUpdated: true,
+      logo: {
+        src: './src/assets/logo.svg',
+        alt: 'Diamond服务器文档',
+      },
       locales: {
         root: {
           label: '简体中文',
