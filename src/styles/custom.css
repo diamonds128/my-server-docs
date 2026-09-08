@@ -294,6 +294,8 @@ code {
   height: 1.5rem;
   border-radius: var(--md-sys-shape-full);
   background: var(--md-sys-color-outline);
+  /* MD3 Switch：thumb 直径固定，尺寸变化通过 scale 平滑缩放，只动画 transform */
+  transform: scale(0.667);
   transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
 }
 .conv-toggle input:checked {
@@ -301,9 +303,6 @@ code {
   border-color: var(--md-sys-color-primary);
 }
 .conv-toggle input:checked::after {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-top: -0.75rem;
   background: var(--md-sys-color-on-primary);
-  transform: translateX(1rem);
+  transform: translateX(1rem) scale(1);
 }
