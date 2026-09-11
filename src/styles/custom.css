@@ -321,8 +321,12 @@ code {
   background: var(--md-sys-color-primary);
   translate: calc(-50% + 1.25rem) -50%;
 }
-.conv-toggle input:hover::before {
-  opacity: 0.08;
+/* 悬停是指针专属状态：触屏上 :hover 会粘住（点按后高亮残留），
+   故整体限定在有悬停能力的指针设备（手机/平板主输入不满足，自动排除） */
+@media (hover: hover) {
+  .conv-toggle input:hover::before {
+    opacity: 0.08;
+  }
 }
 .conv-toggle input:focus-visible::before,
 .conv-toggle input:active::before {
@@ -365,16 +369,23 @@ code {
 }
 /* MD3 token：未选中 handle 在 hover/focus/pressed 时变 on-surface-variant；
    轨道描边恒为 outline，不随状态变化 */
-.conv-toggle input:not(:checked):hover::after,
 .conv-toggle input:not(:checked):focus-visible::after,
 .conv-toggle input:not(:checked):active::after {
   background: var(--md-sys-color-on-surface-variant);
 }
 /* MD3：hover/focus/pressed 时选中滑块用 primary-container */
-.conv-toggle input:checked:hover::after,
 .conv-toggle input:checked:focus-visible::after,
 .conv-toggle input:checked:active::after {
   background: var(--md-sys-color-primary-container);
+}
+/* 悬停态的滑块变色同样只在有悬停能力的设备上生效 */
+@media (hover: hover) {
+  .conv-toggle input:not(:checked):hover::after {
+    background: var(--md-sys-color-on-surface-variant);
+  }
+  .conv-toggle input:checked:hover::after {
+    background: var(--md-sys-color-primary-container);
+  }
 }
 /* MD3：按压时滑块长到 28dp，沿用上行的 200ms standard */
 .conv-toggle input:active::after {
