@@ -10,17 +10,24 @@ description: 我们的精选截图
   gap: 1.5rem;
   margin: 2rem 0;
 }
+/* MD3 elevated card：surface-container-low 底 + level1 阴影，
+   悬浮升到 level2（原先是硬编码 16px 圆角、rgba 阴影、translateY 位移） */
 .gallery-item {
   margin-top: 0;
-  background: var(--sl-color-bg-surface);
-  border-radius: 16px;
+  background: var(--md-sys-color-surface-container-low);
+  border-radius: var(--md-sys-shape-corner-large);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--md-sys-elevation-level1);
+  transition: background-color var(--md3-motion-duration-control)
+      var(--md-sys-motion-easing-standard),
+    box-shadow var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard);
 }
-.gallery-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+/* 触屏上 :hover 会粘住，卡片悬浮效果限定指针设备 */
+@media (hover: hover) {
+  .gallery-item:hover {
+    background: var(--md-sys-color-surface-container);
+    box-shadow: var(--md-sys-elevation-level2);
+  }
 }
 .gallery-item :is(img, starlight-image-zoom-zoomable) {
   display: block;
@@ -32,10 +39,10 @@ description: 我们的精选截图
 }
 .gallery-item .caption {
   padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  color: var(--sl-color-text);
+  font-size: var(--md-sys-typescale-body-small-size);
+  color: var(--md-sys-color-on-surface-variant);
   text-align: center;
-  border-top: 1px solid var(--sl-color-gray-5);
+  border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 </style>
 

@@ -35,6 +35,15 @@ h1 {
   --__sl-font-mono: revert !important;
 }
 
+/* 存档种子这类高亮文本的固定强调色：用户指定要绿色，不随主题色（accent）切换，
+   所以不能直接用 primary。浅色主题用 Material Green 500 系，暗色用更亮的 Green 300。 */
+:root {
+  --doc-highlight-green: #81c784;
+}
+:root[data-theme='light'] {
+  --doc-highlight-green: #4caf50;
+}
+
 /* 侧边栏当前页高亮项保持 transition，使 leaving 阶段背景色能平滑过渡 */
 .sidebar-content [aria-current='page'] {
   transition: background-color var(--md3-motion-duration-nav)
@@ -72,7 +81,9 @@ mobile-starlight-toc .dropdown a {
   padding: 0.375rem;
   border-radius: var(--md-sys-shape-full);
   background-color: var(--sl-announcement-border);
-  color: #fff !important;
+  /* MD3：填充色容器上的图标用 on-* 角色。on-primary 在浅色主题为白色、
+     暗色主题为深色，极性跟随主题（原先是硬编码 #fff）。 */
+  color: var(--md-sys-color-on-primary) !important;
   opacity: 1;
 }
 
@@ -88,24 +99,32 @@ mobile-starlight-toc .dropdown a {
   }
 }
 
-/* === 社交图标悬浮背景过渡（覆盖 Starlight 默认样式）=== */
+/* === 社交图标：MD3 圆形图标按钮 ===
+   原先三处（custom.css / Header.astro / BilibiliLink.astro）各写一份硬编码
+   rgba(128,128,128,.15) 悬浮色，现统一到这里，改用状态层 token。
+   .social-icons a 同时覆盖 B站链接所在的 .bilibili-link。 */
 .social-icons a,
-.social-icons a[href*="github.com"] {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 0.4rem !important;
-  border-radius: 50% !important;
-  background: transparent !important;
-  transition: background-color 0.2s ease !important;
+.bilibili-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  border-radius: var(--md-sys-shape-full);
+  background: transparent;
+  transition: background-color var(--md3-motion-duration-state)
+    var(--md-sys-motion-easing-standard);
 }
-.social-icons a:hover,
-.social-icons a[href*="github.com"]:hover {
-  background-color: rgba(128, 128, 128, 0.15) !important;
+/* 悬停是状态层：触屏上会粘住，故限定指针设备 */
+@media (hover: hover) {
+  .social-icons a:hover,
+  .bilibili-link:hover {
+    background-color: var(--md3-state-on-surface-hover);
+  }
 }
-[data-theme="dark"] .social-icons a:hover,
-[data-theme="dark"] .social-icons a[href*="github.com"]:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+.social-icons a:focus-visible,
+.bilibili-link:focus-visible {
+  outline: 0;
+  box-shadow: var(--md3-focus-ring);
 }
 
 pre,
@@ -121,35 +140,36 @@ code {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* === MD3 Snackbar === */
+/* === 复制成功提示（Snackbar）===
+   外观保持原样（primary 底、白字、胶囊圆角、ease 动效），
+   仅把硬编码的 rgba 阴影换成 elevation token。 */
 .md3-snackbar {
   position: fixed;
   bottom: 2rem;
   left: 50%;
-  transform: translateX(-50%) scale(0.9);
+  transform: translateX(-50%) translateY(0.5rem) scale(0.95);
   background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
+  color: #fff;
   padding: 0.75rem 1.5rem;
   border-radius: 100px;
-  font-size: 0.875rem;
-  font-weight: 400;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  box-shadow: var(--md-sys-elevation-level3);
   opacity: 0;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 9999;
   pointer-events: none;
   white-space: nowrap;
 }
 .md3-snackbar--active {
   opacity: 1;
-  transform: translateX(-50%) scale(1);
+  transform: translateX(-50%) translateY(0) scale(1);
   pointer-events: auto;
 }
 @media (max-width: 600px) {
   .md3-snackbar {
     white-space: normal;
     max-width: 90vw;
-    padding: 0.75rem 1.25rem;
   }
 }
 
@@ -196,8 +216,25 @@ code {
   cursor: pointer;
   transition: background-color var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard);
 }
-.conv-seg__btn:hover {
-  background: var(--md3-state-on-surface-hover);
+/* 悬停同样是状态层，限定指针设备（否则手机点按后会残留高亮） */
+@media (hover: hover) {
+  .conv-seg__btn:hover {
+    background: var(--md3-state-on-surface-hover);
+  }
+}
+.conv-seg__btn:focus-visible {
+  outline: 0;
+  box-shadow: var(--md3-focus-ring);
+}
+.conv-seg__btn:active {
+  background: var(--md3-state-on-surface-pressed);
+}
+.conv-seg__btn.is-active:active {
+  background: color-mix(
+    in srgb,
+    var(--md-sys-color-secondary-container) 90%,
+    var(--md-sys-color-on-secondary-container)
+  );
 }
 .conv-seg__btn.is-active {
   background: var(--md-sys-color-secondary-container);
@@ -420,4 +457,86 @@ code {
 }
 .conv-toggle input:disabled::before {
   opacity: 0;
+}
+
+/* === 首页 hero：MD3 Filled tonal 按钮 ===
+   variant 仍是 primary（保证拿到主题的基础尺寸/圆角），
+   由 index.mdx 的 attrs.class 追加 .tonal 覆盖配色。
+   custom.css 无 @layer，天然压过主题的 layered 规则。 */
+.sl-link-button.tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  border-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+@media (hover: hover) {
+  .sl-link-button.tonal:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--md-sys-color-secondary-container) 92%,
+      var(--md-sys-color-on-secondary-container)
+    );
+    border-color: transparent;
+    color: var(--md-sys-color-on-secondary-container);
+  }
+}
+.sl-link-button.tonal:active {
+  background-color: color-mix(
+    in srgb,
+    var(--md-sys-color-secondary-container) 88%,
+    var(--md-sys-color-on-secondary-container)
+  );
+}
+/* MD3：filled / filled tonal 的焦点指示为 3dp secondary 圆环 */
+.sl-link-button.tonal:focus-visible {
+  outline: 3px solid var(--md-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+/* === 侧边栏分组图标（Material Symbols Outlined，mask 跟随 currentColor）===
+   顺序对应 astro.config.mjs 中 sidebar 的分组：
+   1 基础 / 2 命令与权限（进阶）/ 3 工具 / 4 其他。
+   调整分组顺序或增删分组时，这里要同步改 nth-child。
+   图标颜色统一为 on-surface-variant（与分组文字同色），
+   不做「当前分组变主色」——主色图标与分组文字、侧栏选中项的
+   secondary-container 色块不是一套色，放在一起不协调。 */
+.sidebar-content ul.top-level > li > details > summary .group-label {
+  display: inline-flex;
+  align-items: center;
+}
+.sidebar-content ul.top-level > li > details > summary .group-label::before {
+  content: '';
+  flex: none;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin-inline-end: 0.5rem;
+  background-color: var(--md-sys-color-on-surface-variant);
+  -webkit-mask: var(--md3-nav-icon) center / contain no-repeat;
+  mask: var(--md3-nav-icon) center / contain no-repeat;
+}
+.sidebar-content ul.top-level > li:nth-child(1) > details > summary .group-label::before {
+  --md3-nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 9.9V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.337T17.5 9q-.95 0-1.825.238T14 9.9m0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4m0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65m-1 4.4q1.1-.525 2.213-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2zM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.05 0-2.062.275T2.5 19.05q-.525.275-1.012-.025T1 18.15V6.1q0-.275.138-.525T1.55 5.2q1.175-.575 2.413-.888T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.3 0 2.538.313t2.412.887q.275.125.413.375T23 6.1v12.05q0 .575-.487.875t-1.013.025q-.925-.5-1.937-.775T17.5 18q-1.5 0-2.9.525T12 20'/%3E%3C/svg%3E");
+}
+.sidebar-content ul.top-level > li:nth-child(2) > details > summary .group-label::before {
+  --md3-nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm0-2h16V8H4zm3.5-1l-1.4-1.4L8.675 13l-2.6-2.6L7.5 9l4 4zm4.5 0v-2h6v2z'/%3E%3C/svg%3E");
+}
+.sidebar-content ul.top-level > li:nth-child(3) > details > summary .group-label::before {
+  --md3-nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m17.15 20.7l-6.05-6.1q-.5.2-1.012.3T9 15q-2.5 0-4.25-1.75T3 9q0-.9.25-1.712t.7-1.538L7.6 9.4l1.8-1.8l-3.65-3.65q.725-.45 1.538-.7T9 3q2.5 0 4.25 1.75T15 9q0 .575-.1 1.088t-.3 1.012l6.1 6.05q.3.3.3.725t-.3.725l-2.1 2.1q-.3.3-.725.3t-.725-.3'/%3E%3C/svg%3E");
+}
+.sidebar-content ul.top-level > li:nth-child(4) > details > summary .group-label::before {
+  --md3-nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 11L12 2l5.5 9zm11 11q-1.875 0-3.187-1.312T13 17.5t1.313-3.187T17.5 13t3.188 1.313T22 17.5t-1.312 3.188T17.5 22M3 21.5v-8h8v8z'/%3E%3C/svg%3E");
+}
+
+/* === 隐藏文字（原在 account/incident/permissions 各写一份内联样式）===
+   用 inverse-surface 作底、inverse-on-surface 作悬浮文字色：
+   原先硬编码 #252525 + #fff，在暗色主题下底色比页面亮，“藏不住”。
+   这里不限定 @media (hover: hover)：触屏点一下也能揭开。 */
+.heimu {
+  background: var(--md-sys-color-inverse-surface);
+  color: var(--md-sys-color-inverse-surface);
+  cursor: help;
+  transition: color var(--md3-motion-duration-state)
+    var(--md-sys-motion-easing-standard);
+}
+.heimu:hover {
+  color: var(--md-sys-color-inverse-on-surface);
 }

@@ -31,7 +31,6 @@ editUrl: false
 #close-video {
   margin-top: 1rem;
   border: none;
-  font-family: var(--sl-font);
   cursor: pointer;
 }
 #animated-text {

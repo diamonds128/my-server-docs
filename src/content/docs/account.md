@@ -15,17 +15,8 @@ description: 了解如何管理自己的账号
 > 以下内容（玩家命令与管理员命令）均来自于 **[MC百科上的EasyAuth页面](https://www.mcmod.cn/class/6241.html)**  ，根据 **[CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.zh-hans)** 协议共享，并根据实际情况进行了一些修改
 <span class="heimu" title="你知道的太多了">更符合中国宝宝的体质</span>
 
-<style>
-.heimu {
-  background: #252525;
-  color: #252525;
-  cursor: help;
-  transition: color 0.2s;
-}
-.heimu:hover {
-  color: #fff; /* 悬浮时文字变白，显现出来 */
-}
-</style>  
+
+
 
 - `/login <你的密码>` 或 `/l <你的密码>` - 登录账号;
 

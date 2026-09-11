@@ -57,24 +57,7 @@ const shouldRenderSearch =
     .social-icons::after {
       content: '';
       height: 2rem;
-      border-inline-end: 1px solid var(--sl-color-gray-5);
-    }
-
-    /* 只处理 GitHub 图标，不影响 B站链接 */
-    .social-icons a {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 0.4rem !important;
-      border-radius: 50% !important;
-      background: transparent !important;
-      transition: background-color 0.2s ease !important;
-    }
-    .social-icons a:hover {
-      background-color: rgba(128, 128, 128, 0.15) !important;
-    }
-    [data-theme="dark"] .social-icons a:hover {
-      background-color: rgba(255, 255, 255, 0.1) !important;
+      border-inline-end: 1px solid var(--md-sys-color-outline-variant);
     }
 
     @media (min-width: 50rem) {

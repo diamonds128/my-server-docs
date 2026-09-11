@@ -29,14 +29,4 @@ description: 了解服务器的权限配置
 
 <span class="heimu" title="你知道的太多了">该权限组甚至就连一只猫都有“服主”头衔（Minecraft早在很久之前就出现的Bug：宠物会继承主人名称的前缀）</span>
 
-<style>
-.heimu {
-  background: #252525;
-  color: #252525;
-  cursor: help;
-  transition: color 0.2s;
-}
-.heimu:hover {
-  color: #fff; /* 悬浮时文字变白，显现出来 */
-}
-</style>  
+

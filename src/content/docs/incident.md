@@ -51,17 +51,8 @@ description: 2026.1.12服务器炸服事件全过程
 
 <span class="heimu" title="你知道的太多了">吐槽：我的账号diamonds128那可是绑定了正版账号，除非它能攻破我严防死守的微软账号，不然试图登录我的账号就是痴心妄想</span>
 
-<style>
-.heimu {
-  background: #252525;
-  color: #252525;
-  cursor: help;
-  transition: color 0.2s;
-}
-.heimu:hover {
-  color: #fff; /* 悬浮时文字变白，显现出来 */
-}
-</style>
+
+
 我们甚至给立了块墓碑在公共墓园
 ![aoaoaoao123父母之墓](/my-server-docs/images/incident/tombstone.png)  
 * aoaoaoao123是其中一个陌生玩家的ID，我们认为是同一个人  
