@@ -24,7 +24,9 @@ h1 {
   height: 1.25rem;
 }
 
-/* 全站正文遵循浏览器默认字体，而非 Starlight/主题强制的 system-ui 系统字体。
+/* 字体：使用用户自己的字体（revert = 浏览器默认字体），而非主题强制的 system-ui。
+   关于“该字族的 UI 版本”：CSS 无法读取浏览器默认字族再改写成它的 UI 版本
+   （无法把已解析的字族名拼上 “ UI”），故按要求直接 revert。
    custom.css 无 @layer，天然优先于 starlight/md3 的 layered 声明。
    注意：不能只改 .sl-link-button，因 font-family 是继承属性，
    需覆盖全局变量 --__sl-font 才能让 body 及所有继承文本生效。 */
@@ -109,6 +111,14 @@ mobile-starlight-toc .dropdown a {
 pre,
 code {
   font-family: revert;
+}
+
+/* iOS Safari：点按控件时 WebKit 会画一层灰色高亮（tap highlight），
+   与 MD3 状态层/涟漪无关，纯属浏览器默认行为。
+   开关是 <label> 包 <input>，两者都可能闪，故对整个组件内所有元素关闭。 */
+.conv,
+.conv * {
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* === MD3 Snackbar === */
@@ -265,10 +275,14 @@ code {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  /* MD3：触控目标 48dp——上下各留 8px 命中区（负外边距抵消，布局不变） */
+  padding-block: 0.5rem;
+  margin-block: -0.5rem;
   cursor: pointer;
   font-size: var(--md-sys-typescale-label-large-size);
   font-weight: var(--md-sys-typescale-label-large-weight);
-  color: var(--md-sys-color-on-surface-variant);
+  /* MD3 specs：相邻文字标签用 on-surface（不随交互变化） */
+  color: var(--md-sys-color-on-surface);
 }
 .conv-toggle input {
   appearance: none;
@@ -282,24 +296,62 @@ code {
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
-  /* clip spring/overshoot overflow of the thumb (MD3E spatial spring) */
-  overflow: hidden;
-  transition: background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate), border-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
+  /* MD3 reference: track fill/outline cross-fades in 67ms linear */
+  transition: background-color 67ms linear, border-color 67ms linear;
+}
+/* MD3 state layer：40dp 圆，圆心跟随 handle，只在 hover/focus/pressed 时出现，
+   不是“选中高亮”。颜色：未选中 on-surface / 选中 primary；
+   不透明度取 md.sys.state token：hover 0.08、focus 0.12、pressed 0.12。
+   时长对齐 material-web ripple：hover 层 15ms linear、按压淡入 105ms linear */
+.conv-toggle input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0.875rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--md-sys-shape-full);
+  background: var(--md-sys-color-on-surface);
+  opacity: 0;
+  pointer-events: none;
+  translate: -50% -50%;
+  transition: background-color 15ms linear, opacity 15ms linear;
+}
+.conv-toggle input:checked::before {
+  background: var(--md-sys-color-primary);
+  translate: calc(-50% + 1.25rem) -50%;
+}
+.conv-toggle input:hover::before {
+  opacity: 0.08;
+}
+.conv-toggle input:focus-visible::before,
+.conv-toggle input:active::before {
+  opacity: 0.12;
+}
+/* 按压淡入 105ms linear；松手落回基础规则的 15ms
+   （官方用两个层，按压层淡出 375ms，这里单层近似） */
+.conv-toggle input:active::before {
+  transition-duration: 105ms;
 }
 .conv-toggle input::after {
   content: "";
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 2px;
   margin-top: -0.75rem;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: var(--md-sys-shape-full);
+  /* MD3 token：未选中 handle 颜色 = outline */
   background: var(--md-sys-color-outline);
-  /* thumb fixed diameter, size change via scale */
-  transform: scale(0.667);
-  /* MD3E spring (easeOutBack): overshoot then settle. Target state = on->off. Color stays non-overshoot. */
-  transition: transform var(--md-sys-motion-duration-short4) cubic-bezier(.34,1.56,.64,1), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
+  /* translate = travel, scale = size. Both centered in the track-height (32px) square. */
+  translate: 0;
+  scale: 0.667;
+  /* 时序（MDUI 对齐）：滑块行程/尺寸 200ms standard（无回弹 overshoot），
+     颜色 67ms linear（官方） */
+  transition: translate 200ms var(--md-sys-motion-easing-standard),
+    scale 200ms var(--md-sys-motion-easing-standard),
+    background-color 67ms linear;
 }
 .conv-toggle input:checked {
   background: var(--md-sys-color-primary);
@@ -307,7 +359,54 @@ code {
 }
 .conv-toggle input:checked::after {
   background: var(--md-sys-color-on-primary);
-  transform: translateX(1.5rem) scale(1);
-  /* MD3E spring (easeOutBack): overshoot then settle. Target state = off->on. Color stays non-overshoot. */
-  transition: transform var(--md-sys-motion-duration-short4) cubic-bezier(.34,1.56,.64,1), background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized-decelerate);
+  /* travel = track-width - track-height = 52 - 32 = 20px */
+  translate: 1.25rem;
+  scale: 1;
+}
+/* MD3 token：未选中 handle 在 hover/focus/pressed 时变 on-surface-variant；
+   轨道描边恒为 outline，不随状态变化 */
+.conv-toggle input:not(:checked):hover::after,
+.conv-toggle input:not(:checked):focus-visible::after,
+.conv-toggle input:not(:checked):active::after {
+  background: var(--md-sys-color-on-surface-variant);
+}
+/* MD3：hover/focus/pressed 时选中滑块用 primary-container */
+.conv-toggle input:checked:hover::after,
+.conv-toggle input:checked:focus-visible::after,
+.conv-toggle input:checked:active::after {
+  background: var(--md-sys-color-primary-container);
+}
+/* MD3：按压时滑块长到 28dp，沿用上行的 200ms standard */
+.conv-toggle input:active::after {
+  scale: 1.1667;
+}
+/* MD3：键盘焦点指示环（复用主题 token） */
+.conv-toggle input:focus-visible {
+  outline: 0;
+  box-shadow: var(--md3-focus-ring);
+}
+/* MD3 disabled：轨道 on-surface 12%；未选中 handle on-surface 38%，选中 handle 为 surface */
+/* MD3 disabled：所有过渡关闭 */
+.conv-toggle input:disabled,
+.conv-toggle input:disabled::before,
+.conv-toggle input:disabled::after {
+  transition: none;
+}
+.conv-toggle input:disabled {
+  cursor: default;
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-highest) 12%, transparent);
+  border-color: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+}
+.conv-toggle input:disabled::after {
+  background: color-mix(in srgb, var(--md-sys-color-on-surface) 38%, transparent);
+}
+.conv-toggle input:disabled:checked {
+  background: color-mix(in srgb, var(--md-sys-color-on-surface) 12%, transparent);
+  border-color: transparent;
+}
+.conv-toggle input:disabled:checked::after {
+  background: var(--md-sys-color-surface);
+}
+.conv-toggle input:disabled::before {
+  opacity: 0;
 }
