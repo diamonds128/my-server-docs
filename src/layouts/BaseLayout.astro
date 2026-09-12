@@ -5,3 +5,25 @@ import DefaultLayout from '@astrojs/starlight/layouts/BaseLayout.astro';
 <DefaultLayout {...Astro.props}>
   <slot />
 </DefaultLayout>
+
+<script>
+  // 复制气泡互斥：同一时刻只保留一个，避免多个代码块的提示同时出现。
+  // document 级捕获监听，先收起其他气泡，再由 EC 自己的处理器显示新的。
+  // 幂等：view transitions 导航后脚本会重跑，用标记避免重复绑定。
+  if (!window.__copyToastMutex) {
+    window.__copyToastMutex = true;
+    document.addEventListener(
+      'click',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const button = target.closest('.expressive-code .copy button');
+        if (!button) return;
+        document.querySelectorAll('.expressive-code .copy .feedback.show').forEach((feedback) => {
+          if (!button.parentElement?.contains(feedback)) feedback.classList.remove('show');
+        });
+      },
+      true
+    );
+  }
+</script>

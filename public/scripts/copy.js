@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(function() {
         snackbar.classList.remove('md3-snackbar--active');
-      }, 4000);
+      }, 1500);
     });
   });
 });
