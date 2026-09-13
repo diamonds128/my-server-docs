@@ -5,13 +5,15 @@ import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
 const pathname = Astro.url.pathname;
 // 判断是否为首页（base 是 /my-server-docs/，所以首页路径是 /my-server-docs/ 或 /my-server-docs）
 const isHome = pathname === '/my-server-docs/' || pathname === '/my-server-docs';
+// 判断是否为 404 页面
+const is404 = pathname === '/my-server-docs/404' || pathname === '/my-server-docs/404.html';
 ---
 
 <!-- 始终保留默认 Footer -->
 <DefaultFooter />
 
-<!-- 仅当不是首页时，才显示自定义版权声明 -->
-{!isHome && (
+<!-- 仅当不是首页、也不是 404 页面时，才显示自定义版权声明 -->
+{!isHome && !is404 && (
   <div class="custom-footer">
     <p>
       除另有声明，本文档根据
