@@ -11,14 +11,14 @@ const accents = [
 ];
 ---
 <starlight-accent-select class="md3-accent-select" data-accessible-label="主题色">
-  <button type="button" class="md3-accent-select__button" aria-haspopup="menu" aria-expanded="false" aria-label="主题色: 紫" title="主题色: 紫">
-    <span class="md3-accent-select__swatch" data-current-swatch style="background:#6750A4"></span>
-    <span class="md3-accent-select__current">紫</span>
+  <button type="button" class="md3-accent-select__button" aria-haspopup="menu" aria-expanded="false" aria-label="主题色: 蓝" title="主题色: 蓝">
+    <span class="md3-accent-select__swatch" data-current-swatch style="background:#005CBB"></span>
+    <span class="md3-accent-select__current">蓝</span>
     <svg class="md3-accent-select__caret" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
   </button>
   <div class="md3-accent-select__menu" role="menu" hidden>
     {accents.map(a => (
-      <button type="button" class="md3-accent-select__option" role="menuitemradio" aria-checked={a.id === 'purple' ? 'true' : 'false'} data-accent-value={a.id}>
+      <button type="button" class="md3-accent-select__option" role="menuitemradio" aria-checked={a.id === 'blue' ? 'true' : 'false'} data-accent-value={a.id}>
         <span class="md3-accent-select__swatch" style={`background:${a.color}`}></span>
         <span>{a.label}</span>
         <svg class="md3-accent-select__check" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
@@ -30,7 +30,7 @@ const accents = [
 <script>
   const storageKey = 'starlight-accent';
   const labels = { purple: '紫', blue: '蓝', green: '绿', orange: '橙', pink: '粉', teal: '蓝绿', red: '红', yellow: '黄' };
-  const load = () => { try { return localStorage.getItem(storageKey) || 'purple'; } catch { return 'purple'; } };
+  const load = () => { try { return localStorage.getItem(storageKey) || 'blue'; } catch { return 'blue'; } };
 
   // 自定义元素：每个实例各自绑定事件，支持同时出现在桌面顶部栏与移动端菜单
   class StarlightAccentSelect extends HTMLElement {

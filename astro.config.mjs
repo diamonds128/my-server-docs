@@ -92,7 +92,7 @@ export default defineConfig({
         {
           tag: 'script',
           attrs: { 'data-accent-init': '' },
-          content: `(()=>{try{var a=localStorage.getItem('starlight-accent');if(a)document.documentElement.setAttribute('data-accent',a)}catch(e){}})();`,
+          content: `(()=>{try{var a=localStorage.getItem('starlight-accent')||'blue';document.documentElement.setAttribute('data-accent',a)}catch(e){}})();`,
         },
         // 标准 favicon（多尺寸 ICO，兼容所有旧浏览器）
         {
@@ -133,7 +133,7 @@ export default defineConfig({
       ],
       plugins: [
         md3Theme({
-          seed: '#6750A4',
+          seed: '#005CBB',
           variant: 'tonalSpot',
           shape: 'large',
           density: 'comfortable',
