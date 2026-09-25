@@ -37,6 +37,7 @@ description: 本服务器的服务端安装的模组列表
 | JEI (Just Enough Items) | 物品配方查看 |
 | JLine4MCDSrv | 控制台增强（命令历史、自动补全） |
 | Just Enough Resources | JEI 附属，查看资源分布 |
+| Kiss | 在其他玩家附近快速蹲起时冒爱心，并允许通过指令 `/kiss` 亲吻其他玩家 |
 | LazyDFU | 加速游戏启动 |
 | Ledger | 行为记录与回滚 |
 | LuckPerms | 权限管理 |
@@ -48,6 +49,7 @@ description: 本服务器的服务端安装的模组列表
 | SkinRestorer | 皮肤管理 |
 | Starlight | 光照引擎优化 |
 | TAB | 多功能信息显示 |
+| Text Placeholder API | 允许在字符串和 MC 的文本组件中创建和解析占位符 |
 | TooFast | 移除速度限制 |
 | Vanilla Permissions | 原版命令权限检查 |
 | Vanish | 管理员隐身 |
