@@ -18,7 +18,7 @@ description: 了解Skin Restorer皮肤设置
 
 ## 如何使用?  
 
-通过 `/skin set` 命令设置皮肤
+通过 `/skin set` 命令设置皮肤  
 `<目标玩家名>` 是可以省略的，默认指向自己，同时也只有管理员可以设置他人的皮肤  
 
 <details>

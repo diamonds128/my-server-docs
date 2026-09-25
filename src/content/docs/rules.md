@@ -22,7 +22,7 @@ description: 服务器的基本守则
 
 6. 不要随意跑图，若需要寻找特定地形或结构，请使用[Chunk Base种子地图](https://www.chunkbase.com/apps/seed-map)  
 
-7. 不要滥用32k装备  
+7. 不要滥用 **32k** 装备  
 
 8. 不要随意伤害别人的宠物，PVP时注意避开饲养的动物  
 
