@@ -49,6 +49,7 @@ export default defineConfig({
             { label: '皮肤配置', link: '/skinrestorer' },
             { label: '账号管理', link: '/account' },
             { label: '链接账号', link: '/link' },
+            { label: '亲其他玩家一口', link: '/kiss' },
             { label: '记录查询', link: '/search' },
             { label: '术语', link: '/term' },
           ],
