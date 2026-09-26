@@ -32,7 +32,7 @@ description: 了解如何加入服务器并开始游玩
 <summary><strong>注册</strong></summary>
 
 在我们服务器首次进入的玩家，需要注册账号  
-![注册](/my-server-docs/images/reg.png)
+![注册](/my-server-docs/images/auth/reg.png)
 我们的密码限制：
 - 至少需要 **4** 个字符
 - 纯字母  
@@ -56,7 +56,7 @@ description: 了解如何加入服务器并开始游玩
 <summary><strong>登录</strong></summary>
 
 注册以后，进入服务器需要输入密码登录  
-![登录](/my-server-docs/images/login.png)
+![登录](/my-server-docs/images/auth/login.png)
 按“ **T** ”或“ **/** ”键开始输入  
 `/login <你的密码>`
 或缩写 `/l <你的密码>`  
