@@ -24,7 +24,7 @@ description: 两种链接两个版本账号的方式
 <details>
 <summary>方法B</summary>
 
-1. 分别用你的Java账号和基岩版账号加入全局链接服务器，IP: `link.geysermc.org` ，Java端口： `25565` ，BE端口 `19132`  
+1. 分别用你的Java账号和基岩版账号加入全局链接服务器，IP: `link.geysermc.org` ，Java端口： `25565` ，BE端口： `19132`  
 2. 在任意账号上输入 `/linkaccount`
 3. 你会收到一个包含随机数字的消息，在另一个账号上输入    
 4. 在另一个账号上输入 `/linkaccount <数字>` 来输入你获取的随机数字  
