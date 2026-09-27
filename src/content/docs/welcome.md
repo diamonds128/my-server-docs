@@ -38,8 +38,20 @@ BE: **1.20.31** 或 **1.20.0 ~ 1.20.30** （不保证 **1.20.0 ~ 1.20.30** 能�
 基于Astro的文档主题框架  
 [starlight-theme-md3](https://github.com/Axiaobo7788/starlight-material-design-theme)  
 Material Design 3主题插件  
+[starlight-announcement](https://github.com/frostybee/starlight-announcement)  
+页面顶部公告栏插件  
+[starlight-image-zoom](https://github.com/HiDeoo/starlight-image-zoom)  
+点击图片放大查看  
+[Expressive Code](https://expressive-code.com/)  
+代码块渲染引擎，提供复制按钮、标题栏与折叠，内置 Shiki 负责语法高亮  
+[Pagefind](https://pagefind.app/)  
+站内搜索（由 Starlight 内置集成）  
+[unified](https://github.com/unifiedjs/unified)  
+Markdown 处理管道，用于替代默认的 Sätteri 处理器  
 [Node.js](https://nodejs.org/)  
 本地开发与构建所需的 JavaScript 运行环境  
+[syntax-mcfunction](https://github.com/MinecraftCommands/syntax-mcfunction)  
+提供Minecraft命令的语法定义，配合 Shiki 实现高亮
 
 ### 部署与托管服务
 

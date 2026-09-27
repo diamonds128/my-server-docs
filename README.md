@@ -19,8 +19,31 @@
 
 > 简单来说，你可以自由地使用、修改和分享本项目的代码，但若引用或修改文档内容，需注明出处、不得用于商业用途，且必须以相同许可证共享。
 
+## 技术栈
+
+- [Astro](https://astro.build/) — 网站核心前端框架
+- [Starlight](https://starlight.astro.build/) — 基于 Astro 的文档主题框架
+- [starlight-theme-md3](https://github.com/Axiaobo7788/starlight-material-design-theme) — Material Design 3 主题插件
+- [starlight-announcement](https://github.com/frostybee/starlight-announcement) — 页面顶部公告栏
+- [starlight-image-zoom](https://github.com/HiDeoo/starlight-image-zoom) — 点击图片放大查看
+- [Expressive Code](https://expressive-code.com/) — 代码块渲染，内置 Shiki 语法高亮
+- [Pagefind](https://pagefind.app/) — 站内搜索
+- [unified](https://github.com/unifiedjs/unified) — Markdown 处理管道
+- [syntax-mcfunction](https://github.com/MinecraftCommands/syntax-mcfunction) — Minecraft 命令语法定义
+- [Node.js](https://nodejs.org/) — 本地开发与构建运行时
+
+部署与托管：
+
+- [GitHub Pages](https://pages.github.com/) — 网站部署与托管
+- [GitHub Actions](https://github.com/features/actions) — 推送后自动构建与部署
+
 ## 本地开发
+
+需要 **Node.js ≥ 22.12.0**（`starlight-theme-md3`、`starlight-announcement`、`starlight-image-zoom` 的最低版本要求）。
 
 ```bash
 npm install
-npm run dev
+npm run dev      # 启动开发服务器
+npm run build    # 构建生产版本到 dist/
+npm run preview  # 本地预览构建结果
+```
