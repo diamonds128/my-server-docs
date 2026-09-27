@@ -65,7 +65,7 @@ export default defineConfig({
             { label: '账号管理', link: '/account' },
             { label: '链接账号', link: '/link' },
             { label: '亲其他玩家一口', link: '/kiss' },
-            { label: '记录查询', link: '/search' },
+            { label: '查询记录', link: '/search' },
             { label: '术语', link: '/term' },
           ],
         },
