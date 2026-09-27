@@ -6,6 +6,13 @@ import md3Theme from 'starlight-theme-md3';
 import starlightImageZoom from 'starlight-image-zoom';
 import starlightAnnouncement from 'starlight-announcement';
 import starlightAnnouncementZh from './src/plugins/starlight-announcement-zh';
+import { readFileSync } from 'node:fs';
+
+// 读取 Minecraft 命令语法文件
+const mcfunctionGrammar = JSON.parse(
+  readFileSync(new URL('./src/langs/mcfunction.tmLanguage.json', import.meta.url), 'utf8')
+);
+mcfunctionGrammar.name = 'mcfunction';
 
 export default defineConfig({
   site: 'https://diamonds128.github.io',
@@ -18,6 +25,15 @@ export default defineConfig({
     starlight({
       title: 'Diamond服务器文档',
       lastUpdated: true,
+      expressiveCode: {
+        shiki: {
+          langs: [mcfunctionGrammar],
+          langAlias: {
+            mc: 'mcfunction',
+            minecraft: 'mcfunction',
+          },
+        },
+      },
       logo: {
         src: './src/assets/logo.svg',
         alt: 'Diamond服务器文档',
