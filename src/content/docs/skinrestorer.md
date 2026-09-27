@@ -3,7 +3,7 @@ title: Skin Restorer
 description: 了解Skin Restorer皮肤设置
 ---
 
-> 这不是 **SkinsRestorer** 而是 **Skin Restorer** ，后者的“skin”是单数  
+> 这不是 **SkinsRestorer 插件** 而是 **Skin Restorer 模组** ，后者的“skin”是单数  
 
 此页面包括：  
 - 设置皮肤的方式
