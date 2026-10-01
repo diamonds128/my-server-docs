@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 依据所选单位 + 余数开关，决定反向面板显示多少列、哪些字段可见
   function updateRowClass() {
     const row = $('convRow');
-    const remainOn = remainToggle.checked;
+    const remainOn = remainToggle.selected === true;
     const groupShown = unit === '盒' && remainOn; // 目标=盒且显示余数时才需要中间的"组"层
     row.classList.toggle('conv-row--triple', groupShown);
     $('convGroupField').hidden = !groupShown;
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     groups = Math.floor(rem / stackN);
     rem -= groups * stackN;
 
-    if (remainToggle.checked) {
+    if (remainToggle.selected === true) {
       const parts = [];
       if (unit === '盒' && boxes > 0) parts.push(chunk('盒', boxes));
       if (groups > 0) parts.push(chunk('组', groups));
@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // 回填到反向输入
       $('convUnitIn').value = unit === '盒' ? boxes : groups;
-      $('convGroupIn').value = unit === '盒' ? groups : '';
-      $('convRemainIn').value = fmt(rem);
+      $('convGroupField').value = unit === '盒' ? groups : '';
+      $('convRemainField').value = fmt(rem);
     } else {
       // 小数模式：一次性折算为所选单位，保留两位
       out.innerHTML = chunk(unit, fmt(total / unitSize()));
       $('convUnitIn').value = fmt(total / unitSize());
-      $('convGroupIn').value = '';
-      $('convRemainIn').value = '';
+      $('convGroupField').value = '';
+      $('convRemainField').value = '';
     }
   }
 
@@ -77,12 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
     let total = 0;
     if (unit === '盒') {
       const boxes = parseFloat($('convUnitIn').value) || 0; // 盒数
-      const groups = remainToggle.checked ? parseFloat($('convGroupIn').value) || 0 : 0;
-      const rem = remainToggle.checked ? parseFloat($('convRemainIn').value) || 0 : 0;
+      const groups = remainToggle.selected === true ? parseFloat($('convGroupField').value) || 0 : 0;
+      const rem = remainToggle.selected === true ? parseFloat($('convRemainField').value) || 0 : 0;
       total = boxes * BOX * stackN + groups * stackN + rem;
     } else {
       const groups = parseFloat($('convUnitIn').value) || 0; // 组数
-      const rem = remainToggle.checked ? parseFloat($('convRemainIn').value) || 0 : 0;
+      const rem = remainToggle.selected === true ? parseFloat($('convRemainField').value) || 0 : 0;
       total = groups * stackN + rem;
     }
     $('convUnitTotalOut').textContent = fmt(total);
@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function setUnit(u) {
     unit = u;
     unitBtns.forEach((b) => b.classList.toggle('is-active', b.dataset.unit === u));
-    $('convUnitLabel').textContent = u === '盒' ? '盒数' : '组数';
+    $('convUnitIn').label = u === '盒' ? '盒数' : '组数';
     updateRowClass();
     if (dir === 'total-unit') renderTotalToUnit();
     else renderUnitToTotal();
   }
 
-  function setRemain(checked) {
+  function setRemain() {
     updateRowClass();
     if (dir === 'total-unit') renderTotalToUnit();
     else renderUnitToTotal();
@@ -115,16 +115,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
   dirBtns.forEach((b) => b.addEventListener('click', () => setDir(b.dataset.dir)));
   unitBtns.forEach((b) => b.addEventListener('click', () => setUnit(b.dataset.unit)));
-  remainToggle.addEventListener('change', () => setRemain(remainToggle.checked));
+  remainToggle.addEventListener('change', setRemain);
   $('convTotalIn').addEventListener('input', renderTotalToUnit);
   $('convUnitIn').addEventListener('input', renderUnitToTotal);
-  $('convGroupIn').addEventListener('input', renderUnitToTotal);
-  $('convRemainIn').addEventListener('input', renderUnitToTotal);
+  $('convGroupField').addEventListener('input', renderUnitToTotal);
+  $('convRemainField').addEventListener('input', renderUnitToTotal);
   stackInput.addEventListener('input', () => {
     if (dir === 'total-unit') renderTotalToUnit();
     else renderUnitToTotal();
   });
 
-  setDir('total-unit');
-  updateRowClass();
+  // 初始化：等文本框/开关升级完成后再读写其 value / selected。
+  // 自定义元素未升级时写 .value 会落成影子属性，升级后仍遮蔽原型访问器。
+  Promise.all([
+    customElements.whenDefined('md-outlined-text-field'),
+    customElements.whenDefined('md-switch'),
+  ]).then(() => {
+    setDir('total-unit');
+    updateRowClass();
+  });
 });

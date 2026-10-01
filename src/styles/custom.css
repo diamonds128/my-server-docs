@@ -159,6 +159,12 @@ code {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* === 开关容器 ===
+   开关本体已换成 @material/web 的 <md-switch>（见 src/components/MdSwitch.astro），
+   文字标签仍由这里提供（md-switch 无可见文字 slot）。
+   下面 .conv-toggle 容器规则保留；原生的 .conv-toggle input 系列规则已停用，
+   保留在文件末尾的注释块中以便回滚。 */
+
 /* === 复制成功提示（Snackbar）===
    MD3 动效：进入 150ms emphasized-decelerate、退出 75ms emphasized-accelerate。
    主题 token 无 75ms 档，退出取 short2(100ms) 近似；用 token 可在
@@ -286,33 +292,24 @@ code {
 .conv-row .conv-field {
   margin: 0;
 }
+/* === 文本框：已换成 @material/web 的 md-filled-text-field ===
+   （见 src/components/MdTextField.astro）。
+   官方自带浮动 label 与 56px 高度，原 .conv-field__label / .conv-field__input
+   系列已停用（注释保留在文件末尾以便回滚）。
+   .conv-field 保留为容器，只负责撑满网格列。
+   底色由官方 token 提供（默认 surface-container-highest）。 */
 .conv-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: block;
+  width: 100%;
 }
-.conv-field[hidden] {
+/* 自定义元素默认 display:inline，hidden 属性会被 Shadow DOM 的 display 覆盖，
+   这里强制生效（converter 页的余数/组数字段靠它切换显隐）。 */
+.conv-field[hidden],
+md-filled-text-field[hidden] {
   display: none;
 }
-.conv-field__label {
-  font-size: var(--md-sys-typescale-label-medium-size);
-  font-weight: var(--md-sys-typescale-label-medium-weight);
-  letter-spacing: var(--md-sys-typescale-label-medium-tracking);
-  color: var(--md-sys-color-on-surface-variant);
-}
-.conv-field__input {
+md-filled-text-field {
   width: 100%;
-  padding: 0.75rem 1rem;
-  border: 0;
-  border-radius: var(--md-sys-shape-corner-extra-small);
-  background: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface);
-  font: inherit;
-  transition: box-shadow var(--md3-motion-duration-short4) var(--md-sys-motion-easing-standard);
-}
-.conv-field__input:focus {
-  outline: 0;
-  box-shadow: var(--md3-focus-ring);
 }
 .conv-result {
   margin-top: 1rem;
@@ -343,11 +340,23 @@ code {
   padding-block: 0.5rem;
   margin-block: -0.5rem;
   cursor: pointer;
-  font-size: var(--md-sys-typescale-label-large-size);
-  font-weight: var(--md-sys-typescale-label-large-weight);
+  /* MD3 规范：Switch 的配套文字标签用 body-large（16px / 400），
+     而非 label-large（14px / 500）。 */
+  font-size: var(--md-sys-typescale-body-large-size);
+  font-weight: var(--md-sys-typescale-body-large-weight);
   /* MD3 specs：相邻文字标签用 on-surface（不随交互变化） */
   color: var(--md-sys-color-on-surface);
 }
+/* md-switch 宿主自带 margin-top（@material/web 为状态层预留），
+   会把开关在 flex 居中里整体下推、与文字错位，这里清掉。 */
+.conv-toggle md-switch {
+  margin: 0;
+  flex: none;
+}
+/* ===== 以下为原生 checkbox 开关的旧样式，已被 <md-switch> 取代，暂时停用。
+   如需回滚：删掉本注释块的起止标记，恢复 .conv-toggle input 系列即可。
+   注意：本注释块内不能再出现斜杠星号与星号斜杠的配对，否则会提前闭合。
+
 .conv-toggle input {
   appearance: none;
   flex: none;
@@ -360,13 +369,8 @@ code {
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
-  /* MD3 reference: track fill/outline cross-fades in 67ms linear */
   transition: background-color 67ms linear, border-color 67ms linear;
 }
-/* MD3 state layer：40dp 圆，圆心跟随 handle，只在 hover/focus/pressed 时出现，
-   不是“选中高亮”。颜色：未选中 on-surface / 选中 primary；
-   不透明度取 md.sys.state token：hover 0.08、focus 0.12、pressed 0.12。
-   时长对齐 material-web ripple：hover 层 15ms linear、按压淡入 105ms linear */
 .conv-toggle input::before {
   content: "";
   position: absolute;
@@ -385,8 +389,6 @@ code {
   background: var(--md-sys-color-primary);
   translate: calc(-50% + 1.25rem) -50%;
 }
-/* 悬停是指针专属状态：触屏上 :hover 会粘住（点按后高亮残留），
-   故整体限定在有悬停能力的指针设备（手机/平板主输入不满足，自动排除） */
 @media (hover: hover) {
   .conv-toggle input:hover::before {
     opacity: 0.08;
@@ -396,8 +398,6 @@ code {
 .conv-toggle input:active::before {
   opacity: 0.12;
 }
-/* 按压淡入 105ms linear；松手落回基础规则的 15ms
-   （官方用两个层，按压层淡出 375ms，这里单层近似） */
 .conv-toggle input:active::before {
   transition-duration: 105ms;
 }
@@ -410,13 +410,9 @@ code {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: var(--md-sys-shape-full);
-  /* MD3 token：未选中 handle 颜色 = outline */
   background: var(--md-sys-color-outline);
-  /* translate = travel, scale = size. Both centered in the track-height (32px) square. */
   translate: 0;
   scale: 0.667;
-  /* 时序（MDUI 对齐）：滑块行程/尺寸 200ms standard（无回弹 overshoot），
-     颜色 67ms linear（官方） */
   transition: translate 200ms var(--md-sys-motion-easing-standard),
     scale 200ms var(--md-sys-motion-easing-standard),
     background-color 67ms linear;
@@ -427,22 +423,17 @@ code {
 }
 .conv-toggle input:checked::after {
   background: var(--md-sys-color-on-primary);
-  /* travel = track-width - track-height = 52 - 32 = 20px */
   translate: 1.25rem;
   scale: 1;
 }
-/* MD3 token：未选中 handle 在 hover/focus/pressed 时变 on-surface-variant；
-   轨道描边恒为 outline，不随状态变化 */
 .conv-toggle input:not(:checked):focus-visible::after,
 .conv-toggle input:not(:checked):active::after {
   background: var(--md-sys-color-on-surface-variant);
 }
-/* MD3：hover/focus/pressed 时选中滑块用 primary-container */
 .conv-toggle input:checked:focus-visible::after,
 .conv-toggle input:checked:active::after {
   background: var(--md-sys-color-primary-container);
 }
-/* 悬停态的滑块变色同样只在有悬停能力的设备上生效 */
 @media (hover: hover) {
   .conv-toggle input:not(:checked):hover::after {
     background: var(--md-sys-color-on-surface-variant);
@@ -451,17 +442,13 @@ code {
     background: var(--md-sys-color-primary-container);
   }
 }
-/* MD3：按压时滑块长到 28dp，沿用上行的 200ms standard */
 .conv-toggle input:active::after {
   scale: 1.1667;
 }
-/* MD3：键盘焦点指示环（复用主题 token） */
 .conv-toggle input:focus-visible {
   outline: 0;
   box-shadow: var(--md3-focus-ring);
 }
-/* MD3 disabled：轨道 on-surface 12%；未选中 handle on-surface 38%，选中 handle 为 surface */
-/* MD3 disabled：所有过渡关闭 */
 .conv-toggle input:disabled,
 .conv-toggle input:disabled::before,
 .conv-toggle input:disabled::after {
@@ -486,38 +473,7 @@ code {
   opacity: 0;
 }
 
-/* === 首页 hero：MD3 Filled tonal 按钮 ===
-   variant 仍是 primary（保证拿到主题的基础尺寸/圆角），
-   由 index.mdx 的 attrs.class 追加 .tonal 覆盖配色。
-   custom.css 无 @layer，天然压过主题的 layered 规则。 */
-.sl-link-button.tonal {
-  background-color: var(--md-sys-color-secondary-container);
-  border-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-@media (hover: hover) {
-  .sl-link-button.tonal:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--md-sys-color-secondary-container) 92%,
-      var(--md-sys-color-on-secondary-container)
-    );
-    border-color: transparent;
-    color: var(--md-sys-color-on-secondary-container);
-  }
-}
-.sl-link-button.tonal:active {
-  background-color: color-mix(
-    in srgb,
-    var(--md-sys-color-secondary-container) 88%,
-    var(--md-sys-color-on-secondary-container)
-  );
-}
-/* MD3：filled / filled tonal 的焦点指示为 3dp secondary 圆环 */
-.sl-link-button.tonal:focus-visible {
-  outline: 3px solid var(--md-sys-color-secondary);
-  outline-offset: 2px;
-}
+===== 旧样式结束 ===== */
 
 /* === 侧边栏分组图标（Material Symbols Outlined，mask 跟随 currentColor）===
    顺序对应 astro.config.mjs 中 sidebar 的分组：
@@ -551,6 +507,114 @@ code {
 }
 .sidebar-content ul.top-level > li:nth-child(4) > details > summary .group-label::before {
   --md3-nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 11L12 2l5.5 9zm11 11q-1.875 0-3.187-1.312T13 17.5t1.313-3.187T17.5 13t3.188 1.313T22 17.5t-1.312 3.188T17.5 22M3 21.5v-8h8v8z'/%3E%3C/svg%3E");
+}
+
+/* === 首页状态条 ===
+   放在 hero 与卡片之间，展示开服天数与基本环境。
+   天数由 public/scripts/uptime.js 填充 [data-start] 的数字。
+   动效复用主题的 MD3 时长 token（control = short4 = 200ms），
+   主题在 prefers-reduced-motion 下会把该 token 归零，无需额外处理。 */
+.home-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  margin: 0 0 2rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+}
+.home-status span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* 分隔点：除首项外，每项前加一个中性圆点 */
+.home-status span + span::before {
+  content: '';
+  inline-size: 0.25rem;
+  block-size: 0.25rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+.home-status strong {
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
+}
+
+/* === 首页 hero 图库按钮：MD3 Filled Tonal ===
+   主题的 .sl-link-button 只有 .primary（实心）/ .secondary（描边）两种，无 .tonal。
+   index.mdx 给图库按钮挂了 class: tonal，此处补齐其样式：
+   用 secondary-container 底 + on-secondary-container 文字，与实心的 primary 形成主次对比。 */
+.sl-link-button.tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  border-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.sl-link-button.tonal:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--md-sys-color-on-secondary-container) 8%,
+    var(--md-sys-color-secondary-container)
+  );
+  border-color: transparent;
+  color: var(--md-sys-color-on-secondary-container);
+}
+.sl-link-button.tonal:active {
+  background-color: color-mix(
+    in srgb,
+    var(--md-sys-color-on-secondary-container) 12%,
+    var(--md-sys-color-secondary-container)
+  );
+}
+
+/* === 首页卡片：可点击 ===
+   Starlight 的 Card 本身是 <article>，不可点击；
+   首页四张卡是导航入口，故用 <a> 包裹。
+   链接只负责跳转与焦点，视觉完全交给内部 .card（主题已做 MD3 覆盖）。 */
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--md3-comp-card-shape);
+}
+.card-link > .card {
+  block-size: 100%;
+}
+/* 键盘焦点：用主题的焦点环，避免浏览器默认描边与卡片圆角不符 */
+.card-link:focus-visible {
+  outline: 0;
+  box-shadow: var(--md3-focus-ring);
+}
+/* hover 时整卡升起：与 .card 自身的 hover elevation 叠加保持一致 */
+@media (hover: hover) {
+  .card-link:hover > .card {
+    background-color: var(--md3-comp-card-hover-container-color);
+    box-shadow: var(--md3-comp-card-hover-elevation);
+  }
+}
+.card-link:active > .card {
+  background-color: var(--md3-comp-card-pressed-container-color);
+}
+
+/* === 卡片图标（Material Symbols 内联 SVG）===
+   Card 的 icon 参数只收 Starlight 内置图标，故改用 title 的 set:html 内联。
+   底色统一用主题色 primary 系（primary-container 底 + on-primary-container 图标）。
+   圆角沿用主题的 --md3-comp-card-icon-shape（= corner-medium，12px）。 */
+.card .title .md-icon {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  padding: 0.5rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  fill: currentColor;
+  vertical-align: middle;
 }
 
 /* === 隐藏文字（原在 account/incident/permissions 各写一份内联样式）===

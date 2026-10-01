@@ -1,0 +1,21 @@
+---
+// MD3 填充文本框（@material/web 的 <md-filled-text-field> 封装）。
+//
+// 为什么需要这个组件：与 MdSwitch.astro 同理——MDX 正文里的裸 import
+// 不会被打进客户端 bundle，必须放进 .astro 组件的 <script>。
+//
+// 用法：<MdTextField id="convStack" label="一组上限" type="number" value="64" min="1" step="1"></MdTextField>
+//
+// 注意：
+// - 自带浮动 label（用 label 属性传，不要再套外部 <span>）。
+// - 读值/写值用 element.value（字符串）；事件名同原生，为 input / change。
+// - 高度固定 56px，比原手写输入框高，会撑高布局。
+// - filled 变体：灰底 + 底边指示线，底色用官方 token
+//   --md-filled-text-field-container-color（默认 surface-container-highest）。
+---
+
+<script>
+  import '@material/web/textfield/filled-text-field.js';
+</script>
+
+<md-filled-text-field {...Astro.props}></md-filled-text-field>

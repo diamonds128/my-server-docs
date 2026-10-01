@@ -1,15 +1,17 @@
 {
   "name": "服务器文档站",
   "short_name": "服务器文档",
+  "start_url": "/my-server-docs/",
+  "scope": "/my-server-docs/",
   "icons": [
     {
-      "src": "/web-app-manifest-192x192.png?v=20260901",
+      "src": "/my-server-docs/web-app-manifest-192x192.png?v=20260901",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/web-app-manifest-512x512.png?v=20260901",
+      "src": "/my-server-docs/web-app-manifest-512x512.png?v=20260901",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

@@ -37,5 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
   dirBtns.forEach((b) => b.addEventListener('click', () => setDir(b.dataset.dir)));
   axes.forEach((a) => $(`cord${a}`).addEventListener('input', render));
 
-  setDir('ow-nether');
+  // 等文本框升级完成后再初始化，避免在未升级元素上读写 .value。
+  customElements.whenDefined('md-outlined-text-field').then(() => {
+    setDir('ow-nether');
+  });
 });

@@ -1,0 +1,27 @@
+---
+// MD3 分段按钮组（@material/web 的 <md-outlined-segmented-button-set> 封装）。
+//
+// 为什么需要这个组件：与 MdSwitch.astro 同理——在 MDX 正文里直接 import
+// 不会被打进客户端 bundle，必须放进 .astro 组件的 <script>。
+//
+// 用法：
+//   <MdSegmentedButtonSet id="xxx" aria-label="方向">
+//     <md-outlined-segmented-button data-dir="a" label="选 A"></md-outlined-segmented-button>
+//     <md-outlined-segmented-button data-dir="b" label="选 B"></md-outlined-segmented-button>
+//   </MdSegmentedButtonSet>
+//
+// 注意：
+// - 子元素必须是 <md-outlined-segmented-button>，其他标签会被忽略。
+// - 默认单选（multiselect=false）。选中态用 setButtonSelected(i, bool) 设置，
+//   读取用 getButtonSelected(i)；用户交互触发 `segmented-button-set-selection` 事件。
+// - 官方是 outlined 风格（描边 + 选中态填充），与站内原手写的 filled 胶囊不同。
+---
+
+<script>
+  import '@material/web/labs/segmentedbuttonset/outlined-segmented-button-set.js';
+  import '@material/web/labs/segmentedbutton/outlined-segmented-button.js';
+</script>
+
+<md-outlined-segmented-button-set {...Astro.props}>
+  <slot />
+</md-outlined-segmented-button-set>

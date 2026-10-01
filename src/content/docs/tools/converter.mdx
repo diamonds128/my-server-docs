@@ -3,16 +3,16 @@ title: 物品数量转换器
 description: 将物品数量在总数与「盒 / 组」之间互相转换，可自定义一组上限、选择单位、开关余数，方向可切换
 ---
 
+import MdSwitch from '../../../components/MdSwitch.astro';
+import MdTextField from '../../../components/MdTextField.astro';
+
 <div class="conv">
   <div class="conv-seg" role="tablist">
     <button class="conv-seg__btn is-active" data-dir="total-unit" type="button">总数 → 单位</button>
     <button class="conv-seg__btn" data-dir="unit-total" type="button">单位 → 总数</button>
   </div>
 
-  <label class="conv-field">
-    <span class="conv-field__label">一组上限</span>
-    <input class="conv-field__input" type="number" id="convStack" value="64" min="1" step="1" />
-  </label>
+  <MdTextField class="conv-field" id="convStack" label="一组上限" type="number" value="64" min="1" step="1"></MdTextField>
 
   <div class="conv-seg conv-seg--unit" role="tablist" aria-label="单位">
     <button class="conv-seg__btn is-active" data-unit="组" type="button">组</button>
@@ -20,32 +20,20 @@ description: 将物品数量在总数与「盒 / 组」之间互相转换，可�
   </div>
 
   <label class="conv-toggle">
-    <input type="checkbox" id="convRemain" />
+    <MdSwitch id="convRemain" aria-label="显示余数"></MdSwitch>
     <span>显示余数</span>
   </label>
 
   <section class="conv-panel" data-panel="total-unit">
-    <label class="conv-field">
-      <span class="conv-field__label">总数量</span>
-      <input class="conv-field__input" type="number" id="convTotalIn" min="0" step="any" placeholder="如 5000" />
-    </label>
+    <MdTextField class="conv-field" id="convTotalIn" label="总数量" type="number" min="0" step="any" placeholder="如 5000"></MdTextField>
     <div class="conv-result" id="convTotalOut"></div>
   </section>
 
   <section class="conv-panel" data-panel="unit-total" hidden>
     <div class="conv-row" id="convRow">
-      <label class="conv-field">
-        <span class="conv-field__label" id="convUnitLabel">组数</span>
-        <input class="conv-field__input" type="number" id="convUnitIn" min="0" step="any" value="0" />
-      </label>
-      <label class="conv-field" id="convGroupField" hidden>
-        <span class="conv-field__label">组数</span>
-        <input class="conv-field__input" type="number" id="convGroupIn" min="0" step="any" value="0" />
-      </label>
-      <label class="conv-field" id="convRemainField" hidden>
-        <span class="conv-field__label">余数</span>
-        <input class="conv-field__input" type="number" id="convRemainIn" min="0" step="any" value="0" />
-      </label>
+      <MdTextField class="conv-field" id="convUnitIn" label="组数" type="number" min="0" step="any" value="0"></MdTextField>
+      <MdTextField class="conv-field" id="convGroupField" label="组数" type="number" min="0" step="any" value="0" hidden></MdTextField>
+      <MdTextField class="conv-field" id="convRemainField" label="余数" type="number" min="0" step="any" value="0" hidden></MdTextField>
     </div>
     <div class="conv-result">总数量：<strong id="convUnitTotalOut">0</strong></div>
   </section>
