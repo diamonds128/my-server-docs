@@ -147,6 +147,22 @@ export default defineConfig({
             href: '/my-server-docs/site.webmanifest',
           },
         },
+        // 出于安全目的，全站禁止搜索引擎收录。
+        // public/robots.txt 发布在 /my-server-docs/ 子路径下，而爬虫只读取域名根的
+        // robots.txt（本项目为 GitHub Pages 共享根域 diamonds128.github.io，无法控制），
+        // 因此子路径 robots.txt 实际不生效，必须依赖页面级 meta 才能真正禁索引。
+        {
+          tag: 'meta',
+          attrs: { name: 'robots', content: 'noindex, nofollow, noarchive, nosnippet' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'googlebot', content: 'noindex, nofollow, noarchive, nosnippet' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'bingbot', content: 'noindex, nofollow, noarchive, nosnippet' },
+        },
       ],
       plugins: [
         md3Theme({
