@@ -314,7 +314,7 @@ code {
   font: inherit;
   /* 指示线用 inset 阴影绘制：不占布局、不引发排版跳动 */
   box-shadow: inset 0 -1px 0 var(--md-sys-color-on-surface-variant);
-  transition: box-shadow var(--md3-motion-duration-short4)
+  transition: box-shadow var(--md3-motion-duration-control)
     var(--md-sys-motion-easing-standard);
 }
 @media (hover: hover) {
@@ -330,24 +330,24 @@ code {
 .conv-field__label {
   position: absolute;
   inset-inline-start: 1rem;
-  inset-block-start: 50%;
-  transform: translateY(-50%);
+  /* 固定基准位置（未激活态的顶边 = 20px），位移一律交给 transform 过渡，
+     避免 top / inset-block-start 这类定位属性过渡在部分浏览器不插值、出现瞬跳。 */
+  top: 1.25rem;
   color: var(--md-sys-color-on-surface-variant);
   font-size: var(--md-sys-typescale-body-large-size);
   line-height: 1;
   pointer-events: none;
-  transition: inset-block-start var(--md3-motion-duration-short4)
+  transition: transform var(--md3-motion-duration-control)
       var(--md-sys-motion-easing-standard),
-    font-size var(--md3-motion-duration-short4)
+    font-size var(--md3-motion-duration-control)
       var(--md-sys-motion-easing-standard),
-    color var(--md3-motion-duration-short4) var(--md-sys-motion-easing-standard);
+    color var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard);
 }
-/* 聚焦或有值时：label 上浮并缩小。
-   注意：这里不能改 transform，必须保留 translateY(-50%)——label 中心始终对齐
-   inset-block-start 指定的位置，位移完全交给 inset-block-start 过渡，才会平滑滑动。 */
+/* 聚焦或有值时：label 上浮到顶部并缩小。
+   位移（-12px）与字号都走 transform / font-size 过渡，平滑无瞬跳。 */
 .conv-field__input:focus + .conv-field__label,
 .conv-field__input:not(:placeholder-shown) + .conv-field__label {
-  inset-block-start: 0.5rem;
+  transform: translateY(-0.75rem);
   font-size: var(--md-sys-typescale-body-small-size);
 }
 .conv-field__input:focus + .conv-field__label {
@@ -379,7 +379,7 @@ code {
   background: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
   font: inherit;
-  transition: box-shadow var(--md3-motion-duration-short4) var(--md-sys-motion-easing-standard);
+  transition: box-shadow var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard);
 }
 .conv-field__input:focus {
   outline: 0;
@@ -527,9 +527,14 @@ code {
     background: var(--md-sys-color-primary-container);
   }
 }
-/* MD3：按压时滑块长到 28dp，沿用上行的 250ms 尺寸曲线（无回弹） */
+/* MD3：按压时滑块长到 28dp。官方此时把尺寸过渡临时改为 linear 100ms
+   （覆盖上行的 250ms 曲线），位移与颜色过渡不变；松手后回到 250ms。
+   参考 @material/web switch 内部样式 .handle 的 :active 规则。 */
 .conv-toggle input:active::after {
   scale: 1.1667;
+  transition: translate 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    scale 100ms linear,
+    background-color 67ms linear;
 }
 /* MD3：键盘焦点指示环（复用主题 token） */
 .conv-toggle input:focus-visible {
