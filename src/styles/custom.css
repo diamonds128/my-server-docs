@@ -486,39 +486,6 @@ code {
   opacity: 0;
 }
 
-/* === 首页 hero：MD3 Filled tonal 按钮 ===
-   variant 仍是 primary（保证拿到主题的基础尺寸/圆角），
-   由 index.mdx 的 attrs.class 追加 .tonal 覆盖配色。
-   custom.css 无 @layer，天然压过主题的 layered 规则。 */
-.sl-link-button.tonal {
-  background-color: var(--md-sys-color-secondary-container);
-  border-color: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
-}
-@media (hover: hover) {
-  .sl-link-button.tonal:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--md-sys-color-secondary-container) 92%,
-      var(--md-sys-color-on-secondary-container)
-    );
-    border-color: transparent;
-    color: var(--md-sys-color-on-secondary-container);
-  }
-}
-.sl-link-button.tonal:active {
-  background-color: color-mix(
-    in srgb,
-    var(--md-sys-color-secondary-container) 88%,
-    var(--md-sys-color-on-secondary-container)
-  );
-}
-/* MD3：filled / filled tonal 的焦点指示为 3dp secondary 圆环 */
-.sl-link-button.tonal:focus-visible {
-  outline: 3px solid var(--md-sys-color-secondary);
-  outline-offset: 2px;
-}
-
 /* === 侧边栏分组图标（Material Symbols Outlined，mask 跟随 currentColor）===
    顺序对应 astro.config.mjs 中 sidebar 的分组：
    1 基础 / 2 命令与权限（进阶）/ 3 工具 / 4 其他。
@@ -551,6 +518,114 @@ code {
 }
 .sidebar-content ul.top-level > li:nth-child(4) > details > summary .group-label::before {
   --md3-nav-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.5 11L12 2l5.5 9zm11 11q-1.875 0-3.187-1.312T13 17.5t1.313-3.187T17.5 13t3.188 1.313T22 17.5t-1.312 3.188T17.5 22M3 21.5v-8h8v8z'/%3E%3C/svg%3E");
+}
+
+/* === 首页状态条 ===
+   放在 hero 与卡片之间，展示开服天数与基本环境。
+   天数由 public/scripts/uptime.js 填充 [data-start] 的数字。
+   动效复用主题的 MD3 时长 token（control = short4 = 200ms），
+   主题在 prefers-reduced-motion 下会把该 token 归零，无需额外处理。 */
+.home-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  margin: 0 0 2rem;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+}
+.home-status span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* 分隔点：除首项外，每项前加一个中性圆点 */
+.home-status span + span::before {
+  content: '';
+  inline-size: 0.25rem;
+  block-size: 0.25rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+.home-status strong {
+  color: var(--md-sys-color-primary);
+  font-weight: 600;
+}
+
+/* === 首页 hero 图库按钮：MD3 Filled Tonal ===
+   主题的 .sl-link-button 只有 .primary（实心）/ .secondary（描边）两种，无 .tonal。
+   index.mdx 给图库按钮挂了 class: tonal，此处补齐其样式：
+   用 secondary-container 底 + on-secondary-container 文字，与实心的 primary 形成主次对比。 */
+.sl-link-button.tonal {
+  background-color: var(--md-sys-color-secondary-container);
+  border-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+.sl-link-button.tonal:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--md-sys-color-on-secondary-container) 8%,
+    var(--md-sys-color-secondary-container)
+  );
+  border-color: transparent;
+  color: var(--md-sys-color-on-secondary-container);
+}
+.sl-link-button.tonal:active {
+  background-color: color-mix(
+    in srgb,
+    var(--md-sys-color-on-secondary-container) 12%,
+    var(--md-sys-color-secondary-container)
+  );
+}
+
+/* === 首页卡片：可点击 ===
+   Starlight 的 Card 本身是 <article>，不可点击；
+   首页四张卡是导航入口，故用 <a> 包裹。
+   链接只负责跳转与焦点，视觉完全交给内部 .card（主题已做 MD3 覆盖）。 */
+.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--md3-comp-card-shape);
+}
+.card-link > .card {
+  block-size: 100%;
+}
+/* 键盘焦点：用主题的焦点环，避免浏览器默认描边与卡片圆角不符 */
+.card-link:focus-visible {
+  outline: 0;
+  box-shadow: var(--md3-focus-ring);
+}
+/* hover 时整卡升起：与 .card 自身的 hover elevation 叠加保持一致 */
+@media (hover: hover) {
+  .card-link:hover > .card {
+    background-color: var(--md3-comp-card-hover-container-color);
+    box-shadow: var(--md3-comp-card-hover-elevation);
+  }
+}
+.card-link:active > .card {
+  background-color: var(--md3-comp-card-pressed-container-color);
+}
+
+/* === 卡片图标（Material Symbols 内联 SVG）===
+   Card 的 icon 参数只收 Starlight 内置图标，故改用 title 的 set:html 内联。
+   底色统一用主题色 primary 系（primary-container 底 + on-primary-container 图标）。
+   圆角沿用主题的 --md3-comp-card-icon-shape（= corner-medium，12px）。 */
+.card .title .md-icon {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  padding: 0.5rem;
+  border-radius: var(--md-sys-shape-corner-full);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  fill: currentColor;
+  vertical-align: middle;
 }
 
 /* === 隐藏文字（原在 account/incident/permissions 各写一份内联样式）===
