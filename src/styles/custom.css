@@ -286,6 +286,77 @@ code {
 .conv-row .conv-field {
   margin: 0;
 }
+/* === 文本框：手写版 MD3 Filled Text Field ===
+   目标是与 md3-test 分支的官方 <md-filled-text-field> 观感一致：
+   56dp 高、顶部圆角（底部直角）、surface-container-highest 底色、
+   底边指示线（默认 1dp on-surface-variant / 悬停 on-surface / 聚焦 2dp primary）、
+   label 浮动（空且未聚焦时垂直居中；聚焦或有值时上浮到顶部，聚焦时变主色）。
+   纯 CSS 实现：label 放在 input 之后，用 :placeholder-shown 判定「空」，
+   因此每个 input 都必须带 placeholder（无提示语时给一个空格）。
+   结构：<label class="conv-field"><input … placeholder=" "><span class="conv-field__label">…</span></label> */
+.conv-field {
+  position: relative;
+  display: block;
+}
+.conv-field[hidden] {
+  display: none;
+}
+.conv-field__input {
+  width: 100%;
+  height: 3.5rem; /* 56dp */
+  box-sizing: border-box;
+  padding: 1.5rem 1rem 0.5rem; /* 上方留出浮起 label 的空间 */
+  border: 0;
+  border-radius: var(--md-sys-shape-corner-extra-small)
+    var(--md-sys-shape-corner-extra-small) 0 0;
+  background: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  font: inherit;
+  /* 指示线用 inset 阴影绘制：不占布局、不引发排版跳动 */
+  box-shadow: inset 0 -1px 0 var(--md-sys-color-on-surface-variant);
+  transition: box-shadow var(--md3-motion-duration-short4)
+    var(--md-sys-motion-easing-standard);
+}
+@media (hover: hover) {
+  .conv-field__input:hover {
+    box-shadow: inset 0 -1px 0 var(--md-sys-color-on-surface);
+  }
+}
+/* 聚焦：指示线加粗并变主色（对齐官方，不用外环） */
+.conv-field__input:focus {
+  outline: 0;
+  box-shadow: inset 0 -2px 0 var(--md-sys-color-primary);
+}
+.conv-field__label {
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: var(--md-sys-typescale-body-large-size);
+  line-height: 1;
+  pointer-events: none;
+  transition: inset-block-start var(--md3-motion-duration-short4)
+      var(--md-sys-motion-easing-standard),
+    font-size var(--md3-motion-duration-short4)
+      var(--md-sys-motion-easing-standard),
+    color var(--md3-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+/* 聚焦或有值时：label 上浮并缩小。
+   注意：这里不能改 transform，必须保留 translateY(-50%)——label 中心始终对齐
+   inset-block-start 指定的位置，位移完全交给 inset-block-start 过渡，才会平滑滑动。 */
+.conv-field__input:focus + .conv-field__label,
+.conv-field__input:not(:placeholder-shown) + .conv-field__label {
+  inset-block-start: 0.5rem;
+  font-size: var(--md-sys-typescale-body-small-size);
+}
+.conv-field__input:focus + .conv-field__label {
+  color: var(--md-sys-color-primary);
+}
+
+/* ===== 旧版手写文本框样式（label 固定在输入框上方、无浮起、无指示线），已被上方取代。
+   如需回滚：删掉本注释块的起止标记，并把 mdx 里的 label/input 顺序还原。
+
 .conv-field {
   display: flex;
   flex-direction: column;
@@ -314,6 +385,8 @@ code {
   outline: 0;
   box-shadow: var(--md3-focus-ring);
 }
+
+===== 旧样式结束 ===== */
 .conv-result {
   margin-top: 1rem;
   display: flex;
