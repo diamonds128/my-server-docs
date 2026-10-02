@@ -4,7 +4,7 @@
 // 为什么需要这个组件：在 MDX 正文里直接写 `import '@material/web/switch/switch.js'`
 // 不会被打进客户端 bundle（Astro 只处理 .astro 组件里的 script/import），
 // 导致 <md-switch> 标签存在但自定义元素从未注册、渲染不出来。
-// 把 import 放进这个 .astro 组件的 <script> 里，Astro 会正常打包并注入。
+// 把 import 放进这个 .astro 组件的 &lt;script&gt; 里，Astro 会正常打包并注入。
 //
 // 用法：<label class="conv-toggle"><MdSwitch id="xxx" aria-label="标签文字"></MdSwitch><span>标签文字</span></label>
 // 注意：<md-switch> 没有可见文字标签的 slot（只有 on-icon / off-icon），
