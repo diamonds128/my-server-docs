@@ -701,17 +701,22 @@ code {
   flex: none;
   inline-size: 2.5rem;
   block-size: 2.5rem;
-  padding: 0.5rem;
+  padding: 0;                    /* 不再用 padding 缩字形 */
   border-radius: var(--md-sys-shape-corner-full);
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
   fill: currentColor;
   vertical-align: middle;
-  /* .md-icon 本身就是 <svg>（不是容器）。SVG 默认 overflow: hidden，
-     且裁切区域是内容框：padding 0.5rem 把内容框缩到 1.5rem，字形按 viewBox
-     缩放后超出圆形的部分（如火箭的上下端）就被 SVG 自己剪掉了。
-     设为 visible 让字形完整绘制。 */
-  overflow: visible;
+  /* overflow: visible 可以留着，也可以删——不再依赖它 */
+}
+
+/* 关键：缩放 <svg> 内部的 path，圆底（画在 <svg> 元素上）不受影响。
+   transform-box: fill-box 让 transform-origin 相对 path 自身包围盒，
+   避开 viewBox 坐标系（0 -960 960 960）的坑。 */
+.card .title .md-icon path {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.6);
 }
 
 /* === 隐藏文字（原在 account/incident/permissions 各写一份内联样式）===
