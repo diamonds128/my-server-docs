@@ -111,6 +111,11 @@ export default defineConfig({
           attrs: { 'data-accent-init': '' },
           content: `(()=>{try{var a=localStorage.getItem('starlight-accent')||'blue';document.documentElement.setAttribute('data-accent',a)}catch(e){}})();`,
         },
+        // 复制提示脚本：全站加载，为代码块复制按钮与 [data-copy] 元素提供 MD3 Snackbar 提示。
+        {
+          tag: 'script',
+          attrs: { src: '/my-server-docs/scripts/copy.js', defer: true },
+        },
         // 标准 favicon（多尺寸 ICO，兼容所有旧浏览器）
         {
           tag: 'link',

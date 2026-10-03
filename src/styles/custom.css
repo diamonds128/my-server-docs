@@ -16,24 +16,9 @@
   font-size: 1em;
 }
 
-/* 代码块复制成功气泡：对齐站内 Snackbar 的 primary / on-primary。
-   Expressive Code 上游是硬编码绿底白字（暗 #158744 / 浅 #078662，对比度仅 4.5:1
-   刚踩线），且不跟主题 accent。只改配色，形状与尺寸保持上游默认。
-   custom.css 无 @layer，天然压过 starlight.components 层的声明。 */
-:root {
-  --ec-frm-tooltipSuccessBg: var(--md-sys-color-primary);
-  --ec-frm-tooltipSuccessFg: var(--md-sys-color-on-primary);
-}
-/* 动效对齐 MD3 Snackbar：进入 emphasized-decelerate、退出 emphasized-accelerate。
-   用主题 token，prefers-reduced-motion 下自动归零。 */
-.expressive-code .copy .feedback {
-  transition-duration: var(--md-sys-motion-duration-short2);
-  transition-timing-function: var(--md-sys-motion-easing-emphasized-accelerate);
-}
-.expressive-code .copy .feedback.show {
-  transition-duration: var(--md-sys-motion-duration-short3);
-  transition-timing-function: var(--md-sys-motion-easing-emphasized-decelerate);
-}
+/* 代码块复制提示：改用 BaseLayout 注入的全局 MD3 Snackbar，
+   Expressive Code 自带的气泡已隐藏（见文件底部 .expressive-code .copy .feedback）。 */
+
 h1 {
   font-weight: 700 !important;
 }
@@ -717,6 +702,13 @@ code {
   transform-box: fill-box;
   transform-origin: center;
   transform: scale(0.6);
+}
+
+/* === 代码块复制提示：隐藏 Expressive Code 自带气泡 ===
+   改用 BaseLayout 注入的全局 MD3 Snackbar（见 .md3-snackbar）。
+   气泡仍由 EC 生成并控制 .show 类，这里直接隐藏，避免与 Snackbar 重复。 */
+.expressive-code .copy .feedback {
+  display: none !important;
 }
 
 /* === 隐藏文字（原在 account/incident/permissions 各写一份内联样式）===
