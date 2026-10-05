@@ -20,6 +20,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # commit message 含 [skip ci] 时跳过构建（含手动触发——手动触发无 head_commit，
+    # 表达式里兜底成空串，不会报错，等价于正常构建）
+    if: ${{ !contains(github.event.head_commit.message || '', '[skip ci]') }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
