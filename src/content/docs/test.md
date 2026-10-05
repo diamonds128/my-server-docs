@@ -68,3 +68,11 @@ B站视频
 - [x] Write the press release
 - [ ] Update the website
 - [ ] Contact the media
+
+正常正文（sans-serif）：The quick brown fox jumps over the lazy dog. 中文正文样例。
+
+<div class="font-serif">
+
+衬线字体（serif）：The quick brown fox jumps over the lazy dog. 中文衬线样例。
+
+</div>
