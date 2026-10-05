@@ -40,4 +40,4 @@ SOFTWARE.
 
 ## 本文档站内容: CC BY-NC-SA 4.0
 
-本文档站内容（包括但不限于：所有文字、图片、内容）采用 **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans)**
+本文档站内容（包括但不限于：所有文字、图片、内容）采用 **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)**
