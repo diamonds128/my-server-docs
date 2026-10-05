@@ -51,17 +51,17 @@ description: 我们的精选截图
 <div class="gallery-grid">
 
   <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/sword_of_nether.png" alt="地狱之剑" loading="high" decoding="async" />
+    <img src="/my-server-docs/images/screenshots/sword_of_nether.png" alt="地狱之剑" loading="eager" decoding="async" />
     <div class="caption">地狱之剑</div>
   </div>
 
   <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/riverside_cabin.png" alt="河畔小屋" loading="high" decoding="async" />
+    <img src="/my-server-docs/images/screenshots/riverside_cabin.png" alt="河畔小屋" loading="eager" decoding="async" />
     <div class="caption">河畔小屋</div>
   </div>
 
   <div class="gallery-item">
-    <img src="/my-server-docs/images/screenshots/someone_house.png" alt="某人的家" loading="high" decoding="async" />
+    <img src="/my-server-docs/images/screenshots/someone_house.png" alt="某人的家" loading="eager" decoding="async" />
     <div class="caption">某人的家</div>
   </div>
 
