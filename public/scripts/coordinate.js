@@ -1,11 +1,12 @@
 // public/scripts/coordinate.js
-// Starlight 走客户端路由：换页时不触发 DOMContentLoaded，
-// 改用 Astro 的 astro:page-load。
 (function () {
   function init() {
+    const conv = document.querySelector('.conv');
+    if (!conv || conv.dataset.initialized) return;
+    conv.dataset.initialized = 'true';
+
     const $ = (id) => document.getElementById(id);
     const dirBtns = document.querySelectorAll('.conv .conv-seg:not(.conv-seg--unit) .conv-seg__btn');
-    // 本页没有转换器时直接退出（astro:page-load 在所有页面触发）
     if (!dirBtns.length) return;
 
     const axes = ['X', 'Y', 'Z'];
@@ -46,8 +47,10 @@
     setDir('ow-nether');
   }
 
-  if (!window.__coordinatePageLoadBound) {
-    window.__coordinatePageLoadBound = true;
-    document.addEventListener('astro:page-load', init);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
+  document.addEventListener('astro:page-load', init);
 })();

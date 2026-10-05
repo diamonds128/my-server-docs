@@ -1,11 +1,13 @@
 // public/scripts/converter.js
-// Starlight 走客户端路由：换页时不触发 DOMContentLoaded，
-// 改用 Astro 的 astro:page-load（首次加载与每次客户端导航后都会触发）。
 (function () {
   function init() {
+    const conv = document.querySelector('.conv');
+    // DOM 级标记：每次导航 DOM 是新的一份，标记也是新的；同页重复执行则跳过
+    if (!conv || conv.dataset.initialized) return;
+    conv.dataset.initialized = 'true';
+
     const $ = (id) => document.getElementById(id);
     const stackInput = $('convStack');
-    // astro:page-load 在所有页面都触发，本页没有转换器元素时直接退出。
     if (!stackInput) return;
 
     const dirBtns = document.querySelectorAll('.conv-seg:not(.conv-seg--unit) .conv-seg__btn');
@@ -13,13 +15,11 @@
     const remainToggle = $('convRemain');
     const panels = document.querySelectorAll('.conv-panel');
 
-    // 一盒组数固定为 27（潜影盒），无需用户配置
     const BOX = 27;
-    let unit = '组'; // '组' | '盒'
-    let dir = 'total-unit'; // 'total-unit' | 'unit-total'
+    let unit = '组';
+    let dir = 'total-unit';
 
     const stack = () => parseInt(stackInput.value) || 64;
-    // 所选单位的物品数量：组 = stack，盒 = 27 * stack
     const unitSize = () => (unit === '盒' ? BOX * stack() : stack());
 
     const fmt = (n) => {
@@ -32,7 +32,6 @@
       return `<span class="conv-result__item"><strong>${value}</strong> ${label}</span>`;
     }
 
-    // 依据所选单位 + 余数开关，决定反向面板显示多少列、哪些字段可见
     function updateRowClass() {
       const row = $('convRow');
       const remainOn = remainToggle.checked;
@@ -42,7 +41,6 @@
       $('convRemainField').hidden = !remainOn;
     }
 
-    // 把总数按 盒→组→个 逐级拆解，余数优先落入更大的单位
     function renderTotalToUnit() {
       const total = parseFloat($('convTotalIn').value) || 0;
       const out = $('convTotalOut');
@@ -131,9 +129,12 @@
     updateRowClass();
   }
 
-  // 防止脚本被重复执行时重复绑定监听器（每次导航 Astro 可能重新执行外链脚本）
-  if (!window.__converterPageLoadBound) {
-    window.__converterPageLoadBound = true;
-    document.addEventListener('astro:page-load', init);
+  // DOM 已就绪则立即 init；否则等 DOMContentLoaded。
+  // 客户端导航后由 astro:page-load 再次触发（DOM 标记保证不重复初始化）。
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
+  document.addEventListener('astro:page-load', init);
 })();
