@@ -98,6 +98,7 @@ export default defineConfig({
         MobileMenuFooter: './src/components/MobileMenuFooter.astro',
         MarkdownContent: './src/components/MarkdownContent.astro',
         Footer: './src/components/CustomFooter.astro',
+        Head: './src/components/Head.astro'
       },
       editLink: {
         baseUrl: 'https://github.com/diamonds128/my-server-docs/edit/main/',

@@ -5,7 +5,9 @@
   let timeoutId = null;
 
   function ensureSnackbar() {
-    if (!snackbar) {
+    // 视图切换后 body 会被替换，缓存的元素会脱离文档。
+    // 用 isConnected 检查，脱离则重新查询/创建，否则提示会加到看不见的元素上。
+    if (!snackbar || !snackbar.isConnected) {
       snackbar = document.querySelector('.md3-snackbar');
     }
     if (!snackbar) {
@@ -54,7 +56,6 @@
       const target = event.target;
       if (!(target instanceof Element)) return;
 
-      // 1) 自定义 [data-copy] 元素：由本脚本负责写入剪贴板
       const custom = target.closest('[data-copy]');
       if (custom) {
         const text = custom.getAttribute('data-copy') || custom.textContent;
@@ -63,7 +64,6 @@
         return;
       }
 
-      // 2) Expressive Code 代码块复制按钮：EC 自己写剪贴板，这里只显示提示
       if (target.closest('.expressive-code .copy button')) {
         showSnackbar();
       }
