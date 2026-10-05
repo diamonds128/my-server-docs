@@ -710,6 +710,10 @@ code {
 .expressive-code .copy .feedback {
   display: none !important;
 }
+/*用于调用serif字体*/
+.font-serif {
+  font-family: serif;
+}
 
 /* === 隐藏文字（原在 account/incident/permissions 各写一份内联样式）===
    用 inverse-surface 作底、inverse-on-surface 作悬浮文字色：
