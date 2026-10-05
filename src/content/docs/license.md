@@ -9,7 +9,7 @@ description: 本文档站采用的许可证信息
 
 本网站项目（包括所有配置、主题样式、构建脚本）采用 **[MIT许可证](https://opensource.org/license/MIT)**
 
-<details>
+<details class="font-serif">
 <summary><strong>全文</strong></summary>
 
 MIT License
@@ -33,6 +33,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
 
 *注：以仓库根目录下的[LICENSE文件](https://github.com/diamonds128/my-server-docs/blob/main/LICENSE)为准*
 
