@@ -10,14 +10,14 @@
     if (!dirBtns.length) return;
 
     const axes = ['X', 'Y', 'Z'];
-    let dir = 'ow-nether';
+    let dir = 'ow-nether'; // 'ow-nether' | 'nether-ow'
 
     const fmtValue = (v) => (Number.isFinite(v) ? Math.round(v * 100) / 100 : '');
 
     function convert(v, axis) {
-      if (axis === 'Y') return v;
+      if (axis === 'Y') return v; // Y 不换算
       if (dir === 'ow-nether') return Math.floor(v / 8);
-      return v * 8;
+      return v * 8; // 下界 → 主世界 ×8
     }
 
     function render() {

@@ -15,11 +15,13 @@
     const remainToggle = $('convRemain');
     const panels = document.querySelectorAll('.conv-panel');
 
+    // 一盒组数固定为 27（潜影盒），无需用户配置
     const BOX = 27;
-    let unit = '组';
-    let dir = 'total-unit';
+    let unit = '组'; // '组' | '盒'
+    let dir = 'total-unit'; // 'total-unit' | 'unit-total'
 
     const stack = () => parseInt(stackInput.value) || 64;
+    // 所选单位的物品数量：组 = stack，盒 = 27 * stack
     const unitSize = () => (unit === '盒' ? BOX * stack() : stack());
 
     const fmt = (n) => {
@@ -32,20 +34,23 @@
       return `<span class="conv-result__item"><strong>${value}</strong> ${label}</span>`;
     }
 
+    // 依据所选单位 + 余数开关，决定反向面板显示多少列、哪些字段可见
     function updateRowClass() {
       const row = $('convRow');
       const remainOn = remainToggle.checked;
-      const groupShown = unit === '盒' && remainOn;
+      const groupShown = unit === '盒' && remainOn; // 目标=盒且显示余数时才需要中间的"组"层
       row.classList.toggle('conv-row--triple', groupShown);
       $('convGroupField').hidden = !groupShown;
       $('convRemainField').hidden = !remainOn;
     }
 
+    // 把总数按 盒→组→个 逐级拆解，余数优先落入更大的单位
     function renderTotalToUnit() {
       const total = parseFloat($('convTotalIn').value) || 0;
       const out = $('convTotalOut');
       const stackN = stack();
 
+      // 逐级拆解（只用于"显示余数"分支）
       let boxes = 0, groups = 0, rem = total;
       if (unit === '盒') {
         const boxSize = BOX * stackN;
@@ -62,10 +67,12 @@
         if (rem > 0 || parts.length === 0) parts.push(chunk('个', fmt(rem)));
         out.innerHTML = parts.join('');
 
+        // 回填到反向输入
         $('convUnitIn').value = unit === '盒' ? boxes : groups;
         $('convGroupIn').value = unit === '盒' ? groups : '';
         $('convRemainIn').value = fmt(rem);
       } else {
+        // 小数模式：一次性折算为所选单位，保留两位
         out.innerHTML = chunk(unit, fmt(total / unitSize()));
         $('convUnitIn').value = fmt(total / unitSize());
         $('convGroupIn').value = '';
@@ -77,16 +84,17 @@
       const stackN = stack();
       let total = 0;
       if (unit === '盒') {
-        const boxes = parseFloat($('convUnitIn').value) || 0;
+        const boxes = parseFloat($('convUnitIn').value) || 0; // 盒数
         const groups = remainToggle.checked ? parseFloat($('convGroupIn').value) || 0 : 0;
         const rem = remainToggle.checked ? parseFloat($('convRemainIn').value) || 0 : 0;
         total = boxes * BOX * stackN + groups * stackN + rem;
       } else {
-        const groups = parseFloat($('convUnitIn').value) || 0;
+        const groups = parseFloat($('convUnitIn').value) || 0; // 组数
         const rem = remainToggle.checked ? parseFloat($('convRemainIn').value) || 0 : 0;
         total = groups * stackN + rem;
       }
       $('convUnitTotalOut').textContent = fmt(total);
+      // 回填到总数
       $('convTotalIn').value = fmt(total);
     }
 
