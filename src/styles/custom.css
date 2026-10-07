@@ -339,39 +339,6 @@ code {
   color: var(--md-sys-color-primary);
 }
 
-/* ===== 旧版手写文本框样式（label 固定在输入框上方、无浮起、无指示线），已被上方取代。
-   如需回滚：删掉本注释块的起止标记，并把 mdx 里的 label/input 顺序还原。
-
-.conv-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-.conv-field[hidden] {
-  display: none;
-}
-.conv-field__label {
-  font-size: var(--md-sys-typescale-label-medium-size);
-  font-weight: var(--md-sys-typescale-label-medium-weight);
-  letter-spacing: var(--md-sys-typescale-label-medium-tracking);
-  color: var(--md-sys-color-on-surface-variant);
-}
-.conv-field__input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 0;
-  border-radius: var(--md-sys-shape-corner-extra-small);
-  background: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface);
-  font: inherit;
-  transition: box-shadow var(--md3-motion-duration-control) var(--md-sys-motion-easing-standard);
-}
-.conv-field__input:focus {
-  outline: 0;
-  box-shadow: var(--md3-focus-ring);
-}
-
-===== 旧样式结束 ===== */
 .conv-result {
   margin-top: 1rem;
   display: flex;
