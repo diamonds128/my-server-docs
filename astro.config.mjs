@@ -51,7 +51,7 @@ export default defineConfig({
             { label: '欢迎', link: '/welcome' },
             { label: '开始', link: '/start' },
             { label: '服规', link: '/rules' },
-            { label: '加入服务器', link: '/join' },
+            { label: '进入服务器', link: '/join' },
             { label: '基岩版', link: '/bedrock' },
             { label: '常见问题', link: '/faq' },
           ],

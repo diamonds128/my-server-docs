@@ -1,6 +1,6 @@
 ---
-title: 加入
-description: 了解如何加入服务器并开始游玩
+title: 进入
+description: 了解如何进入服务器并开始游玩
 ---
 
 > 本服的注册/登录使用了[EasyAuth](https://modrinth.com/mod/easyauth)
