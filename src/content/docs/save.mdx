@@ -4,6 +4,10 @@ description: 关于我们的存档
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import theFirstDay from '../../assets/images/screenshots/the_first_day.png';
+import sunsetFirst from '../../assets/images/screenshots/sunset_first.png';
+import mapDay0 from '../../assets/images/screenshots/map_day_0.png';
 
 我们当前的原版生存存档开档于2025年8月6日，至今历时已有 <strong data-start="2025-08-06"></strong> 天（实时计算）
 
@@ -33,11 +37,11 @@ import { LinkCard } from '@astrojs/starlight/components';
 
 这是我们村庄第一天的样子，什么都尚未发生  
 **最初的样子**  
-![第一天](/my-server-docs/images/screenshots/the_first_day.png)  
+<Image src={theFirstDay} alt="最初的样子" loading="high" />  
 **日落**  
-![日落](/my-server-docs/images/screenshots/sunset_first.png)
+<Image src={sunsetFirst} alt="日落" loading="high" />
 **第一天的地图**  
-![第一天的地图](/my-server-docs/images/screenshots/map_day_0.png)
+<Image src={mapDay0} alt="第一天" loading="high" />
 </details>
 
 <script src="/my-server-docs/scripts/uptime.js" defer></script>
