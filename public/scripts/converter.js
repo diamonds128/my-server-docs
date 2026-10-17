@@ -62,7 +62,8 @@
 
       if (remainToggle.checked) {
         const parts = [];
-        if (unit === '盒' && boxes > 0) parts.push(chunk('盒', boxes));
+        // 单位为盒时始终显示盒数（含 0 盒），未凑满一盒也给出明确结果
+        if (unit === '盒') parts.push(chunk('盒', boxes));
         if (groups > 0) parts.push(chunk('组', groups));
         if (rem > 0 || parts.length === 0) parts.push(chunk('个', fmt(rem)));
         out.innerHTML = parts.join('');
