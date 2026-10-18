@@ -153,6 +153,27 @@ export default defineConfig({
             href: '/my-server-docs/site.webmanifest',
           },
         },
+        // OG 分享概览图
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image', content: 'https://diamonds128.github.io/my-server-docs/og-cover.png' },
+        },
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image:width', content: '1200' },
+        },
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image:height', content: '675' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'twitter:card', content: 'summary_large_image' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'twitter:image', content: 'https://diamonds128.github.io/my-server-docs/og-cover.png' },
+        },
         // 出于安全目的，全站禁止搜索引擎收录。
         // public/robots.txt 发布在 /my-server-docs/ 子路径下，而爬虫只读取域名根的
         // robots.txt（本项目为 GitHub Pages 共享根域 diamonds128.github.io，无法控制），
