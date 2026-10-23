@@ -35,7 +35,7 @@ description: 本服务器的服务端安装的模组列表
 | Geyser | Java/基岩版协议转换代理 |
 | Gugle Carpet Addition | Carpet 附加包，增强假人管理 |
 | Hurricane | Geyser 辅助模组，修复基岩版体验问题 |
-| Inv View | 允许管理员查看或编辑玩家背包 |
+| Inv View | 允许管理员查看或编辑玩家背包和末影箱 |
 | Ivan Carpet Addition | Carpet 扩展，技术工具 |
 | Jade | 显示方块/实体信息 |
 | JEI (Just Enough Items) | 物品配方查看 |
