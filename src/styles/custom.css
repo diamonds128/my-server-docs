@@ -742,3 +742,8 @@ code {
   text-align: center;
   border-top: 1px solid var(--md-sys-color-outline-variant);
 }
+
+/* 隐藏侧边栏中的 Footnotes 目录项 */
+#starlight__on-this-page a[href="#footnotes"] {
+  display: none;
+}
