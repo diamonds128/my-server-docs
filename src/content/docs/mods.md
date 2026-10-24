@@ -44,7 +44,7 @@ description: 本服务器的服务端安装的模组列表
 | Kiss | 在其他玩家附近快速蹲起时冒爱心，并允许通过指令 `/kiss` 亲吻其他玩家 |
 | LazyDFU | 加速游戏启动 |
 | Ledger | 行为记录与回滚 |
-| Lithium | 性能优化模组 |
+| Lithium | 优化实体与红石计算 |
 | LuckPerms | 权限管理 |
 | MCPServer | 添加MCP允许AI Agent监控、管理服务器 |
 | MemoryLeakFix | 修复内存泄漏 |
