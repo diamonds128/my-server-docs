@@ -8,28 +8,28 @@
 
     const warn = document.createElement('div');
     warn.id = 'browser-compat-warn';
-    
+
     warn.style.cssText = `
       position: fixed;
       bottom: 24px;
       left: 16px;
       right: 16px;
-      background-color: var(--md-sys-color-error, #ba1a1a);
-      color: var(--md-sys-color-on-error, #ffffff);
+	  background: var(--md-sys-color-primary);
+	  color: var(--md-sys-color-on-primary);
       padding: 14px 16px;
-      border-radius: var(--md-sys-shape-corner-medium, 12px);
+      border-radius: var(--md-sys-shape-corner-medium);
       font-size: 14px;
       line-height: 1.5;
       z-index: 99999;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: inherit;
       max-width: 600px;
       margin: 0 auto;
-      transition: opacity var(--md-sys-motion-duration-short3, 0.15s) var(--md-sys-motion-easing-emphasized-accelerate, ease-in), 
-                  transform var(--md-sys-motion-duration-short3, 0.15s) var(--md-sys-motion-easing-emphasized-accelerate, ease-in);
+      transition: opacity var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-emphasized-accelerate), 
+                  transform var(--md-sys-motion-duration-short3) var(--md-sys-motion-easing-emphasized-accelerate);
     `;
     
     warn.innerHTML = `
@@ -41,7 +41,26 @@
         background: transparent;
         border: 1px solid currentColor;
         color: inherit;
-        border-radius: var(--md-sys-shape-corner-full, 999px);
+        border-radius: var(--md-sys-shape-corner-full);
+        padding: 6px 16px;
+        cursor: pointer;
+        font-size: var(--md-sys-typescale-label-large-size);
+        font-family: inherit;
+        white-space: nowrap;
+        opacity: 0.8;
+      ">我知道了</button>
+    `;
+
+    warn.innerHTML = `
+      <div style="flex: 1; margin-right: 12px;">
+        <strong style="font-weight: 600;">浏览器版本较旧</strong><br>
+        你当前使用的浏览器版本较旧，本站的部分排版和动效可能无法完美显示。为了获得最佳的阅读体验，建议升级浏览器或操作系统。
+      </div>
+      <button id="close-warn-btn" style="
+        background: transparent;
+        border: 1px solid currentColor;
+        color: inherit;
+        border-radius: var(--md-sys-shape-corner-full);
         padding: 6px 16px;
         cursor: pointer;
         font-size: 13px;
@@ -54,7 +73,7 @@
     document.body.appendChild(warn);
 
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
+
     document.getElementById('close-warn-btn').addEventListener('click', () => {
       if (isReducedMotion) {
         warn.remove();
