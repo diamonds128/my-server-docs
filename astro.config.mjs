@@ -117,6 +117,16 @@ export default defineConfig({
           tag: 'script',
           attrs: { src: '/my-server-docs/scripts/copy.js', defer: true },
         },
+        // 复制提示脚本：全站加载，为代码块复制按钮与 [data-copy] 元素提供 MD3 Snackbar 提示。
+        {
+          tag: 'script',
+          attrs: { src: '/my-server-docs/scripts/copy.js', defer: true },
+        },
+        // 浏览器环境检测与老旧设备提示
+        {
+          tag: 'script',
+          attrs: { src: '/my-server-docs/scripts/browser-check.js', defer: true },
+        },
         // 标准 favicon（多尺寸 ICO，兼容所有旧浏览器）
         {
           tag: 'link',
