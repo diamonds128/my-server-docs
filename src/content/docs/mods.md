@@ -25,7 +25,7 @@ description: 本服务器的服务端安装的模组列表
 | Lithium | 优化实体与红石计算 |
 | Starlight | 光照引擎优化 |
 | MemoryLeakFix | 修复内存泄漏 |
-| TooFast | 移除速度限制 |
+| TooFast | 移除服务端速度检测 |
 | LazyDFU | 加速游戏启动 |
 | Spark | 性能分析工具 |
 | PacketFixer | 修复数据包问题 |
