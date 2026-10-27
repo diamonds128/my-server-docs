@@ -747,3 +747,16 @@ code {
 #starlight__on-this-page a[href="#footnotes"] {
   display: none;
 }
+
+/* === 修复移动端偏好设置按钮等高 === */
+.mobile-preferences .preference-controls .md3-accent-select__button,
+.mobile-preferences .preference-controls .md3-theme-select__button {
+  /* MD3 标准触控高度 40dp */
+  block-size: 2.5rem !important;
+  min-block-size: 2.5rem !important;
+  /* 确保不受内部 padding 影响 */
+  box-sizing: border-box !important;
+  padding-block: 0 !important;
+  /* 内部元素垂直居中 */
+  align-items: center;
+}
