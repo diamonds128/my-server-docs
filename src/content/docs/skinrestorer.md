@@ -11,10 +11,10 @@ description: 了解Skin Restorer皮肤设置
 - 删除皮肤  
 以及更多……  
 
-## 什么是Skin Restorer？
+## 什么是 Skin Restorer？
 
 这个模组让你可以在服务器内通过命令设置皮肤，解决了离线玩家皮肤无法显示的问题  
-详细请看[官方GitHub页面](https://github.com/Suiranoil/SkinRestorer)或[MC百科](https://www.mcmod.cn/class/6867.html)
+详细请看 [官方 GitHub 页面](https://github.com/Suiranoil/SkinRestorer)或 [MC百科](https://www.mcmod.cn/class/6867.html)
 
 ## 如何使用?  
 
@@ -33,24 +33,24 @@ description: 了解Skin Restorer皮肤设置
 <details>
 <summary><strong>Web</strong></summary>
 
-从有效的图片URL中获取皮肤并应用  
+从有效的图片 URL 中获取皮肤并应用  
 
-**URL必须被双引号包裹**    
-什么是URL？请查阅[常用术语](/my-server-docs/term#url)
+**URL 必须被双引号包裹**    
+什么是 URL？请查阅 [常用术语](/my-server-docs/term#url)
  
 `/skin set web <classic或slim> "<URL>" <目标玩家名>`
 
-`classic` :经典的，Steve模型  
-`slim` ：瘦手的，Alex模型，大部分女性皮肤都是Alex模型  
+`classic` :经典的，Steve 模型  
+`slim` ：瘦手的，Alex 模型，大部分女性皮肤都是 Alex 模型  
 
 </details>
 
 <details>
 <summary><strong>LittleSkin</strong></summary>
 
-*注：服主当时调配置允许获取LittlesSkin皮肤调了大半天*  
+*注：服主当时调配置允许获取 LittlesSkin 皮肤调了大半天*  
 
-从有效的[LittleSkin](https://littleskin.cn)角色获取皮肤并应用  
+从有效的 [LittleSkin](https://littleskin.cn)角色获取皮肤并应用  
 `/skin set littleskin <角色名> <目标玩家名>`  
 
 </details>

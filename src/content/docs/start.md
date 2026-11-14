@@ -5,7 +5,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 > 有能力请支持正版  
 
-> 我们JE/BE互通，BE请见[基岩版](/my-server-docs/bedrock)
+> 我们 JE/BE 互通，BE 请见 [基岩版](/my-server-docs/bedrock)
 
 此页面包括：
 - 如何安装启动器
@@ -34,15 +34,15 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 - **推荐启动器**：FCL（FoldCraftLauncher）
 - **下载地址**：[FCL GitHub Releases](https://github.com/FCL-Team/FoldCraftLauncher/releases)
 - **安装步骤**：
-  1. 使用浏览器打开网页， **而不是在社交平台内** （比如微信或者QQ）
+  1. 使用浏览器打开网页， **而不是在社交平台内** （比如微信或者 QQ）
   ![FCL GitHub Releases](/my-server-docs/images/fcl_releases.png)
   2. 下滑找到 **“Assets”** 或 **“资源”** 栏  
   ![FCL Assets](/my-server-docs/images/fcl_assets.png)
-  3. 选择 **符合你的设备的.apk安装包** ，如果不知道选择什么请直接下载 `FCL-release-版本号-all.apk`  
+  3. 选择 **符合你的设备的.apk 安装包** ，如果不知道选择什么请直接下载 `FCL-release-版本号-all.apk`  
   4. 开始安装，等待安装完毕
   5. 关于环境，推荐选择 **Java 21** ，较稳定  
   
-  考虑到GitHub并不稳定，也可以前往[FCL 下载站](https://foldcraftlauncher.cn/html/down.html?id=0)下载  
+  考虑到 GitHub 并不稳定，也可以前往 [FCL 下载站](https://foldcraftlauncher.cn/html/down.html?id=0)下载  
   ![FCL 启动器界面](/my-server-docs/images/fcl.png)
 </details>
 
@@ -52,8 +52,8 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 - **推荐启动器**：Amethyst
 - **下载地址**：[GitHub Actions](https://github.com/AngelAuraMC/Amethyst-iOS/actions)
 - **安装步骤**：
-  *注意，你的设备需要可以侧载，例如 `Troll Store` 或 `Side Store`，同时需要一个GitHub账号  
-  1. 找到最新的workflow（工作流程）（最新的也就是最上面的）  
+  *注意，你的设备需要可以侧载，例如 `Troll Store` 或 `Side Store`，同时需要一个 GitHub 账号  
+  1. 找到最新的 workflow（工作流程）（最新的也就是最上面的）  
   ![Workflows](/my-server-docs/images/amethyst_github_workflows.png)
   2. 点击进入页面
   ![Workflow Page](/my-server-docs/images/amethyst_workflow_page.png)
@@ -63,7 +63,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
   6. 安装里面的 `.ipa` 文件
   ![Amethyst](/my-server-docs/images/amethyst.png)  
   图里稍微出了些差错，不必在意  
-  **🎉恭喜你成功了！超越了全中国99%的人** 
+  **🎉恭喜你成功了！超越了全中国 99%的人** 
 
 </details>
 
@@ -72,7 +72,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 <details>
 <summary><strong>HMCL</strong></summary>
 
-1. 进入 **下载** 页面，找到 **1.20.1** ， **注意不是1.21.1**
+1. 进入 **下载** 页面，找到 **1.20.1** ， **注意不是 1.21.1**
 ![HMCL 下载界面](/my-server-docs/images/download_page_hmcl.png)
 2. 点击进入安装界面，如果你不需要安装模组，则不需要安装除游戏本体以外的任何东西，实例名称建议英文，不要包含特殊字符，点击安装按钮开始
 3. 等待安装完成
@@ -84,7 +84,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 1. 在左侧菜单栏中点击从上往下第三个图标进入下载页面
 ![FCL 下载界面](/my-server-docs/images/download_page_fcl.png)
-2. 找到 **1.20.1** 并点击进入安装界面， **注意不是1.21.1**
+2. 找到 **1.20.1** 并点击进入安装界面， **注意不是 1.21.1**
 3. 如果你不需要安装模组，则不需要安装除游戏本体以外的任何东西，实例名称建议使用英文，不包含特殊字符，点击安装按钮开始
 4. 等待安装完成
 
@@ -105,7 +105,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 6. 游戏目录可以是默认的  
 7. 点击右上角 **完成** 
 8. 在右下角点击 **启动游戏** ，就会开始安装，等待即可  
-如你所见，iOS系统较为封闭，然而你在这种情况下成功在iOS上玩上了Minecraft JE！
+如你所见，iOS 系统较为封闭，然而你在这种情况下成功在 iOS 上玩上了 Minecraft JE！
 
 
 
@@ -115,14 +115,14 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 基岩版玩家不受以下限制  
 
-> 这并不是服务器内的 **账号**，而是 **Minecraft游戏账户**
+> 这并不是服务器内的 **账号**，而是 **Minecraft 游戏账户**
 
-我们对于ID有限制，以确保玩家可以正常游玩
+我们对于 ID 有限制，以确保玩家可以正常游玩
 
-- ID必须在 **3-16** 个字符之间  
+- ID 必须在 **3-16** 个字符之间  
 - 只能包含英文字母（大小写均可）、数字、下划线 `_`  
 
-什么是ID？[术语页面](/my-server-docs/term#id)
+什么是 ID？[术语页面](/my-server-docs/term#id)
 
 ## 进入游戏
 

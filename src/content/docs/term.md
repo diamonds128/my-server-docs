@@ -3,12 +3,12 @@ title: 术语
 description: 了解MC的基本术语
 ---
 
-令我万万没想到的是，真有MC玩家不知道JE和BE分别是什么，所以写了个页面用来放一些术语  
+令我万万没想到的是，真有 MC 玩家不知道 JE 和 BE 分别是什么，所以写了个页面用来放一些术语  
 
 ## 常用术语  
 
 ### JE  
-即 Java Edition 的缩写，指 Minecraft Java 版，MC分为两个版本，使用 Java 编程语言编写， Java 版即狭义上的“电脑版”，但这一说法并不准确  
+即 Java Edition 的缩写，指 Minecraft Java 版，MC 分为两个版本，使用 Java 编程语言编写， Java 版即狭义上的“电脑版”，但这一说法并不准确  
 [Minecraft Wiki](https://zh.minecraft.wiki/w/Java%E7%89%88)
 
 ### BE  

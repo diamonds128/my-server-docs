@@ -14,9 +14,9 @@ BE: **1.20.31** 或 **1.20.0 ~ 1.20.30** （不保证 **1.20.0 ~ 1.20.30** 能�
 
 出于保护服务器的目的， IP 地址和全局密码不在此处展示，请前往我们的聊天群获取，关于聊天群，请寻找你身边我们服务器的玩家  
 
-服务器托管于[简幻欢](https://simpfun.cn/)，开服于2025年7月6日，距今已有 <strong data-start="2025-07-06"></strong> 天（实时计算）  
+服务器托管于 [简幻欢](https://simpfun.cn/)，开服于 2025 年 7 月 6 日，距今已有 <strong data-start="2025-07-06"></strong> 天（实时计算）  
 
-种子与存档下载请见[存档](/my-server-docs/save)
+种子与存档下载请见 [存档](/my-server-docs/save)
 
 ### 分服
 
@@ -26,8 +26,8 @@ BE: **1.20.31** 或 **1.20.0 ~ 1.20.30** （不保证 **1.20.0 ~ 1.20.30** 能�
 
 ## 关于此网站  
 
-此网站建立于2026年8月14日，已有 <strong data-start="2026-08-14"></strong> 天，用于放置一些基础教程与进阶教程，遵循[ Material Design 3 ](https://m3.material.io/)设计规范  
-在[GitHub 仓库 ](https://github.com/diamonds128/my-server-docs)查看本文档站源码    
+此网站建立于 2026 年 8 月 14 日，已有 <strong data-start="2026-08-14"></strong> 天，用于放置一些基础教程与进阶教程，遵循 [ Material Design 3 ](https://m3.material.io/)设计规范  
+在 [GitHub 仓库 ](https://github.com/diamonds128/my-server-docs)查看本文档站源码    
 *为了减少风险，本文档站同时也禁用了搜索引擎索引*
 
 对老旧的浏览器支持有限，请尽可能使用较新的浏览器访问  

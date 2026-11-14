@@ -7,7 +7,7 @@ description: 本文档站采用的许可证信息
 
 ## 代码许可证: MIT  
 
-本网站项目（包括所有配置、主题样式、构建脚本）采用 **[MIT许可证](https://opensource.org/license/MIT)**
+本网站项目（包括所有配置、主题样式、构建脚本）采用 **[MIT 许可证](https://opensource.org/license/MIT)**
 
 <details class="font-serif">
 <summary><strong>全文</strong></summary>
@@ -36,7 +36,7 @@ SOFTWARE.
 
 ---
 
-*注：以仓库根目录下的[LICENSE文件](https://github.com/diamonds128/my-server-docs/blob/main/LICENSE)为准*
+*注：以仓库根目录下的 [LICENSE 文件](https://github.com/diamonds128/my-server-docs/blob/main/LICENSE)为准*
 
 </details>
 

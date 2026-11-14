@@ -5,24 +5,24 @@ description: 了解如何进入服务器并开始游玩
 
 > 本服的注册/登录使用了 [EasyAuth](https://modrinth.com/mod/easyauth)
 
-> 我们 JE/BE 互通，BE 请见[基岩版](/my-server-docs/bedrock)  
+> 我们 JE/BE 互通，BE 请见 [基岩版](/my-server-docs/bedrock)  
 
 此页面包括  
 - 如何进入服务器  
 - 如何注册、登录  
 - 从出生点到我们村庄的地图  
 
-在开始之前，请 **查阅[服规](/my-server-docs/rules)**  
+在开始之前，请 **查阅 [服规](/my-server-docs/rules)**  
 
 ## 进入服务器
 1. 首先，启动你的游戏  
-如果还没有安装游戏，请查阅[开始](/my-server-docs/start)
+如果还没有安装游戏，请查阅 [开始](/my-server-docs/start)
 ![Minceraft](/my-server-docs/images/minceraft.png)
 2. 点击 **多人游戏**  
 ![多人游戏页面](/my-server-docs/images/server_page.png)
 3. 点击 **直接连接** 或 **添加服务器**  
 ![添加服务器](/my-server-docs/images/server_info.png)
-4. 服务器名称并不影响连接，任意即可，输入在群内获取的IP（即服务器地址）  
+4. 服务器名称并不影响连接，任意即可，输入在群内获取的 IP（即服务器地址）  
 
 若无法正常连接，请先查阅 [FAQ](/my-server-docs/faq#连接相关)
 
@@ -61,12 +61,12 @@ description: 了解如何进入服务器并开始游玩
 或缩写 `/l <你的密码>`  
 
 有时可能会在输入时提示 **未知的指令** 或 **其他错误** ，不用担心， **不影响** ，打完直接回车  
-当登录成功时，你应该会在聊天栏内看到“<font color="green">🎉 登录成功！欢迎回来</font>”，一个小时内可以免密登录（同IP下）  
+当登录成功时，你应该会在聊天栏内看到“<font color="green">🎉 登录成功！欢迎回来</font>”，一个小时内可以免密登录（同 IP 下）  
 如果忘记了密码，你可以联系服主重置密码，修改完成进入游戏后，你应该将临时密码修改为 **更复杂** 的强密码  
 
 </details>
 
-*注：即使是服主也无法得知玩家的密码，密码均被哈希加密保存在数据库，SHA-256几乎不可能被逆推出原文，具体可查看[知乎文章](https://zhuanlan.zhihu.com/p/380881406)*
+*注：即使是服主也无法得知玩家的密码，密码均被哈希加密保存在数据库，SHA-256 几乎不可能被逆推出原文，具体可查看 [知乎文章](https://zhuanlan.zhihu.com/p/380881406)*
 
 ## 地图
 
