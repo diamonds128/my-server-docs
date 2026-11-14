@@ -3,7 +3,7 @@ title: 账号管理
 description: 了解如何管理自己的账号
 ---
 
-> 本服使用 [EasyAuth](https://github.com/NikitaCartes/EasyAuth)管理账号  
+> 本服使用 [EasyAuth](https://github.com/NikitaCartes/EasyAuth) 管理账号  
 
 ## 为什么需要注册账号和全局密码？  
 
@@ -33,7 +33,8 @@ description: 了解如何管理自己的账号
 - 注：允许玩家用以下字符组合作为密码：纯字母, 字母与下划线 `_` , "引号与字母" 或者 "字母与&$@#"
 
 ## 管理员命令
-*仅 [server 权限组](./permissions#server组)内的玩家可使用*
+*仅 [sever 权限组](/my-server-docs/permissions#sever 组)内的玩家可使用*
+<!-- 注意，权限组的确叫做 sever，这是当时的遗留问题，因此后续在其他地方应该沿用 -->
 - `/auth` - 管理员命令：
 
 - `/auth reload` - 重新加载配置;
