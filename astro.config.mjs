@@ -23,7 +23,7 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      title: 'Diamond服务器文档',
+      title: 'Diamond 服务器文档',
       lastUpdated: true,
       expressiveCode: {
         shiki: {
@@ -36,7 +36,7 @@ export default defineConfig({
       },
       logo: {
         src: './src/assets/logo.svg',
-        alt: 'Diamond服务器文档',
+        alt: 'Diamond 服务器文档',
       },
       locales: {
         root: {
