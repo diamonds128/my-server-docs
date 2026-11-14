@@ -772,7 +772,8 @@ code {
    底部描边加粗 1px 模拟键帽立体感，不使用阴影（MD3 用色调而非阴影表达层次）。
    vertical-align 用 baseline：middle 会按元素盒中心对齐，单字符键（如 /）因无降部
    盒高偏小，反而被推下去；baseline 让键帽文字与正文基线一致。
-   注意：限定在正文内，避免覆盖搜索栏 button[data-open-modal] > kbd 的主题专属样式。 */
+   注意：限定在正文内，避免覆盖搜索栏 button[data-open-modal] > kbd 的主题专属样式。
+   user-select: none 让按下拖拽时不产生选区；-webkit-touch-callout 关掉 iOS 长按菜单。 */
 .sl-markdown-content kbd {
   display: inline-block;
   padding: 0.125rem 0.375rem;
@@ -788,6 +789,9 @@ code {
   letter-spacing: 0.1px;
   vertical-align: baseline;
   white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 /* 按下反馈：所有正文键帽都有，不需要任何属性 */
