@@ -3,7 +3,7 @@ title: 权限
 description: 了解服务器的权限配置
 ---
 
-> 本服安装了 [LuckPerms](https://luckperms.net/)用于管理权限  
+> 本服安装了 [LuckPerms](https://luckperms.net/) 用于管理权限  
 
 此页面包括：  
 - 服务器的权限配置  
@@ -20,7 +20,7 @@ description: 了解服务器的权限配置
 ### sever 组
 *注：sever 是一个拼写错误，最初设置权限组时意外的少打一个 r，于是沿用至今*  
 
-顾名思义，这个权限组拥有 **服主级别** 的权限，包括但不限于：
+顾名思义，这个权限组拥有 **服务器级别** 的权限，包括但不限于：
 - 处罚与赦免（如 `/ban` 、 `/pardon` 等）
 - 管理员的任免
 - 服务器的管理（如 `/stop`、 `/save` 等）
@@ -28,6 +28,6 @@ description: 了解服务器的权限配置
 - **Melius Vanish** 隐身  
 - **Ledger** 的回溯以及其他方面的查询  
 
-<span class="heimu" title="你知道的太多了">该权限组甚至就连一只猫都有“服主”头衔（Minecraft 早在很久之前就出现的 Bug：宠物会继承主人名称的前缀）</span>
+并且，所有属于该权限组的玩家，带有<font color="orange"><strong>【服主】</strong></font> <span class="heimu" title="你知道的太多了">由于Minecraft中，玩家的宠物会继承其主人的名称前缀，以至于此权限组玩家的宠物都带着服主前缀（</span>
 
 
