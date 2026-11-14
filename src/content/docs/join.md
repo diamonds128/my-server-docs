@@ -3,9 +3,9 @@ title: 进入
 description: 了解如何进入服务器并开始游玩
 ---
 
-> 本服的注册/登录使用了[EasyAuth](https://modrinth.com/mod/easyauth)
+> 本服的注册/登录使用了 [EasyAuth](https://modrinth.com/mod/easyauth)
 
-> 我们JE/BE互通，BE请见[基岩版](/my-server-docs/bedrock)  
+> 我们 JE/BE 互通，BE 请见[基岩版](/my-server-docs/bedrock)  
 
 此页面包括  
 - 如何进入服务器  
@@ -24,7 +24,7 @@ description: 了解如何进入服务器并开始游玩
 ![添加服务器](/my-server-docs/images/server_info.png)
 4. 服务器名称并不影响连接，任意即可，输入在群内获取的IP（即服务器地址）  
 
-若无法正常连接，请先查阅[FAQ](/my-server-docs/faq#连接相关)
+若无法正常连接，请先查阅 [FAQ](/my-server-docs/faq#连接相关)
 
 ## 注册与登录
 
