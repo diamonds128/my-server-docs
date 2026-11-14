@@ -28,6 +28,6 @@ description: 了解服务器的权限配置
 - **Melius Vanish** 隐身  
 - **Ledger** 的回溯以及其他方面的查询  
 
-并且，所有属于该权限组的玩家，带有<font color="orange"><strong>【服主】</strong></font> <span class="heimu" title="你知道的太多了">由于Minecraft中，玩家的宠物会继承其主人的名称前缀，以至于此权限组玩家的宠物都带着服主前缀（</span>
+并且，所有属于该权限组的玩家，都带有 <span style="color: orange;"><strong>【服主】</strong></span> 前缀 <span class="heimu" title="你知道的太多了">由于 Minecraft 中，玩家的宠物会继承其主人的名称前缀，以至于此权限组玩家的宠物都带着服主前缀（</span>
 
 
