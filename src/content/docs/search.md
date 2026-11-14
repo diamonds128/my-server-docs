@@ -3,7 +3,7 @@ title: 查询记录
 description: 在服务器内通过Ledger查询各种记录
 ---
 
-> 本服安装了 [`Ledger`](https://github.com/QuiltServerTools/Ledger) 用于查询记录  
+> 本服安装了 [**Ledger**](https://github.com/QuiltServerTools/Ledger) 用于查询记录  
 
 ## Ledger 的作用？  
 
