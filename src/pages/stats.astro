@@ -1,0 +1,563 @@
+---
+// 文档站统计页（/my-server-docs/stats/）
+// 数据在构建时从 src/content/docs 读取，随每次部署更新。
+// 统计口径：
+//   - 只算对外可见的文档：排除 draft 与 404 页
+//   - 行数按文件物理行计，字数按字符计（含 Markdown 语法标记与 CJK 标点）
+//   - 树状目录里的文件大小 = 该文件（含 frontmatter）与同目录子文件的合计
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+
+const files = import.meta.glob('/src/content/docs/**/*.{md,mdx}', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+type DocStat = {
+  id: string;
+  path: string;
+  ext: 'md' | 'mdx';
+  lines: number;
+  bytes: number;
+  chars: number;
+  cjk: number;
+  words: number;
+  draft: boolean;
+  title: string;
+  hidden: boolean;
+};
+
+const entries = await getCollection('docs');
+const meta = new Map(entries.map((entry) => [entry.id, entry]));
+
+const docs: DocStat[] = Object.entries(files).map(([file, text]) => {
+  const id = file.replace('/src/content/docs/', '').replace(/\.(md|mdx)$/, '');
+  const entry = meta.get(id);
+  const body = text.replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
+  // 中文字符按 1 个词计，其余按空白切分
+  const words =
+    (body.match(/[\u4e00-\u9fff]/g) ?? []).length +
+    body
+      .replace(/[\u4e00-\u9fff]/g, ' ')
+      .split(/\s+/)
+      .filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
+
+  return {
+    id,
+    path: `${id}/`,
+    ext: file.endsWith('.mdx') ? 'mdx' : 'md',
+    lines: text.split(/\r?\n/).length,
+    bytes: new TextEncoder().encode(text).length,
+    chars: [...text].length,
+    cjk: (text.match(/[\u4e00-\u9fff]/g) ?? []).length,
+    words,
+    draft: Boolean(entry?.data.draft),
+    title: entry?.data.title ?? id,
+    hidden: Boolean(entry?.data.sidebar?.hidden),
+  };
+});
+
+const visible = docs.filter((doc) => !doc.draft && doc.id !== '404');
+const drafts = docs.filter((doc) => doc.draft);
+
+const sum = (list: DocStat[], key: 'lines' | 'bytes' | 'chars' | 'cjk' | 'words') =>
+  list.reduce((total, doc) => total + doc[key], 0);
+
+const totals = {
+  pages: visible.length,
+  lines: sum(visible, 'lines'),
+  chars: sum(visible, 'chars'),
+  cjk: sum(visible, 'cjk'),
+  words: sum(visible, 'words'),
+  bytes: sum(visible, 'bytes'),
+  md: visible.filter((doc) => doc.ext === 'md').length,
+  mdx: visible.filter((doc) => doc.ext === 'mdx').length,
+};
+
+const formatNumber = (value: number) => value.toLocaleString('zh-CN');
+
+// 侧边栏分组（与 astro.config.mjs 保持一致），用于统计与目录的顶层分组
+const groups: { label: string; ids: string[] }[] = [
+  {
+    label: '基础',
+    ids: ['welcome', 'start', 'rules', 'join', 'bedrock', 'faq', 'stats'],
+  },
+  {
+    label: '命令与权限（进阶）',
+    ids: ['permissions', 'skinrestorer', 'account', 'link', 'kiss', 'search', 'term'],
+  },
+  {
+    label: '工具',
+    ids: ['tools/converter', 'tools/coordinate'],
+  },
+  {
+    label: '其他',
+    ids: ['gallery', 'save', 'mods', 'incident', 'license'],
+  },
+];
+const groupedIds = new Set(groups.flatMap((group) => group.ids));
+const sidebarIds = new Set([...groupedIds, 'index']);
+const grouped = groups.map((group) => ({
+  label: group.label,
+  docs: group.ids
+    .map((id) => visible.find((doc) => doc.id === id))
+    .filter((doc): doc is DocStat => Boolean(doc)),
+}));
+// 没出现在侧边栏配置里的页面（隐藏彩蛋页、排版测试页等）
+const ungrouped = visible.filter((doc) => !sidebarIds.has(doc.id));
+
+// 首页单独列出（splash 模板，侧边栏隐藏但算一篇文档）
+const home = visible.find((doc) => doc.id === 'index');
+// 侧边栏隐藏的页面：首页、彩蛋页、测试页等
+const hiddenPages = visible.filter((doc) => !sidebarIds.has(doc.id) || doc.hidden);
+
+const ranked = [...visible].sort((a, b) => b.lines - a.lines);
+const longest = ranked[0];
+const averageLines = Math.round(totals.lines / Math.max(1, totals.pages));
+const mdShare = Math.round((totals.md / Math.max(1, totals.pages)) * 100);
+
+// 目录树：按路径层级聚合
+type TreeNode = {
+  name: string;
+  path?: string;
+  bytes: number;
+  lines: number;
+  children: Map<string, TreeNode>;
+};
+const root: TreeNode = { name: '', bytes: 0, lines: 0, children: new Map() };
+for (const doc of visible) {
+  const segments = doc.id.split('/');
+  let node = root;
+  node.bytes += doc.bytes;
+  node.lines += doc.lines;
+  segments.forEach((segment, index) => {
+    let child = node.children.get(segment);
+    if (!child) {
+      child = { name: segment, bytes: 0, lines: 0, children: new Map() };
+      node.children.set(segment, child);
+    }
+    child.bytes += doc.bytes;
+    child.lines += doc.lines;
+    if (index === segments.length - 1) child.path = doc.path;
+    node = child;
+  });
+}
+const sortTree = (node: TreeNode): TreeNode => {
+  node.children = new Map(
+    [...node.children.entries()].sort(([a], [b]) => a.localeCompare(b, 'zh-CN'))
+  );
+  node.children.forEach((child) => sortTree(child));
+  return node;
+};
+sortTree(root);
+
+const formatBytes = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
+};
+
+// 树的条宽按相对最大文件的比例，避免小文件看不见
+const maxFileBytes = Math.max(...visible.map((doc) => doc.bytes), 1);
+
+const cards = [
+  { label: '文档页数', value: formatNumber(totals.pages), note: '不含 404 页' },
+  { label: '总行数', value: formatNumber(totals.lines), note: `篇均 ${averageLines} 行` },
+  { label: '总字数', value: formatNumber(totals.chars), note: `含标点与 Markdown 标记` },
+  { label: '汉字数', value: formatNumber(totals.cjk), note: '仅统计 CJK 汉字' },
+  { label: '词数', value: formatNumber(totals.words), note: '汉字按字计，其余按空格切分' },
+  { label: '源文件大小', value: formatBytes(totals.bytes), note: '未压缩的 Markdown 源码' },
+];
+
+const extRows = [
+  { ext: 'md', label: 'Markdown', count: totals.md },
+  { ext: 'mdx', label: 'MDX', count: totals.mdx },
+];
+---
+
+<StarlightPage
+  frontmatter={{
+    title: '统计',
+    description: '文档站的页数、行数、字数与文件构成统计',
+    sidebar: { hidden: true },
+    pagefind: false,
+  }}
+>
+  <p class="stats-intro">
+    以下数据在构建时从 <code>src/content/docs</code> 读取，随每次部署自动更新。
+  </p>
+
+  <div class="stat-grid">
+    {
+      cards.map((card) => (
+        <div class="stat-card">
+          <span class="stat-card__label">{card.label}</span>
+          <strong class="stat-card__value">{card.value}</strong>
+          <span class="stat-card__note">{card.note}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2 id="composition">文件构成</h2>
+  <div class="stat-bar" role="img" aria-label={`Markdown ${totals.md} 篇，MDX ${totals.mdx} 篇`}>
+    {
+      extRows.map((row) => (
+        <span
+          class={`stat-bar__seg stat-bar__seg--${row.ext}`}
+          style={`flex-grow:${row.count || 0.0001}`}
+          title={`${row.label}：${row.count} 篇`}
+        />
+      ))
+    }
+  </div>
+  <ul class="stat-legend">
+    {
+      extRows.map((row) => (
+        <li>
+          <span class={`stat-legend__dot stat-legend__dot--${row.ext}`} />
+          {row.label}<span class="stat-legend__num">{row.count} 篇</span>
+        </li>
+      ))
+    }
+    <li class="stat-legend__extra">其中 MD 占 {mdShare}%</li>
+  </ul>
+
+  <h2 id="tree">目录构成</h2>
+  <p class="stats-hint">括号内为文件大小，条长为相对最长文件的占比。</p>
+  <div class="stat-tree-head">
+    <span class="stat-tree-head__title">页面</span>
+    <span class="stat-tree-head__meta">大小</span>
+  </div>
+  <ul class="stat-tree">
+    {
+      home && (
+        <li class="stat-tree__home">
+          <a href={home.path}>{home.title}</a>
+          <span class="stat-tree__meta">{formatBytes(home.bytes)}</span>
+          <span class="stat-tree__track">
+            <span class="stat-tree__fill" style={`width:${(home.bytes / maxFileBytes) * 100}%`} />
+          </span>
+        </li>
+      )
+    }
+    {
+      grouped.map((group) => (
+        <li class="stat-tree__group">
+          <span class="stat-tree__group-label">{group.label}</span>
+          <ul>
+            {group.docs.map((doc) => (
+              <li>
+                <a href={doc.path}>{doc.title}</a>
+                <span class="stat-tree__meta">{formatBytes(doc.bytes)}</span>
+                <span class="stat-tree__track">
+                  <span
+                    class="stat-tree__fill"
+                    style={`width:${(doc.bytes / maxFileBytes) * 100}%`}
+                  />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+    {
+      ungrouped.length > 0 && (
+        <li class="stat-tree__group">
+          <span class="stat-tree__group-label">未分组</span>
+          <ul>
+            {ungrouped.map((doc) => (
+              <li>
+                <a href={doc.path}>{doc.title}</a>
+                <span class="stat-tree__meta">{formatBytes(doc.bytes)}</span>
+                <span class="stat-tree__track">
+                  <span
+                    class="stat-tree__fill"
+                    style={`width:${(doc.bytes / maxFileBytes) * 100}%`}
+                  />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      )
+    }
+  </ul>
+
+  <h2 id="ranking">篇幅排行</h2>
+  <div class="stat-table-wrap">
+    <table class="stat-table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">文档</th>
+          <th scope="col">行数</th>
+          <th scope="col">字数</th>
+          <th scope="col">大小</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          ranked.slice(0, 10).map((doc, index) => (
+            <tr>
+              <td class="stat-table__rank">{index + 1}</td>
+              <td>
+                <a href={doc.path}>{doc.title}</a>
+              </td>
+              <td class="stat-table__num">{formatNumber(doc.lines)}</td>
+              <td class="stat-table__num">{formatNumber(doc.chars)}</td>
+              <td class="stat-table__num">{formatBytes(doc.bytes)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="notes">口径说明</h2>
+  <ul>
+    <li>不含 404 页，也不含未发布的草稿（当前 {drafts.length} 篇）。</li>
+    <li>行数为文件物理行数，字数按字符计，包含 frontmatter 与 Markdown 语法标记。</li>
+    <li>
+      最长的一篇是 <a href={longest?.path}>{longest?.title}</a>，共 {formatNumber(
+        longest?.lines ?? 0
+      )} 行。
+    </li>
+    {hiddenPages.length > 0 && (
+      <li>
+        另有 {hiddenPages.length} 篇在侧边栏隐藏但仍可访问的页面：
+        {hiddenPages.map((doc) => (
+          <>
+            <a href={doc.path}>{doc.title}</a>
+            {' '}
+          </>
+        ))}
+      </li>
+    )}
+  </ul>
+</StarlightPage>
+
+<style>
+  .stats-intro {
+    margin-block-end: 1.5rem;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    /* 默认 stretch 会让同一行卡片互相撑高，这里按内容高度对齐 */
+    align-items: start;
+    gap: 1rem;
+    margin-block: 1rem 2rem;
+  }
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: var(--md3-density-card-padding, 1.25rem);
+    background: var(--md-sys-color-surface-container-low);
+    border-radius: var(--md3-comp-card-shape, var(--md-sys-shape-lg));
+    transition: background-color var(--md3-motion-duration-state, 100ms);
+  }
+  /* 覆盖主题 prose 给卡片内 span/p 的段落间距 */
+  .stat-card > * {
+    margin-block: 0;
+  }
+  /* 内容区固定高度：数字行预留两行，避免首行数字换行把整行卡片撑高 */
+  .stat-card__label {
+    font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+    line-height: 1.25;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-card__value {
+    display: block;
+    block-size: 1.2em;
+    overflow: hidden;
+    font-size: var(--md-sys-typescale-headline-small-size, 1.75rem);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--md-sys-color-on-surface);
+  }
+  .stat-card__note {
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    line-height: 1.25;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .stat-bar {
+    display: flex;
+    gap: 0.25rem;
+    height: 1rem;
+    margin-block: 1rem 0.75rem;
+  }
+  .stat-bar__seg {
+    min-width: 0.5rem;
+    border-radius: var(--md-sys-shape-full, 999px);
+  }
+  .stat-bar__seg--md {
+    background: var(--md-sys-color-primary);
+  }
+  .stat-bar__seg--mdx {
+    background: var(--md-sys-color-tertiary);
+  }
+  .stat-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin: 0;
+  }
+  .stat-legend__dot {
+    inline-size: 0.625rem;
+    block-size: 0.625rem;
+    border-radius: 50%;
+  }
+  .stat-legend__dot--md {
+    background: var(--md-sys-color-primary);
+  }
+  .stat-legend__dot--mdx {
+    background: var(--md-sys-color-tertiary);
+  }
+  .stat-legend__num {
+    margin-inline-start: 0.25rem;
+    color: var(--md-sys-color-on-surface);
+  }
+  .stat-legend__extra {
+    margin-inline-start: auto;
+  }
+
+  .stats-hint {
+    margin-block: 0 0.75rem;
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-tree-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.5rem 0.375rem;
+    border-block-end: 1px solid var(--md-sys-color-outline-variant);
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-tree,
+  .stat-tree ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stat-tree li {
+    margin: 0;
+  }
+  .stat-tree > li + li {
+    margin-block-start: 0.25rem;
+  }
+  .stat-tree__group-label {
+    display: block;
+    margin-block: 1rem 0.375rem;
+    font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-tree ul > li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: var(--md-sys-shape-md, 0.75rem);
+  }
+  .stat-tree__home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: var(--md-sys-shape-md, 0.75rem);
+  }
+  .stat-tree__home:hover,
+  .stat-tree ul > li:hover {
+    background: var(--md3-state-on-surface-hover, color-mix(in srgb, currentColor 8%, transparent));
+  }
+  .stat-tree__home > a,
+  .stat-tree ul > li > a {
+    text-decoration: none;
+    color: var(--md-sys-color-on-surface);
+  }
+  .stat-tree__home > a:hover,
+  .stat-tree ul > li > a:hover {
+    color: var(--md-sys-color-primary);
+  }
+  .stat-tree__meta {
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    color: var(--md-sys-color-on-surface-variant);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-tree__track {
+    grid-column: 1 / -1;
+    display: block;
+    height: 0.25rem;
+    border-radius: var(--md-sys-shape-full, 999px);
+    background: var(--md-sys-color-surface-container-high);
+    overflow: hidden;
+  }
+  .stat-tree__fill {
+    display: block;
+    height: 100%;
+    min-width: 0.125rem;
+    border-radius: inherit;
+    background: var(--md-sys-color-primary);
+  }
+
+  .stat-table-wrap {
+    overflow-x: auto;
+    margin-block: 1rem 2rem;
+  }
+  .stat-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+  }
+  .stat-table th,
+  .stat-table td {
+    padding: 0.625rem 0.75rem;
+    border-block-end: 1px solid var(--md-sys-color-outline-variant);
+    text-align: start;
+  }
+  .stat-table th {
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .stat-table tbody tr:hover {
+    background: var(--md3-state-on-surface-hover, color-mix(in srgb, currentColor 4%, transparent));
+  }
+  .stat-table__rank {
+    color: var(--md-sys-color-on-surface-variant);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-table__num {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-table a {
+    text-decoration: none;
+    color: var(--md-sys-color-on-surface);
+  }
+  .stat-table a:hover {
+    color: var(--md-sys-color-primary);
+    text-decoration: underline;
+  }
+  .stat-table tbody tr {
+    transition: background-color var(--md3-motion-duration-state, 100ms);
+  }
+</style>
