@@ -41,6 +41,21 @@ jobs:
       - name: Build project
         run: npm run build            # Astro 构建到 dist/
 
+      # GitHub Pages 对未知扩展名（raw 路由输出的无扩展名文件）一律按
+      # application/octet-stream 下发，浏览器会直接下载而不是显示。
+      # Pages 不支持自定义响应头，所以这里给 raw 产物补一个 .md：
+      # Jekyll 会把 .md 当 Markdown，但本站产物不含 .nojekyll，
+      # Pages 对普通文本类扩展名返回 text/markdown，浏览器即内联显示。
+      - name: Add .md extension to raw source files
+        run: |
+          for f in dist/raw/*; do
+            [ -f "$f" ] || continue
+            case "$f" in
+              *.md|*.html) ;;
+              *) cp "$f" "$f.md" ;;
+            esac
+          done
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
