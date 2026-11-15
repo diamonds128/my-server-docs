@@ -49,10 +49,10 @@ description: 本服务器的服务端安装的模组列表
 | --- | --- |
 | Auto Log Remover | 自动删除旧的日志 [^1] |
 | BanHammer | 管理员惩罚工具（封禁/禁言/踢出） |
-| EasyAuth | 离线服务器认证模组 |
+| EasyAuth<sup>[查看相关页面](/my-server-docs/account)</sup> | 离线服务器认证模组 |
 | Inv View | 允许管理员查看或编辑玩家背包以及末影箱 |
 | JLine4MCDSrv | 控制台增强（命令历史、自动补全） |
-| Ledger | 行为记录与回滚 |
+| Ledger<sup>[查看相关页面](/my-server-docs/search)</sup> | 行为记录与回滚 |
 | LuckPerms | 权限管理 |
 | MCPServer | 允许 AI Agent 监控、管理服务器 |
 | Vanish | 管理员隐身 |
@@ -63,7 +63,7 @@ description: 本服务器的服务端安装的模组列表
 | 模组名称 | 用途 |
 | --- | --- |
 | Floodgate | 基岩版账号接入 Java 版 |
-| Geyser | Java/基岩版协议转换代理 |
+| Geyser<sup>[查看相关页面](/my-server-docs/bedrock)</sup> | Java/基岩版协议转换代理 |
 | Hurricane | Geyser 辅助模组，修复基岩版体验问题 |
 
 ### 显示与信息交互
@@ -76,7 +76,7 @@ description: 本服务器的服务端安装的模组列表
 | JEI (Just Enough Items) | 物品配方查看 |
 | Just Enough Resources | JEI 附属，查看资源分布 |
 | MiniMOTD | 自定义 MOTD |
-| SkinRestorer | 皮肤管理 |
+| SkinRestorer<sup>[查看相关页面](/my-server-docs/skin)</sup> | 皮肤管理 |
 | TAB | 多功能信息显示（Tab 列表/计分板） |
 | Text Placeholder API | 文本占位符解析库 |
 
@@ -98,7 +98,7 @@ description: 本服务器的服务端安装的模组列表
 
 | 模组名称 | 用途 |
 | --- | --- |
-| Kiss | 在其他玩家附近快速蹲起时冒爱心，或通过 `/kiss` 亲吻其他玩家 |
+| Kiss<sup>[查看相关页面](/my-server-docs/kiss)</sup> | 在其他玩家附近快速蹲起时冒爱心，或通过 `/kiss` 亲吻其他玩家 |
 | Sit! | 允许玩家坐下 |
 
 ---
