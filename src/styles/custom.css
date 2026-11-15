@@ -810,6 +810,8 @@ code {
   font-family: var(--__sl-font-mono);
   font-size: 0.875rem;
   font-weight: 500;
+  /* 用无单位 1.25 而不是 1.125rem：⌘ 这类符号的字形比拉丁字母高，
+     行高写成固定 rem 时它会被裁切/挤压；无单位值随字号缩放，各字符都完整。 */
   line-height: 1.25;
   letter-spacing: 0.1px;
   vertical-align: baseline;
@@ -819,8 +821,11 @@ code {
   -webkit-touch-callout: none;
 }
 
-/* 按下反馈：所有正文键帽都有，不需要任何属性 */
+/* 按下反馈：用内阴影模拟“按下去”，不做任何几何变化。
+   之前用 transform: translateY(1px) 会让元素下移，位于行尾时盒底越过行盒，
+   行高被重算，下一行跟着跳；改用 inset box-shadow，视觉上下沉但布局纹丝不动。
+   边框宽度保持不变，否则盒高会从 1.5rem 变成 1.4375rem，同样会牵动行盒。 */
 .sl-markdown-content kbd:active {
-  border-bottom-width: 1px;
-  transform: translateY(1px);
+  box-shadow: inset 0 1px 0 0 var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container);
 }
