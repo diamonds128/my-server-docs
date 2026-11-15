@@ -22,13 +22,13 @@ description: 本服务器的服务端安装的模组列表
 | --- | --- |
 | C2ME | 并发区块管理引擎，优化性能 |
 | Chunk Sending | 优化区块数据包分发 |
-| Lithium | 优化实体与红石计算 |
-| Starlight | 光照引擎优化 |
-| MemoryLeakFix | 修复内存泄漏 |
-| TooFast | 移除服务端速度检测 |
 | LazyDFU | 加速游戏启动 |
-| Spark | 性能分析工具 |
+| Lithium | 优化实体与红石计算 |
+| MemoryLeakFix | 修复内存泄漏 |
 | PacketFixer | 修复数据包问题 |
+| Spark | 性能分析工具 |
+| Starlight | 光照引擎优化 |
+| TooFast | 移除服务端速度检测 |
 
 ### 生电与技术支持
 为生电玩家提供便利
@@ -36,8 +36,8 @@ description: 本服务器的服务端安装的模组列表
 | 模组名称 | 用途 |
 | --- | --- |
 | Carpet | 原版技术控制模组 |
-| Carpet Extra | Carpet 扩展 [^2] |
 | Carpet AS Addition | Carpet 附加包，假人 UI 高亮 |
+| Carpet Extra | Carpet 扩展 [^2] |
 | Gugle Carpet Addition | Carpet 附加包，增强假人管理 |
 | Ivan Carpet Addition | Carpet 扩展，技术工具 |
 | No Chat Reports | 禁用聊天举报 |
@@ -47,23 +47,23 @@ description: 本服务器的服务端安装的模组列表
 
 | 模组名称 | 用途 |
 | --- | --- |
-| EasyAuth | 离线服务器认证模组 |
-| LuckPerms | 权限管理 |
-| BanHammer | 管理员惩罚工具（封禁/禁言/踢出） |
-| Ledger | 行为记录与回滚 |
-| Vanish | 管理员隐身 |
 | Auto Log Remover | 自动删除旧的日志 [^1] |
-| JLine4MCDSrv | 控制台增强（命令历史、自动补全） |
-| MCPServer | 允许 AI Agent 监控、管理服务器 |
+| BanHammer | 管理员惩罚工具（封禁/禁言/踢出） |
+| EasyAuth | 离线服务器认证模组 |
 | Inv View | 允许管理员查看或编辑玩家背包以及末影箱 |
+| JLine4MCDSrv | 控制台增强（命令历史、自动补全） |
+| Ledger | 行为记录与回滚 |
+| LuckPerms | 权限管理 |
+| MCPServer | 允许 AI Agent 监控、管理服务器 |
+| Vanish | 管理员隐身 |
 
 ### JE/BE 互通
 实现 Java 版与基岩版互通
 
 | 模组名称 | 用途 |
 | --- | --- |
-| Geyser | Java/基岩版协议转换代理 |
 | Floodgate | 基岩版账号接入 Java 版 |
+| Geyser | Java/基岩版协议转换代理 |
 | Hurricane | Geyser 辅助模组，修复基岩版体验问题 |
 
 ### 显示与信息交互
@@ -76,8 +76,8 @@ description: 本服务器的服务端安装的模组列表
 | JEI (Just Enough Items) | 物品配方查看 |
 | Just Enough Resources | JEI 附属，查看资源分布 |
 | MiniMOTD | 自定义 MOTD |
-| TAB | 多功能信息显示（Tab 列表/计分板） |
 | SkinRestorer | 皮肤管理 |
+| TAB | 多功能信息显示（Tab 列表/计分板） |
 | Text Placeholder API | 文本占位符解析库 |
 
 ### 前置库与基础 API
@@ -85,10 +85,10 @@ description: 本服务器的服务端安装的模组列表
 
 | 模组名称 | 用途 |
 | --- | --- |
-| Fabric API | Fabric 模组基础 API |
-| Fabric Permissions API | 权限 API |
-| Fabric Language Kotlin | Kotlin 语言支持库 |
 | Cupboard | 开发前置库（配置框架、崩溃追踪） |
+| Fabric API | Fabric 模组基础 API |
+| Fabric Language Kotlin | Kotlin 语言支持库 |
+| Fabric Permissions API | 权限 API |
 | Forge Config API Port | 将 Forge 配置系统移植到 Fabric |
 | OtterLib | 前置库模组 |
 | Vanilla Permissions | 原版命令权限检查 |
