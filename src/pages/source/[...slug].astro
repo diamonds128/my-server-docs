@@ -2,6 +2,7 @@
 // MDX 文档的源码页（/my-server-docs/source/<slug>/）
 // MDX 里含有 JSX / import 语句，直接当 Markdown 输出会被渲染成乱码，
 // 所以单独做一个页面，用 <pre> 原样展示源码，并提供复制与下载。
+// 统计页（stats.astro）也走这里，方便在页脚提供「查看页面源码」。
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
 
@@ -9,6 +10,11 @@ export async function getStaticPaths() {
   const entries = await getCollection('docs');
   // 在 getStaticPaths 内部求值，才能拿到 import.meta.glob 的结果
   const files = import.meta.glob('/src/content/docs/**/*.mdx', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  }) as Record<string, string>;
+  const pageFiles = import.meta.glob('/src/pages/stats.astro', {
     query: '?raw',
     import: 'default',
     eager: true,
@@ -25,9 +31,19 @@ export async function getStaticPaths() {
           editPath: `src/content/docs/${entry.id}.mdx`,
         },
       };
-    });
+    })
+    .concat([
+      // 统计页是 .astro 页面而非文档，单独提供源码入口
+      {
+        params: { slug: 'stats' },
+        props: {
+          title: '统计',
+          code: String(pageFiles['/src/pages/stats.astro'] ?? ''),
+          editPath: 'src/pages/stats.astro',
+        },
+      },
+    ]);
 }
-
 const { title, code, editPath } = Astro.props;
 const lineCount = code.split(/\r?\n/).length;
 const fileName = `${editPath.split('/').pop()}`;

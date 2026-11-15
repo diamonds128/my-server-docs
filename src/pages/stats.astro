@@ -77,6 +77,11 @@ const totals = {
 
 const formatNumber = (value: number) => value.toLocaleString('zh-CN');
 
+// 统计页不是文档集合条目，Starlight 的 editLink 不会给它生成「编辑此页」，
+// 所以这里按与 astro.config.mjs 的 editLink.baseUrl 相同的仓库手动拼一个。
+const editUrl =
+  'https://github.com/diamonds128/my-server-docs/edit/main/src/pages/stats.astro';
+
 // 侧边栏分组（与 astro.config.mjs 保持一致），用于统计与目录的顶层分组
 const groups: { label: string; ids: string[] }[] = [
   {
@@ -170,6 +175,32 @@ const cards = [
   { label: '源文件大小', value: formatBytes(totals.bytes), note: '未压缩的 Markdown 源码' },
 ];
 
+// 服务器与存档的天数：起点与首页、存档页的 [data-start] 保持一致。
+// 构建时先给出静态数字（无 JS 也能看），页面加载后由 uptime.js 按 data-start 实时刷新。
+const MS_PER_DAY = 1000 * 60 * 60 * 24;
+const daysSince = (iso: string) => Math.floor((Date.now() - new Date(iso).getTime()) / MS_PER_DAY);
+const SERVER_START = '2025-07-06';
+const SAVE_START = '2025-08-06';
+const serverDays = daysSince(SERVER_START);
+const saveDays = daysSince(SAVE_START);
+
+const serverCards = [
+  {
+    label: '已开服',
+    value: formatNumber(serverDays),
+    unit: '天',
+    note: `自 ${SERVER_START}`,
+    start: SERVER_START,
+  },
+  {
+    label: '当前存档历时',
+    value: formatNumber(saveDays),
+    unit: '天',
+    note: `自 ${SAVE_START}`,
+    start: SAVE_START,
+  },
+];
+
 const extRows = [
   { ext: 'md', label: 'Markdown', count: totals.md },
   { ext: 'mdx', label: 'MDX', count: totals.mdx },
@@ -186,8 +217,38 @@ const extRows = [
 >
   <p class="stats-intro">
     以下数据在构建时从 <code>src/content/docs</code> 读取，随每次部署自动更新。
+    <a class="stats-edit" href={editUrl} rel="noopener noreferrer" target="_blank">
+      <svg
+        class="icon stats-edit__icon"
+        aria-hidden="true"
+        width="16"
+        height="16"
+        viewBox="0 -960 960 960"
+        fill="currentColor"
+      >
+        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+      </svg>
+      编辑此页
+    </a>
   </p>
 
+  <h2 id="server">服务器</h2>
+  <div class="stat-grid">
+    {
+      serverCards.map((card) => (
+        <div class="stat-card">
+          <span class="stat-card__label">{card.label}</span>
+          <strong class="stat-card__value">
+            <span data-start={card.start}>{card.value}</span>
+            <span class="stat-card__unit">{card.unit}</span>
+          </strong>
+          <span class="stat-card__note">{card.note}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2 id="docs">文档</h2>
   <div class="stat-grid">
     {
       cards.map((card) => (
@@ -318,6 +379,7 @@ const extRows = [
 
   <h2 id="notes">口径说明</h2>
   <ul>
+    <li>服务器与存档天数按本地日期差计算，起点分别是 2025-07-06 与 2025-08-06，与首页、存档页一致。</li>
     <li>不含 404 页，也不含未发布的草稿（当前 {drafts.length} 篇）。</li>
     <li>行数为文件物理行数，字数按字符计，包含 frontmatter 与 Markdown 语法标记。</li>
     <li>
@@ -339,10 +401,30 @@ const extRows = [
   </ul>
 </StarlightPage>
 
+<script src="/my-server-docs/scripts/uptime.js" defer></script>
+
 <style>
   .stats-intro {
     margin-block-end: 1.5rem;
     color: var(--md-sys-color-on-surface-variant);
+  }
+  /* 「编辑此页」：与页脚链接同一套观感，图标用 Material Symbols Outlined */
+  .stats-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-inline-start: 0.75rem;
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .stats-edit:hover {
+    text-decoration: underline;
+  }
+  .stats-edit__icon {
+    flex-shrink: 0;
+    width: 1.1em;
+    height: 1.1em;
   }
   .stat-grid {
     display: grid;
@@ -351,6 +433,9 @@ const extRows = [
     align-items: start;
     gap: 1rem;
     margin-block: 1rem 2rem;
+  }
+  .stat-grid > * {
+    margin-block: 0;
   }
   .stat-card {
     display: flex;
@@ -373,12 +458,17 @@ const extRows = [
   }
   .stat-card__value {
     display: block;
-    block-size: 1.2em;
-    overflow: hidden;
     font-size: var(--md-sys-typescale-headline-small-size, 1.75rem);
     font-weight: 600;
     line-height: 1.2;
     color: var(--md-sys-color-on-surface);
+  }
+  /* 单位（天）比数字小一号，与数字基线对齐 */
+  .stat-card__unit {
+    margin-inline-start: 0.25rem;
+    font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
   }
   .stat-card__note {
     font-size: var(--md-sys-typescale-body-small-size, 0.75rem);

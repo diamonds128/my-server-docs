@@ -13,16 +13,25 @@ const filePath = Astro.locals.starlightRoute?.entry?.filePath ?? '';
 const ext = filePath.endsWith('.mdx') ? 'mdx' : 'md';
 
 // Markdown 走 raw 纯文本路由；MDX 走独立页面，避免把 JSX 当 Markdown 渲染
-const sourceUrl =
-  entryId && entryId !== '404'
+// 统计页是 .astro 页面，没有对应的文档源码文件，直接指向 stats.astro 本身
+const isStats = pathname.replace(/\/$/, '') === '/my-server-docs/stats';
+const sourceUrl = isStats
+  ? `${import.meta.env.BASE_URL}source/stats/`
+  : entryId && entryId !== '404'
     ? ext === 'mdx'
       ? `${import.meta.env.BASE_URL}source/${entryId}/`
       : `${import.meta.env.BASE_URL}raw/${entryId}/`
     : undefined;
-const sourceLabel = ext === 'mdx' ? '查看 MDX 源码' : '查看 Markdown 源码';
+const sourceLabel = isStats
+  ? '查看页面源码'
+  : ext === 'mdx'
+    ? '查看 MDX 源码'
+    : '查看 Markdown 源码';
 
 // 图标：Material Symbols Outlined（960 网格，viewBox="0 -960 960 960"），
 // 与侧边栏分组图标同一套，均为空心轮廓字重。
+// 注意：StarlightPage 渲染的页面没有 starlightRoute.entry，拿不到文档对应的源码文件，
+// 因此这些页面不挂「查看源码」入口。
 const ICONS = {
   edit: 'M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z',
   code: 'M320-240 80-480l240-240 57 57-184 184 183 183-56 56Zm320 0-57-57 184-184-183-183 56-56 240 240-240 240Z',
@@ -31,7 +40,7 @@ const VIEW_BOX = '0 -960 960 960';
 const script = `(() => {
   const meta = document.querySelector('footer .meta');
   const editLink = meta && meta.querySelector('a[href*="/edit/"]');
-  if (!meta || !editLink || meta.querySelector('[data-raw-source]')) return;
+  if (!meta || meta.querySelector('[data-raw-source]')) return;
   const ICONS = ${JSON.stringify(ICONS)};
   const VIEW_BOX = ${JSON.stringify(VIEW_BOX)};
   const makeIcon = (path) => {
@@ -48,18 +57,22 @@ const script = `(() => {
     el.append(p);
     return el;
   };
-  const old = editLink.querySelector('svg');
-  if (old) old.replaceWith(makeIcon(ICONS.edit));
+  if (editLink) {
+    const old = editLink.querySelector('svg');
+    if (old) old.replaceWith(makeIcon(ICONS.edit));
+  }
   const link = document.createElement('a');
-  link.href = ${JSON.stringify(sourceUrl)};
+  link.href = ${JSON.stringify(sourceUrl ?? '')};
   link.dataset.rawSource = '';
   link.className = 'sl-flex print:hidden raw-source-link';
   link.append(makeIcon(ICONS.code), ${JSON.stringify(sourceLabel)});
-  editLink.after(link);
+  // 有「编辑本页」时插到它后面；没有（如统计页）就单独成组
+  if (editLink) editLink.after(link);
   const group = document.createElement('div');
   group.className = 'sl-flex meta-actions';
   meta.prepend(group);
-  group.append(editLink, link);
+  if (editLink) group.append(editLink);
+  group.append(link);
 })();`;
 ---
 
