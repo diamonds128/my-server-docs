@@ -1,6 +1,8 @@
 ---
 // 页脚「查看源码」入口：按文件扩展名选择对应的源码路由。
 // 站点里既有 .md 也有 .mdx，还有 index.mdx 这类首页，所以不能一律指向 raw/。
+// raw 路由输出的是无扩展名的文件（见 src/pages/raw/[...slug].ts），
+// GitHub Pages 不会为「文件 + 结尾斜杠」做目录重定向，所以 raw 链接不能带结尾斜杠。
 // 首页、404 页不显示：首页是 splash 模板，404 是兜底页，没有对外公开的源码入口。
 import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
 
@@ -20,7 +22,7 @@ const sourceUrl = isStats
   : entryId && entryId !== '404'
     ? ext === 'mdx'
       ? `${import.meta.env.BASE_URL}source/${entryId}/`
-      : `${import.meta.env.BASE_URL}raw/${entryId}/`
+      : `${import.meta.env.BASE_URL}raw/${entryId}`
     : undefined;
 const sourceLabel = isStats
   ? '查看页面源码'
