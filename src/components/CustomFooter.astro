@@ -7,10 +7,66 @@ const pathname = Astro.url.pathname;
 const isHome = pathname === '/my-server-docs/' || pathname === '/my-server-docs';
 // 判断是否为 404 页面
 const is404 = pathname === '/my-server-docs/404' || pathname === '/my-server-docs/404.html';
+
+// 当前文档的 Markdown 源码地址（由 src/pages/raw/[...slug].ts 生成）
+// 首页是 index.mdx、404 是 404.md，两者都不在 docs 集合里，没有对应的 raw 输出，故不显示入口。
+const entryId = Astro.locals.starlightRoute?.entry?.id;
+const rawUrl =
+  entryId && entryId !== '404' ? `${import.meta.env.BASE_URL}raw/${entryId}/` : undefined;
+
+// 图标：Material Symbols Outlined（960 网格，viewBox="0 -960 960 960"），
+// 与侧边栏分组图标同一套，均为空心轮廓字重。
+const ICONS = {
+  edit: 'M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z',
+  code: 'M320-240 80-480l240-240 57 57-184 184 183 183-56 56Zm320 0-57-57 184-184-183-183 56-56 240 240-240 240Z',
+};
+const VIEW_BOX = '0 -960 960 960';
+const script = `(() => {
+  const meta = document.querySelector('footer .meta');
+  const editLink = meta && meta.querySelector('a[href*="/edit/"]');
+  if (!meta || !editLink || meta.querySelector('[data-raw-source]')) return;
+  const ICONS = ${JSON.stringify(ICONS)};
+  const VIEW_BOX = ${JSON.stringify(VIEW_BOX)};
+  const makeIcon = (path) => {
+    const NS = 'http://www.w3.org/2000/svg';
+    const el = document.createElementNS(NS, 'svg');
+    el.setAttribute('class', 'icon');
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('width', '16');
+    el.setAttribute('height', '16');
+    el.setAttribute('viewBox', VIEW_BOX);
+    el.setAttribute('fill', 'currentColor');
+    const p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', path);
+    el.append(p);
+    return el;
+  };
+  const old = editLink.querySelector('svg');
+  if (old) old.replaceWith(makeIcon(ICONS.edit));
+  const link = document.createElement('a');
+  link.href = ${JSON.stringify(rawUrl)};
+  link.dataset.rawSource = '';
+  link.className = 'sl-flex print:hidden raw-source-link';
+  link.append(makeIcon(ICONS.code), '查看 Markdown 源码');
+  editLink.after(link);
+  const group = document.createElement('div');
+  group.className = 'sl-flex meta-actions';
+  meta.prepend(group);
+  group.append(editLink, link);
+})();`;
 ---
 
 <!-- 始终保留默认 Footer -->
 <DefaultFooter />
+
+<!--
+  默认 Footer 的 .meta 用 space-between 排布：编辑本页靠左、最后更新靠右。
+  这里把「查看 Markdown 源码」插到编辑本页右侧，并让两者成组一起靠左，
+  最后更新仍保持靠右。两个链接的图标统一替换为 Material Symbols Outlined。
+-->
+{rawUrl && (
+  <script is:inline set:html={script} />
+)}
 
 <!-- 仅当不是首页、也不是 404 页面时，才显示自定义版权声明 -->
 {!isHome && !is404 && (
@@ -43,5 +99,32 @@ const is404 = pathname === '/my-server-docs/404' || pathname === '/my-server-doc
   }
   .custom-footer a:hover {
     text-decoration: underline;
+  }
+</style>
+
+<style is:global>
+  @layer starlight.core {
+    footer .meta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1.5rem;
+      margin-inline-end: auto !important;
+    }
+    footer .meta-actions > a {
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+      text-decoration: none;
+      color: var(--sl-color-gray-3);
+    }
+    footer .meta-actions > a:hover {
+      color: var(--sl-color-white);
+    }
+    footer .meta-actions > a .icon {
+      flex-shrink: 0;
+      width: 1.2em;
+      height: 1.2em;
+    }
   }
 </style>
