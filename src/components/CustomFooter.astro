@@ -1,18 +1,25 @@
 ---
+// 页脚「查看源码」入口：按文件扩展名选择对应的源码路由。
+// 站点里既有 .md 也有 .mdx，还有 index.mdx 这类首页，所以不能一律指向 raw/。
+// 首页、404 页不显示：首页是 splash 模板，404 是兜底页，没有对外公开的源码入口。
 import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
 
-// 获取当前页面路径（不含 base）
 const pathname = Astro.url.pathname;
-// 判断是否为首页（base 是 /my-server-docs/，所以首页路径是 /my-server-docs/ 或 /my-server-docs）
 const isHome = pathname === '/my-server-docs/' || pathname === '/my-server-docs';
-// 判断是否为 404 页面
 const is404 = pathname === '/my-server-docs/404' || pathname === '/my-server-docs/404.html';
 
-// 当前文档的 Markdown 源码地址（由 src/pages/raw/[...slug].ts 生成）
-// 首页是 index.mdx、404 是 404.md，两者都不在 docs 集合里，没有对应的 raw 输出，故不显示入口。
 const entryId = Astro.locals.starlightRoute?.entry?.id;
-const rawUrl =
-  entryId && entryId !== '404' ? `${import.meta.env.BASE_URL}raw/${entryId}/` : undefined;
+const filePath = Astro.locals.starlightRoute?.entry?.filePath ?? '';
+const ext = filePath.endsWith('.mdx') ? 'mdx' : 'md';
+
+// Markdown 走 raw 纯文本路由；MDX 走独立页面，避免把 JSX 当 Markdown 渲染
+const sourceUrl =
+  entryId && entryId !== '404'
+    ? ext === 'mdx'
+      ? `${import.meta.env.BASE_URL}source/${entryId}/`
+      : `${import.meta.env.BASE_URL}raw/${entryId}/`
+    : undefined;
+const sourceLabel = ext === 'mdx' ? '查看 MDX 源码' : '查看 Markdown 源码';
 
 // 图标：Material Symbols Outlined（960 网格，viewBox="0 -960 960 960"），
 // 与侧边栏分组图标同一套，均为空心轮廓字重。
@@ -44,10 +51,10 @@ const script = `(() => {
   const old = editLink.querySelector('svg');
   if (old) old.replaceWith(makeIcon(ICONS.edit));
   const link = document.createElement('a');
-  link.href = ${JSON.stringify(rawUrl)};
+  link.href = ${JSON.stringify(sourceUrl)};
   link.dataset.rawSource = '';
   link.className = 'sl-flex print:hidden raw-source-link';
-  link.append(makeIcon(ICONS.code), '查看 Markdown 源码');
+  link.append(makeIcon(ICONS.code), ${JSON.stringify(sourceLabel)});
   editLink.after(link);
   const group = document.createElement('div');
   group.className = 'sl-flex meta-actions';
@@ -61,10 +68,10 @@ const script = `(() => {
 
 <!--
   默认 Footer 的 .meta 用 space-between 排布：编辑本页靠左、最后更新靠右。
-  这里把「查看 Markdown 源码」插到编辑本页右侧，并让两者成组一起靠左，
+  这里把「查看源码」插到编辑本页右侧，并让两者成组一起靠左，
   最后更新仍保持靠右。两个链接的图标统一替换为 Material Symbols Outlined。
 -->
-{rawUrl && (
+{sourceUrl && (
   <script is:inline set:html={script} />
 )}
 

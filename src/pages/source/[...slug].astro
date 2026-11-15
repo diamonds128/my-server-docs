@@ -1,0 +1,203 @@
+---
+// MDX 文档的源码页（/my-server-docs/source/<slug>/）
+// MDX 里含有 JSX / import 语句，直接当 Markdown 输出会被渲染成乱码，
+// 所以单独做一个页面，用 <pre> 原样展示源码，并提供复制与下载。
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs');
+  // 在 getStaticPaths 内部求值，才能拿到 import.meta.glob 的结果
+  const files = import.meta.glob('/src/content/docs/**/*.mdx', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  }) as Record<string, string>;
+  return entries
+    .filter((entry) => entry.filePath?.endsWith('.mdx') && !entry.data.draft)
+    .map((entry) => {
+      const key = `/src/content/docs/${entry.id}.mdx`;
+      return {
+        params: { slug: entry.id },
+        props: {
+          title: entry.data.title ?? entry.id,
+          code: String(files[key] ?? ''),
+          editPath: `src/content/docs/${entry.id}.mdx`,
+        },
+      };
+    });
+}
+
+const { title, code, editPath } = Astro.props;
+const lineCount = code.split(/\r?\n/).length;
+const fileName = `${editPath.split('/').pop()}`;
+const editUrl = `https://github.com/diamonds128/my-server-docs/edit/main/${editPath}`;
+---
+
+<StarlightPage
+  frontmatter={{
+    title: `${title} · 源码`,
+    description: `${fileName} 的 MDX 源码`,
+    sidebar: { hidden: true },
+    pagefind: false,
+  }}
+>
+  <p class="source-meta">
+    <code>{editPath}</code>
+    <span class="source-meta__sep" aria-hidden="true">·</span>
+    {lineCount} 行
+    <span class="source-meta__sep" aria-hidden="true">·</span>
+    MDX
+    <span class="source-meta__sep" aria-hidden="true">·</span>
+    <a href={editUrl} rel="noopener noreferrer" target="_blank">在 GitHub 上编辑</a>
+  </p>
+
+  <div class="source-toolbar">
+    <button type="button" class="source-copy" data-copy-source>
+      <svg
+        class="icon"
+        aria-hidden="true"
+        width="16"
+        height="16"
+        viewBox="0 -960 960 960"
+        fill="currentColor"
+      >
+        <path
+          d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"
+        />
+      </svg>
+      <span class="source-copy__label">复制源码</span>
+    </button>
+    <span class="source-toolbar__hint">复制后可直接粘贴到编辑器里</span>
+  </div>
+
+  <pre class="source-code" data-source-text><code>{code}</code></pre>
+</StarlightPage>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-copy-source]');
+  const pre = document.querySelector<HTMLElement>('[data-source-text]');
+
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      // 非安全上下文（http / 旧浏览器）下回退到 execCommand
+      const area = document.createElement('textarea');
+      area.value = text;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.opacity = '0';
+      document.body.append(area);
+      area.select();
+      const ok = document.execCommand('copy');
+      area.remove();
+      return ok;
+    }
+  };
+
+  button?.addEventListener('click', async () => {
+    if (!pre) return;
+    const label = button.querySelector('.source-copy__label');
+    if (!label) return;
+    const original = label.textContent ?? '';
+    const ok = await copy(pre.textContent ?? '');
+    button.dataset.state = ok ? 'done' : 'error';
+    label.textContent = ok ? '已复制' : '复制失败';
+    setTimeout(() => {
+      button.dataset.state = '';
+      label.textContent = original;
+    }, 1600);
+  });
+</script>
+
+<style>
+  .source-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block: 0 1rem;
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  .source-meta code {
+    font-size: inherit;
+  }
+  .source-meta__sep {
+    opacity: 0.6;
+  }
+  .source-meta a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+  }
+  .source-meta a:hover {
+    text-decoration: underline;
+  }
+
+  .source-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-block-end: 0.75rem;
+  }
+  .source-copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-block-size: 2.25rem;
+    padding-inline: 1rem;
+    border: 0;
+    border-radius: var(--md-sys-shape-full, 999px);
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    font-size: var(--md-sys-typescale-label-large-size, 0.875rem);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--md3-motion-duration-control, 200ms);
+  }
+  .source-copy:hover {
+    background: color-mix(
+      in srgb,
+      var(--md-sys-color-secondary-container) 88%,
+      var(--md-sys-color-on-secondary-container)
+    );
+  }
+  .source-copy:focus-visible {
+    outline: 0;
+    box-shadow: var(--md3-focus-ring, 0 0 0 2px var(--md-sys-color-primary));
+  }
+  .source-copy[data-state='done'] {
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+  }
+  .source-copy[data-state='error'] {
+    background: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container);
+  }
+  .source-toolbar__hint {
+    font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  /* 源码块：横向滚动，不换行，行高紧凑便于对照行号 */
+  .source-code {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    background: var(--md-sys-color-surface-container-low);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: var(--md-sys-shape-lg, 1rem);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    tab-size: 2;
+  }
+  .source-code code {
+    font-family: var(--sl-font-mono, ui-monospace, monospace);
+    background: none;
+    padding: 0;
+    white-space: pre;
+  }
+</style>
