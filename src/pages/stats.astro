@@ -349,6 +349,7 @@ const extRows = [
     }
   </ul>
 
+  {/* 篇幅排行暂时隐藏，恢复时取消注释即可
   <h2 id="ranking">篇幅排行</h2>
   <div class="stat-table-wrap">
     <table class="stat-table">
@@ -378,12 +379,13 @@ const extRows = [
       </tbody>
     </table>
   </div>
+  */}
 
   <h2 id="notes">口径说明</h2>
   <ul>
     <li>服务器与存档天数按本地日期差计算，起点分别是 2025-07-06 与 2025-08-06，与首页、存档页一致。</li>
     <li>不含 404 页，也不含未发布的草稿（当前 {drafts.length} 篇）。</li>
-    <li>统计与排行只计入侧边栏中展示的页面，侧边栏隐藏的页面不计入，也不在此列出。</li>
+    <li>统计只计入侧边栏中展示的页面，侧边栏隐藏的页面不计入，也不在此列出。</li>
     <li>行数为文件物理行数，字数按字符计，包含 frontmatter 与 Markdown 语法标记。</li>
     <li>
       最长的一篇是 <a href={longest?.path}>{longest?.title}</a>，共 {formatNumber(
