@@ -78,6 +78,13 @@ export default defineConfig({
           ],
         },
         {
+          label: '个人页面',
+          collapsed: true,
+          items: [
+            { label: 'wdnmd', link: '/players/wdnmd' },
+          ],
+        },
+        {
           label: '其他',
           collapsed: true,
           items: [
