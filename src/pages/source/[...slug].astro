@@ -1,15 +1,23 @@
 ---
-// MDX 文档的源码页（/my-server-docs/source/<slug>/）
-// MDX 里含有 JSX / import 语句，直接当 Markdown 输出会被渲染成乱码，
-// 所以单独做一个页面，用 <pre> 原样展示源码，并提供复制与下载。
-// 统计页（stats.astro）也走这里，方便在页脚提供「查看页面源码」。
+// 源码页（/my-server-docs/source/<slug>/）
+// 同时承担两种角色：
+//  1. MDX 文档的源码页。MDX 含 JSX / import，直接当 Markdown 输出会变乱码，
+//     所以在页面里用 <pre> 原样展示，并提供复制与下载。
+//  2. Markdown 文档的 raw 源码查看页。raw 路由（src/pages/raw/[...slug].ts）
+//     输出的是无扩展名文件，GitHub Pages 一律按 application/octet-stream 下发，
+//     浏览器会直接下载而不是显示，所以 .md 文档的「查看 Markdown 源码」也走这里。
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const entries = await getCollection('docs');
   // 在 getStaticPaths 内部求值，才能拿到 import.meta.glob 的结果
-  const files = import.meta.glob('/src/content/docs/**/*.mdx', {
+  const mdxFiles = import.meta.glob('/src/content/docs/**/*.mdx', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  }) as Record<string, string>;
+  const mdFiles = import.meta.glob('/src/content/docs/**/*.md', {
     query: '?raw',
     import: 'default',
     eager: true,
@@ -19,41 +27,54 @@ export async function getStaticPaths() {
     import: 'default',
     eager: true,
   }) as Record<string, string>;
-  return entries
-    .filter((entry) => entry.filePath?.endsWith('.mdx') && !entry.data.draft)
-    .map((entry) => {
-      const key = `/src/content/docs/${entry.id}.mdx`;
-      return {
-        params: { slug: entry.id },
-        props: {
-          title: entry.data.title ?? entry.id,
-          code: String(files[key] ?? ''),
-          editPath: `src/content/docs/${entry.id}.mdx`,
+
+  const docs = entries
+    .filter((entry) => !entry.data.draft)
+    .flatMap((entry) => {
+      const isMdx = entry.filePath?.endsWith('.mdx');
+      const ext = isMdx ? 'mdx' : 'md';
+      const key = `/src/content/docs/${entry.id}.${ext}`;
+      const source = isMdx ? mdxFiles[key] : mdFiles[key];
+      // 拿不到源码文件（例如用自定义组件拼出来的页面）就不生成源码页
+      if (!source) return [];
+      return [
+        {
+          params: { slug: entry.id },
+          props: {
+            title: entry.data.title ?? entry.id,
+            code: String(source),
+            editPath: `src/content/docs/${entry.id}.${ext}`,
+            ext,
+          },
         },
-      };
-    })
-    .concat([
-      // 统计页是 .astro 页面而非文档，单独提供源码入口
-      {
-        params: { slug: 'stats' },
-        props: {
-          title: '统计',
-          code: String(pageFiles['/src/pages/stats.astro'] ?? ''),
-          editPath: 'src/pages/stats.astro',
-        },
+      ];
+    });
+
+  return docs.concat([
+    // 统计页是 .astro 页面而非文档，单独提供源码入口
+    {
+      params: { slug: 'stats' },
+      props: {
+        title: '统计',
+        code: String(pageFiles['/src/pages/stats.astro'] ?? ''),
+        editPath: 'src/pages/stats.astro',
+        ext: 'astro',
       },
-    ]);
+    },
+  ]);
 }
-const { title, code, editPath } = Astro.props;
+
+const { title, code, editPath, ext } = Astro.props;
 const lineCount = code.split(/\r?\n/).length;
 const fileName = `${editPath.split('/').pop()}`;
 const editUrl = `https://github.com/diamonds128/my-server-docs/edit/main/${editPath}`;
+const extLabel = ext.toUpperCase();
 ---
 
 <StarlightPage
   frontmatter={{
     title: `${title} · 源码`,
-    description: `${fileName} 的 MDX 源码`,
+    description: `${fileName} 的源码`,
     sidebar: { hidden: true },
     pagefind: false,
   }}
@@ -63,7 +84,7 @@ const editUrl = `https://github.com/diamonds128/my-server-docs/edit/main/${editP
     <span class="source-meta__sep" aria-hidden="true">·</span>
     {lineCount} 行
     <span class="source-meta__sep" aria-hidden="true">·</span>
-    MDX
+    {extLabel}
     <span class="source-meta__sep" aria-hidden="true">·</span>
     <a href={editUrl} rel="noopener noreferrer" target="_blank">在 GitHub 上编辑</a>
   </p>
