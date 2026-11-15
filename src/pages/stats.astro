@@ -110,15 +110,23 @@ const grouped = groups.map((group) => ({
     .map((id) => visible.find((doc) => doc.id === id))
     .filter((doc): doc is DocStat => Boolean(doc)),
 }));
-// 没出现在侧边栏配置里的页面（隐藏彩蛋页、排版测试页等）
-const ungrouped = visible.filter((doc) => !sidebarIds.has(doc.id));
+// 有些页面靠「不写进侧边栏」来隐藏（彩蛋页、排版测试页），
+// 它们同样不该被点名列出，所以在未分组里一并排除。
+const hiddenIds = new Set(['doge', 'test']);
+
+// 侧边栏里没列、也没有声明 hidden 的页面（新加页忘了配侧边栏时会被列出来提醒）
+const ungrouped = visible.filter((doc) => !sidebarIds.has(doc.id) && !doc.hidden && !hiddenIds.has(doc.id));
 
 // 首页单独列出（splash 模板，侧边栏隐藏但算一篇文档）
 const home = visible.find((doc) => doc.id === 'index');
-// 侧边栏隐藏的页面：首页、彩蛋页、测试页等
-const hiddenPages = visible.filter((doc) => !sidebarIds.has(doc.id) || doc.hidden);
 
-const ranked = [...visible].sort((a, b) => b.lines - a.lines);
+// 统计口径：只统计侧边栏里真正展示的页面。
+// 侧边栏隐藏的页面（首页、彩蛋页、测试页等）既然要藏起来，
+// 就不该在排行、最长篇、总数里露出名字，否则等于把彩蛋剧透了。
+// 注意 visible 仍包含它们，用于下方的汇总数字，这里只把「点名」的地方过滤掉。
+const listed = visible.filter((doc) => sidebarIds.has(doc.id) && !doc.hidden);
+
+const ranked = [...listed].sort((a, b) => b.lines - a.lines);
 const longest = ranked[0];
 const averageLines = Math.round(totals.lines / Math.max(1, totals.pages));
 const mdShare = Math.round((totals.md / Math.max(1, totals.pages)) * 100);
@@ -370,23 +378,13 @@ const extRows = [
   <ul>
     <li>服务器与存档天数按本地日期差计算，起点分别是 2025-07-06 与 2025-08-06，与首页、存档页一致。</li>
     <li>不含 404 页，也不含未发布的草稿（当前 {drafts.length} 篇）。</li>
+    <li>统计与排行只计入侧边栏中展示的页面，侧边栏隐藏的页面不计入，也不在此列出。</li>
     <li>行数为文件物理行数，字数按字符计，包含 frontmatter 与 Markdown 语法标记。</li>
     <li>
       最长的一篇是 <a href={longest?.path}>{longest?.title}</a>，共 {formatNumber(
         longest?.lines ?? 0
       )} 行。
     </li>
-    {hiddenPages.length > 0 && (
-      <li>
-        另有 {hiddenPages.length} 篇在侧边栏隐藏但仍可访问的页面：
-        {hiddenPages.map((doc) => (
-          <>
-            <a href={doc.path}>{doc.title}</a>
-            {' '}
-          </>
-        ))}
-      </li>
-    )}
   </ul>
 
   {/* 编辑入口放在页面最末尾，与其他文档页页脚的「编辑此页」位置一致 */}
