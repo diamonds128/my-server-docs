@@ -54,7 +54,6 @@ export default defineConfig({
             { label: '进入服务器', link: '/join' },
             { label: '基岩版', link: '/bedrock' },
             { label: '常见问题', link: '/faq' },
-            { label: '统计', link: '/stats' },
           ],
         },
         {
@@ -83,6 +82,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: '图库', link: '/gallery' },
+            { label: '统计', link: '/stats' },
             { label: '存档', link: '/save' },
             { label: '服务端模组列表', link: '/mods' },
             { label: '炸服事件', link: '/incident' },
