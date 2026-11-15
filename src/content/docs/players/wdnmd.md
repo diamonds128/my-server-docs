@@ -1,6 +1,6 @@
 ---
-title: 恭喜你发现了一个隐藏页面
-description: 你是不是在找什么东西？
+title: wdnmd
+description: 玩家 wdnmd 的个人页面
 lastUpdated: 1145-06-07
 editUrl: false
 ---
