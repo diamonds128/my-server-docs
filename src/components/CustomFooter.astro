@@ -1,8 +1,7 @@
 ---
-// 页脚「查看源码」入口：按文件扩展名选择对应的源码路由。
-// 站点里既有 .md 也有 .mdx，还有 index.mdx 这类首页，所以不能一律指向 raw/。
-// raw 路由输出的是无扩展名的文件（见 src/pages/raw/[...slug].ts），
-// GitHub Pages 不会为「文件 + 结尾斜杠」做目录重定向，所以 raw 链接不能带结尾斜杠。
+// 页脚「查看源码」入口：统一指向 /source/ 源码页。
+// raw 路由输出的是无扩展名文件（见 src/pages/raw/[...slug].ts），GitHub Pages 对未知
+// 扩展名一律按 application/octet-stream 下发，点开就变成下载，所以不再直接链接 raw。
 // 首页、404 页不显示：首页是 splash 模板，404 是兜底页，没有对外公开的源码入口。
 import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
 
@@ -14,15 +13,12 @@ const entryId = Astro.locals.starlightRoute?.entry?.id;
 const filePath = Astro.locals.starlightRoute?.entry?.filePath ?? '';
 const ext = filePath.endsWith('.mdx') ? 'mdx' : 'md';
 
-// Markdown 走 raw 纯文本路由；MDX 走独立页面，避免把 JSX 当 Markdown 渲染
 // 统计页是 .astro 页面，没有对应的文档源码文件，直接指向 stats.astro 本身
 const isStats = pathname.replace(/\/$/, '') === '/my-server-docs/stats';
 const sourceUrl = isStats
   ? `${import.meta.env.BASE_URL}source/stats/`
   : entryId && entryId !== '404'
-    ? ext === 'mdx'
-      ? `${import.meta.env.BASE_URL}source/${entryId}/`
-      : `${import.meta.env.BASE_URL}raw/${entryId}`
+    ? `${import.meta.env.BASE_URL}source/${entryId}/`
     : undefined;
 const sourceLabel = isStats
   ? '查看页面源码'
