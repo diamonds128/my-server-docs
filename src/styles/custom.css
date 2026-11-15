@@ -748,6 +748,27 @@ code {
   display: none;
 }
 
+/* === 脚注返回箭头（Material Symbols keyboard_return）===
+   remark-gfm 生成的返回链接内容是 U+21A9 ↩，iOS 会把它当 Emoji 渲染成 ↩️（彩色、
+   带 FE0F 变体选择符）。这里隐藏原字符，改用 mask + 内联 SVG 绘制官方
+   keyboard_return（960 网格），颜色跟随 currentColor，跨平台一致。
+   选择器用 :where() 保持 0 特异性，正文里若手写 <kbd>↩</kbd> 仍会显示。 */
+:where(.sl-markdown-content) a[data-footnote-backref] {
+  font-size: 0;
+  text-decoration: none;
+  vertical-align: middle;
+}
+:where(.sl-markdown-content) a[data-footnote-backref]::before {
+  content: '';
+  display: inline-block;
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  vertical-align: -0.2em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M360-240 120-480l240-240 56 56-144 144h488v-160h80v240H272l144 144-56 56Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M360-240 120-480l240-240 56 56-144 144h488v-160h80v240H272l144 144-56 56Z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
 /* === 修复移动端偏好设置按钮等高 === */
 .mobile-preferences .preference-controls .md3-accent-select__button,
 .mobile-preferences .preference-controls .md3-theme-select__button {
