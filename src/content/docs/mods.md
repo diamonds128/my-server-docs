@@ -37,7 +37,7 @@ description: 本服务器的服务端安装的模组列表
 | --- | --- |
 | Carpet | 原版技术控制模组 |
 | Carpet AS Addition | Carpet 附加包，假人 UI 高亮 |
-| Carpet Extra | Carpet 扩展 [^2] |
+| Carpet Extra | Carpet 扩展 [^1] |
 | Gugle Carpet Addition | Carpet 附加包，增强假人管理 |
 | Ivan Carpet Addition | Carpet 扩展，技术工具 |
 | No Chat Reports | 禁用聊天举报 |
@@ -47,7 +47,7 @@ description: 本服务器的服务端安装的模组列表
 
 | 模组名称 | 用途 |
 | --- | --- |
-| Auto Log Remover | 自动删除旧的日志 [^1] |
+| Auto Log Remover | 自动删除旧的日志 [^2] |
 | BanHammer | 管理员惩罚工具（封禁/禁言/踢出） |
 | EasyAuth<sup>[查看相关页面](/my-server-docs/account)</sup> | 离线服务器认证模组 |
 | Inv View | 允许管理员查看或编辑玩家背包以及末影箱 |
@@ -73,12 +73,11 @@ description: 本服务器的服务端安装的模组列表
 | --- | --- |
 | BlueMap | 生成 3D 网页地图 |
 | Jade | 显示方块/实体信息 |
-| JEI (Just Enough Items) | 物品配方查看 |
+| JEI (Just Enough Items) | 物品配方查看 [^3] |
 | Just Enough Resources | JEI 附属，查看资源分布 |
 | MiniMOTD | 自定义 MOTD |
 | SkinRestorer<sup>[查看相关页面](/my-server-docs/skin)</sup> | 皮肤管理 |
 | TAB | 多功能信息显示（Tab 列表/计分板） |
-| Text Placeholder API | 文本占位符解析库 |
 
 ### 前置库与基础 API
 其他模组的前置模组
@@ -91,6 +90,7 @@ description: 本服务器的服务端安装的模组列表
 | Fabric Permissions API | 权限 API |
 | Forge Config API Port | 将 Forge 配置系统移植到 Fabric |
 | OtterLib | 前置库模组 |
+| Text Placeholder API | 文本占位符解析库 |
 | Vanilla Permissions | 原版命令权限检查 |
 
 ### 社交与娱乐
@@ -106,5 +106,6 @@ description: 本服务器的服务端安装的模组列表
 
 ## 注释
 
-[^1]: 本服务器目前采用较为保守的配置以防万一，超过 **365** 天的日志即删除  
-[^2]: 在 **Carpet Extra** 提供的功能中，为了确保不破坏原版机制，我们只启用了 **精准方块放置协议** ，以便在使用 **Litematica** 的 **简单放置** 时的方块的朝向正确
+[^1]: 在 **Carpet Extra** 提供的功能中，为了确保不破坏原版机制，我们只启用了 **精准方块放置协议** ，以便在使用 **Litematica** 的 **简单放置** 时的方块的朝向正确
+[^2]: 本服务器目前采用较为保守的配置以防万一，超过 **365** 天的日志即删除  
+[^3]: 当服务端未安装 JEI 时，客户端无法将配方快速转移至合成
