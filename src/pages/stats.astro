@@ -1,6 +1,7 @@
 ---
 // 文档站统计页（/my-server-docs/stats/）
-// 数据在构建时从 src/content/docs 读取，随每次部署更新。
+// 文档站数据在构建时从 src/content/docs 读取，随每次部署更新
+// 服务器开服和存档历史天数根据实际日期实时计算
 // 统计口径：
 //   - 只算对外可见的文档：排除 draft 与 404 页
 //   - 行数按文件物理行计，字数按字符计（含 Markdown 语法标记与 CJK 标点）
@@ -216,20 +217,8 @@ const extRows = [
   }}
 >
   <p class="stats-intro">
-    以下数据在构建时从 <code>src/content/docs</code> 读取，随每次部署自动更新。
-    <a class="stats-edit" href={editUrl} rel="noopener noreferrer" target="_blank">
-      <svg
-        class="icon stats-edit__icon"
-        aria-hidden="true"
-        width="16"
-        height="16"
-        viewBox="0 -960 960 960"
-        fill="currentColor"
-      >
-        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-      </svg>
-      编辑此页
-    </a>
+    文档站数据在构建时从 <code>src/content/docs</code> 读取，随每次部署自动更新<br />
+    服务器开服和存档历时天数由实际日期实时计算得出
   </p>
 
   <h2 id="server">服务器</h2>
@@ -399,6 +388,23 @@ const extRows = [
       </li>
     )}
   </ul>
+
+  {/* 编辑入口放在页面最末尾，与其他文档页页脚的「编辑此页」位置一致 */}
+  <p class="stats-actions">
+    <a class="stats-edit" href={editUrl} rel="noopener noreferrer" target="_blank">
+      <svg
+        class="icon stats-edit__icon"
+        aria-hidden="true"
+        width="16"
+        height="16"
+        viewBox="0 -960 960 960"
+        fill="currentColor"
+      >
+        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+      </svg>
+      编辑此页
+    </a>
+  </p>
 </StarlightPage>
 
 <script src="/my-server-docs/scripts/uptime.js" defer></script>
@@ -408,12 +414,14 @@ const extRows = [
     margin-block-end: 1.5rem;
     color: var(--md-sys-color-on-surface-variant);
   }
-  /* 「编辑此页」：与页脚链接同一套观感，图标用 Material Symbols Outlined */
+  /* 「编辑此页」放在页尾，与页脚链接同一套观感，图标用 Material Symbols Outlined */
+  .stats-actions {
+    margin-block: 2rem 0;
+  }
   .stats-edit {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    margin-inline-start: 0.75rem;
     color: var(--md-sys-color-primary);
     text-decoration: none;
     white-space: nowrap;
