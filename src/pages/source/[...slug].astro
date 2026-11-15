@@ -68,7 +68,7 @@ const { title, code, editPath, ext } = Astro.props;
 const lineCount = code.split(/\r?\n/).length;
 const fileName = `${editPath.split('/').pop()}`;
 const editUrl = `https://github.com/diamonds128/my-server-docs/edit/main/${editPath}`;
-const extLabel = ext.toUpperCase();
+const extLabel = ext === 'md' ? 'Markdown' : ext.toUpperCase();
 ---
 
 <StarlightPage
