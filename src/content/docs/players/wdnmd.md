@@ -2,7 +2,6 @@
 title: wdnmd
 description: 玩家 wdnmd 的个人页面
 lastUpdated: 1145-06-07
-editUrl: false
 ---
 
 ⚡你被骗了⚡
