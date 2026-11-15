@@ -79,7 +79,8 @@ const totals = {
 const formatNumber = (value: number) => value.toLocaleString('zh-CN');
 
 // 统计页不是文档集合条目，Starlight 的 editLink 不会给它生成「编辑此页」，
-// 所以这里按与 astro.config.mjs 的 editLink.baseUrl 相同的仓库手动拼一个。
+// 所以这里按与 astro.config.mjs 的 editLink.baseUrl 相同的仓库手动拼一个，
+// 再通过 StarlightPage 的 frontmatter.editUrl 交给官方 EditLink 组件渲染。
 const editUrl =
   'https://github.com/diamonds128/my-server-docs/edit/main/src/pages/stats.astro';
 
@@ -172,8 +173,9 @@ const formatBytes = (bytes: number) => {
   return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 };
 
-// 树的条宽按相对最大文件的比例，避免小文件看不见
-const maxFileBytes = Math.max(...visible.map((doc) => doc.bytes), 1);
+// 树的条宽按相对最大文件的比例，避免小文件看不见。
+// 分母取侧边栏展示页里的最大值：隐藏页不参与，否则它会把所有条压短
+const maxFileBytes = Math.max(...listed.map((doc) => doc.bytes), 1);
 
 const cards = [
   { label: '文档页数', value: formatNumber(totals.pages), note: '不含 404 页' },
@@ -222,6 +224,9 @@ const extRows = [
     description: '文档站的页数、行数、字数与文件构成统计',
     sidebar: { hidden: true },
     pagefind: false,
+    // StarlightPage 的 editUrl 只接受字符串或 false，传了它就由官方 EditLink 组件渲染，
+    // 位置、灰色、间距、pencil 图标、悬停效果全部和其他文档页一致，不需要再自己拼 HTML
+    editUrl,
   }}
 >
   <p class="stats-intro">
@@ -361,7 +366,7 @@ const extRows = [
           ranked.slice(0, 10).map((doc, index) => (
             <tr>
               <td class="stat-table__rank">{index + 1}</td>
-              <td>
+              <td class="stat-table__doc">
                 <a href={doc.path}>{doc.title}</a>
               </td>
               <td class="stat-table__num">{formatNumber(doc.lines)}</td>
@@ -386,23 +391,6 @@ const extRows = [
       )} 行。
     </li>
   </ul>
-
-  {/* 编辑入口放在页面最末尾，与其他文档页页脚的「编辑此页」位置一致 */}
-  <p class="stats-actions">
-    <a class="stats-edit" href={editUrl} rel="noopener noreferrer" target="_blank">
-      <svg
-        class="icon stats-edit__icon"
-        aria-hidden="true"
-        width="16"
-        height="16"
-        viewBox="0 -960 960 960"
-        fill="currentColor"
-      >
-        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-      </svg>
-      编辑此页
-    </a>
-  </p>
 </StarlightPage>
 
 <script src="/my-server-docs/scripts/uptime.js" defer></script>
@@ -411,26 +399,6 @@ const extRows = [
   .stats-intro {
     margin-block-end: 1.5rem;
     color: var(--md-sys-color-on-surface-variant);
-  }
-  /* 「编辑此页」放在页尾，与页脚链接同一套观感，图标用 Material Symbols Outlined */
-  .stats-actions {
-    margin-block: 2rem 0;
-  }
-  .stats-edit {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    color: var(--md-sys-color-primary);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .stats-edit:hover {
-    text-decoration: underline;
-  }
-  .stats-edit__icon {
-    flex-shrink: 0;
-    width: 1.1em;
-    height: 1.1em;
   }
   .stat-grid {
     display: grid;
@@ -568,18 +536,30 @@ const extRows = [
   .stat-tree ul > li {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name meta'
+      'track track';
     align-items: center;
     gap: 0.25rem 0.75rem;
     padding: 0.375rem 0.5rem;
     border-radius: var(--md-sys-shape-md, 0.75rem);
   }
+  .stat-tree ul > li > a {
+    grid-area: name;
+  }
   .stat-tree__home {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'name meta'
+      'track track';
     align-items: center;
     gap: 0.25rem 0.75rem;
     padding: 0.375rem 0.5rem;
     border-radius: var(--md-sys-shape-md, 0.75rem);
+  }
+  .stat-tree__home > a {
+    grid-area: name;
   }
   .stat-tree__home:hover,
   .stat-tree ul > li:hover {
@@ -595,12 +575,13 @@ const extRows = [
     color: var(--md-sys-color-primary);
   }
   .stat-tree__meta {
+    grid-area: meta;
     font-size: var(--md-sys-typescale-body-small-size, 0.75rem);
     color: var(--md-sys-color-on-surface-variant);
     font-variant-numeric: tabular-nums;
   }
   .stat-tree__track {
-    grid-column: 1 / -1;
+    grid-area: track;
     display: block;
     height: 0.25rem;
     border-radius: var(--md-sys-shape-full, 999px);
@@ -620,7 +601,9 @@ const extRows = [
     margin-block: 1rem 2rem;
   }
   .stat-table {
-    inline-size: 100%;
+    /* 宽度跟随内容：不再 100% 铺满整行，也不再被 max-inline-size 压窄。
+       表格按各列内容的自然宽加总，右边不会出现大块空白 */
+    inline-size: auto;
     border-collapse: collapse;
     font-size: var(--md-sys-typescale-body-medium-size, 0.875rem);
   }
@@ -629,6 +612,18 @@ const extRows = [
     padding: 0.625rem 0.75rem;
     border-block-end: 1px solid var(--md-sys-color-outline-variant);
     text-align: start;
+    white-space: nowrap;
+  }
+  .stat-table th:first-child,
+  .stat-table td:first-child {
+    padding-inline-start: 0;
+  }
+  .stat-table th:last-child,
+  .stat-table td:last-child {
+    padding-inline-end: 0;
+  }
+  .stat-table__doc {
+    inline-size: 100%;
   }
   .stat-table th {
     font-weight: 500;
