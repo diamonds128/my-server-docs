@@ -4,7 +4,8 @@ description: 玩家 wdnmd 的个人页面
 lastUpdated: 1145-06-07
 ---
 
-这里是 **wdnmd** 的个人页面(˶ᵔ ᵕ ᵔ˶)
+这里是 **wdnmd** 的个人页面(˶ᵔ ᵕ ᵔ˶)  
+Ciallo～(∠・ω< )⌒★  
 <img src="/my-server-docs/images/players/wdnmd/murasame.png" alt="丛雨" width="200">
 
 <!--暂时注释掉这里的Nerver gonna give you up :）
