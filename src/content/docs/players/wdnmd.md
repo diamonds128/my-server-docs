@@ -1,7 +1,7 @@
 ---
 title: wdnmd
 description: 玩家 wdnmd 的个人页面
-lastUpdated: 1145-06-07
+lastUpdated: 1145-01-14
 ---
 
 这里是 **wdnmd** 的个人页面(˶ᵔ ᵕ ᵔ˶)  
