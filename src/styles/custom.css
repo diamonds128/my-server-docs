@@ -752,13 +752,14 @@ code {
   border-top: 1px solid var(--md-sys-color-outline-variant);
 }
 
-/* 隐藏侧边栏中的 Footnotes 目录项
-   实际锚点是 #footnote-label（remark-gfm 生成的 sr-only 标题 id），
-   不是 #footnotes，所以下面两个都要写。 */
-#starlight__on-this-page a[href="#footnote-label"],
-#starlight__on-this-page a[href="#footnotes"],
-#starlight__on-this-page a[href="#user-content-footnote-label"] {
-  display: none;
+/* 隐藏侧边栏中的 Footnotes 目录项 */
+starlight-toc li:has(a[href="#footnote-label"]),
+starlight-toc li:has(a[href="#footnotes"]),
+starlight-toc li:has(a[href="#user-content-footnote-label"]),
+mobile-starlight-toc li:has(a[href="#footnote-label"]),
+mobile-starlight-toc li:has(a[href="#footnotes"]),
+mobile-starlight-toc li:has(a[href="#user-content-footnote-label"]) {
+  display: none !important;
 }
 
 /* === 脚注返回箭头（Material Symbols keyboard_return）===
