@@ -65,7 +65,7 @@ description: 常见问题
 
 ## 关于游戏/模组知识的问题  
 
-请查阅 [Minecraft Wiki](zh.minecraft.wiki)或 [MC百科](mcmod.cn)，以及本文档站中对于部分服务端模组的文档  
+请查阅 [Minecraft Wiki](https://zh.minecraft.wiki)或 [MC百科](https://mcmod.cn)，以及本文档站中对于部分服务端模组的文档  
 
 ## 这个页面没有你的问题？  
 
