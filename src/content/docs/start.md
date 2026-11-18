@@ -38,7 +38,7 @@ description: 了解如何下载启动器，并安装实例、开始游戏
   ![FCL GitHub Releases](/my-server-docs/images/fcl_releases.png)
   2. 下滑找到 **“Assets”** 或 **“资源”** 栏  
   ![FCL Assets](/my-server-docs/images/fcl_assets.png)
-  3. 选择 **符合你的设备的.apk 安装包** ，如果不知道选择什么请直接下载 `FCL-release-版本号-all.apk`  
+  3. 选择 **符合你的设备类型的.apk 安装包** ，如果不知道选择什么请直接下载 `FCL-release-版本号-all.apk`  
   4. 开始安装，等待安装完毕
   5. 关于环境，推荐选择 **Java 21** ，较稳定  
   
@@ -51,16 +51,16 @@ description: 了解如何下载启动器，并安装实例、开始游戏
 
 - **推荐启动器**：Amethyst
 - **下载地址**：[GitHub Actions](https://github.com/AngelAuraMC/Amethyst-iOS/actions)
-- **安装步骤**：
-  *注意，你的设备需要可以侧载，例如 `Troll Store` 或 `Side Store`，同时需要一个 GitHub 账号  
+- **安装步骤**：  
+  *注意，你的设备需要可以侧载，例如 `Troll Store` 或 `Side Store`，同时需要一个 GitHub 账号*  
   1. 找到最新的 workflow（工作流程）（最新的也就是最上面的）  
   ![Workflows](/my-server-docs/images/amethyst_github_workflows.png)
   2. 点击进入页面
   ![Workflow Page](/my-server-docs/images/amethyst_workflow_page.png)
   3. 下滑找到 **Artifacts** 或 **附件**  
-  4. 如果你想省事，直接下载 `org.angelauramc.amethyst-ios.ipa.zip`  
+  4. 选择符合你的侧载方式的安装包，或直接下载 `org.angelauramc.amethyst-ios.ipa.zip`  
   5. 解压文件
-  6. 安装里面的 `.ipa` 文件
+  6. 通过你的侧载方式安装里面的 `.ipa` 文件
   ![Amethyst](/my-server-docs/images/amethyst.png)  
   图里稍微出了些差错，不必在意  
   **🎉恭喜你成功了！超越了全中国 99%的人** 
