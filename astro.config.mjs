@@ -81,6 +81,7 @@ export default defineConfig({
           label: '个人页面',
           collapsed: true,
           items: [
+            { label: 'diamonds128', link: '/players/diamonds128' },
             { label: 'wdnmd', link: '/players/wdnmd' },
           ],
         },
