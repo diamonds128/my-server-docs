@@ -3,7 +3,7 @@ title: 服规
 description: 服务器的基本守则
 ---
 
-虽然说我们并不怎么想限制玩家，但是为了服务器稳定运行和游玩体验，还是要有一些规矩的  
+我们并非一个像是 **2B2T** 的无规则类服务器，为了服务器的运行稳定、公共秩序和所有正常玩家的游戏体验，因此我们设立了服规<span class="heimu" title="你知道的太多了">才不是君子协定</span>  
 
 ## 基本  
 
@@ -20,7 +20,7 @@ description: 服务器的基本守则
 
 5. 禁止未经服主允许私自向其他人透露服务器的 IP 地址、全局密码等敏感信息，包括卫星地图地址,[前车之鉴](/my-server-docs/incident)  
 
-6. 不要随意跑图，若需要寻找特定地形或结构，请使用 [Chunk Base种子地图](https://www.chunkbase.com/apps/seed-map)  
+6. 不要随意跑图，若需要寻找特定地形或结构，请使用 [Chunk Base 种子地图](https://www.chunkbase.com/apps/seed-map)  
 
 7. 不要滥用 **32k** 装备  
 
