@@ -61,7 +61,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { label: '权限配置', link: '/permissions' },
-            { label: '皮肤配置', link: '/skinrestorer' },
+            { label: '皮肤配置', link: '/skin' },
             { label: '账号管理', link: '/account' },
             { label: '链接账号', link: '/link' },
             { label: '亲其他玩家一口', link: '/kiss' },
