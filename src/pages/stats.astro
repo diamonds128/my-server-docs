@@ -46,7 +46,7 @@ const docs: DocStat[] = Object.entries(files).map(([file, text]) => {
 
   return {
     id,
-    path: `${id}/`,
+    path: `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${id}/`,
     ext: file.endsWith('.mdx') ? 'mdx' : 'md',
     lines: text.split(/\r?\n/).length,
     bytes: new TextEncoder().encode(text).length,
