@@ -44,9 +44,12 @@ const docs: DocStat[] = Object.entries(files).map(([file, text]) => {
       .split(/\s+/)
       .filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
 
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  
   return {
     id,
-    path: `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${id}/`,
+    // 如果是 index，指向根路径；否则指向 /base/id/
+    path: id === 'index' ? `${base}/` : `${base}/${id}/`,
     ext: file.endsWith('.mdx') ? 'mdx' : 'md',
     lines: text.split(/\r?\n/).length,
     bytes: new TextEncoder().encode(text).length,
