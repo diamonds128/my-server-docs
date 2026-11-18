@@ -40,7 +40,7 @@ description: 了解如何用基岩版游玩我们的服务器
 <details>
 <summary><strong>iOS</strong></summary>
 
-**iOS 安装旧版本 App 需要侧载**
+***iOS 安装旧版本 App 需要侧载***
 1. 访问 [MCDL](https://mc.minebbs.com/)  
 2. 系统选项选择 **iOS**  
 3. 找到 **1.20.31** 或 **1.20.31.01**（我们也兼容 **1.20.0 ~ 1.20.30** ，但 **不保证** 这些版本能正常游玩）  
