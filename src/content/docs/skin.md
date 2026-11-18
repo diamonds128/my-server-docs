@@ -50,7 +50,7 @@ description: 了解Skin Restorer皮肤设置
 
 *注：服主当时调配置允许获取 LittlesSkin 皮肤调了大半天*  
 
-从有效的 [LittleSkin](https://littleskin.cn)角色获取皮肤并应用  
+从有效的 [LittleSkin](https://littleskin.cn) 角色获取皮肤并应用  
 `/skin set littleskin <角色名> <目标玩家名>`  
 
 </details>
@@ -60,7 +60,7 @@ description: 了解Skin Restorer皮肤设置
 <details>
 <summary><strong>ely.by</strong></summary>
 
-我们已经弃用了ely.by ：）  
+因为 ely.by 在国内使用者过于稀少，在本服更是毫无一人，因此我们已经弃用了ely.by ：）  
 
 </details>
 
@@ -73,10 +73,6 @@ description: 了解Skin Restorer皮肤设置
 - `/skin refresh` — 重新获取并应用当前皮肤
 - `/skin clear` — 删除当前应用的皮肤
 - `/skin reset` — 重置为默认皮肤或删除任何自定义皮肤
-- `/skin config reload` — 重新加载皮肤配置 *仅管理员*
+- `/skin config reload` — 重新加载皮肤配置 ***仅管理员***
 
 > **注意**：服务器配置已开启玩家进入自动获取皮肤，因此即使手动运行过上述命令，下次进入服务器时仍会自动获取皮肤。
-
----
-
-重新加载配置
