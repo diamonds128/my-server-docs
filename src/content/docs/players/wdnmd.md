@@ -8,6 +8,8 @@ lastUpdated: 1145-01-14
 Ciallo～(∠・ω< )⌒★  
 <img src="/my-server-docs/images/players/wdnmd/murasame.png" alt="丛雨" width="200">
 
+<small>图片来源于网络，若有侵权，请联系 <diamonds-ote@outlook.com> 删除</small>
+
 <!--暂时注释掉这里的Nerver gonna give you up :）
 <div id="video-container" style="text-align: center; margin: 1rem 0;">
   <iframe
