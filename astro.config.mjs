@@ -17,6 +17,10 @@ mcfunctionGrammar.name = 'mcfunction';
 export default defineConfig({
   site: 'https://diamonds128.github.io',
   base: '/my-server-docs/',
+  // 旧路由重定向
+  redirects: {
+    '/skinrestorer': '/skin',
+  },
   // 插件暂不支持 Sätteri 处理器，改用 unified
   markdown: {
     processor: unified(),
