@@ -13,7 +13,7 @@ description: 两种链接两个版本账号的方式
 
 ### 注意
 
-很不幸的是， <https://link.geysermc.org/> 此域名已被 **GFW** （中国国家防火墙）拦截，现在无法访问，大概率包括其 Minecraft 服务器。不过你还可以尝试：
+很不幸的是， <https://link.geysermc.org/> 此域名已被 **GFW** （中国国家防火墙）拦截，现在无法在国内访问，大概率包括其 Minecraft 服务器。不过你还可以尝试：
 - 使用 **VPN**  
 - 改用方法 B 本地链接
 
