@@ -54,8 +54,8 @@ description: 本服务器的服务端安装的模组列表
 | JLine4MCDSrv | 控制台增强（命令历史、自动补全） |
 | Ledger<sup>[查看相关页面](/my-server-docs/search)</sup> | 行为记录与回滚 |
 | LuckPerms | 权限管理 |
-| MCPServer | 允许 AI Agent 监控、管理服务器 |
 | Vanish | 管理员隐身 |
+<!--11月24日关闭 | MCPServer | 允许 AI Agent 监控、管理服务器 | -->
 
 ### JE/BE 互通
 实现 Java 版与基岩版互通
